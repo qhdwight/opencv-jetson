@@ -1,3 +1,12 @@
+opencv (2.4.9.1+dfsg-1.4) unstable; urgency=medium
+
+  * Non-maintainer upload.
+
+  [ Andreas Cadhalpun ]
+  * Fix build with ffmpeg 3.0. (Closes: #803847)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 06 Mar 2016 23:57:30 +0100
+
 opencv (2.4.9.1+dfsg-1.3) UNRELEASED; urgency=medium
 
   * Non-maintainer upload.

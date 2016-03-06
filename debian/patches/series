@@ -10,3 +10,4 @@ optimize_i586.patch
 Don-t-check-sphinx-build-version.patch
 change_type_from_int_to_Atomic_word
 fix_without_sysctl.patch
+ffmpeg_2.9.patch
