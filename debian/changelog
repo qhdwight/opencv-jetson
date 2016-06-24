@@ -1,3 +1,9 @@
+opencv (3.1.0+dfsg-1~exp0) UNRELEASED; urgency=medium
+
+  * Update to 3.1.0.
+
+ -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Sat, 25 Jun 2016 06:15:45 +0900
+
 opencv (3.0.0+dfsg-1~exp2) experimental; urgency=medium
 
   * Fix build on i386.
