@@ -1,5 +1,15 @@
 #!/usr/bin/make -f
 
+OCV_BASE_VERSION = 3.1
+OCV_LIBPKG_LIST = libopencv-core libopencv-ml libopencv-imgproc \
+	libopencv-imgcodecs libopencv-video libopencv-videoio \
+	libopencv-objdetect libopencv-highgui \
+	libopencv-calib3d libopencv-flann \
+	libopencv-features2d libopencv-photo \
+	libopencv-videostab libopencv-stitching \
+	libopencv-shape libopencv-superres \
+	libopencv-viz libopencv-photo \
+
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all,-pie,+fortify
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
@@ -127,13 +137,6 @@ override_dh_fixperms-indep:
 	#chmod 644 $(CURDIR)/debian/opencv-doc/usr/share/doc/opencv-doc/examples/python2/*.py
 
 override_dh_strip:
-	for p in libopencv-core3.0 libopencv-ml3.0 libopencv-imgproc3.0 \
-		libopencv-imgcodecs3.0 libopencv-video3.0 libopencv-videoio3.0 \
-		libopencv-objdetect3.0 libopencv-highgui3.0 \
-		libopencv-calib3d3.0 libopencv-flann3.0 \
-		libopencv-features2d3.0 \ libopencv-photo3.0 \
-		libopencv-videostab3.0 libopencv-stitching3.0 \
-		libopencv-shape3.0 libopencv-superres3.0 \
-		libopencv-viz3.0 libopencv-photo3.0 ; do \
-		dh_strip -p$$p --dbg-package=$$p-dbg ; done
+	for p in $$OCV_LIBPKG_LIST ; do \
+		dh_strip -p$$p$$OCV_BASE_VERSION --dbg-package=$$p-dbg ; done
 	dh_strip
