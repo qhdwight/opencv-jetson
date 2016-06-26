@@ -8,7 +8,6 @@ Build-Depends: debhelper (>= 9),
  cmake (>= 2.8.7),
  libavcodec-dev, libavformat-dev, libswscale-dev, libgtk2.0-dev, libgtkglext1-dev,
  libgl1-mesa-dev, libglu1-mesa-dev,
- libjasper-dev (>= 1.900.1),
  libjpeg-dev,
  libpng-dev,
  libtiff-dev,
@@ -138,7 +137,7 @@ Description: Translation package for libhighgui-dev
 Package: libhighgui2.4
 Architecture: all
 Depends: ${misc:Depends},
-	libopencv-highgui2.4v5
+	libopencv-highgui2.4-deb0
 Description: computer vision library - libhighgui translation package
  This package provide files for translation from libhighgui2.1 to libhighgui2.4.
  .
@@ -467,7 +466,7 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
-	libopencv-highgui2.4v5 (= ${binary:Version})
+	libopencv-highgui2.4-deb0 (= ${binary:Version})
 Conflicts: libopencv-objdetect2.4
 Replaces: libopencv-objdetect2.4
 Description: computer vision Object Detection library
@@ -490,12 +489,11 @@ Architecture: any
 Multi-Arch: same
 Depends: ${misc:Depends},
 	libopencv-imgproc-dev (= ${binary:Version}),
-	libopencv-highgui2.4v5 (= ${binary:Version}),
+	libopencv-highgui2.4-deb0 (= ${binary:Version}),
  	libavcodec-dev (>= 0.svn20080206),
 	libavformat-dev,
 	libswscale-dev,
 	libgtk2.0-dev,
-	libjasper-dev (>= 1.900.1),
 	libjpeg-dev,
 	libpng-dev,
 	libtiff-dev,
@@ -517,7 +515,7 @@ Description: development files for libopencv-highgui
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-highgui2.4v5
+Package: libopencv-highgui2.4-deb0
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -525,8 +523,8 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
 	${shlibs:Depends},
 	libopencv-imgproc2.4v5 (= ${binary:Version})
-Conflicts: libopencv-highgui2.4
-Replaces: libopencv-highgui2.4
+Conflicts: libopencv-highgui2.4, libopencv-highgui2.4v5
+Replaces: libopencv-highgui2.4, libopencv-highgui2.4v5
 Description: computer vision High-level GUI and Media I/O library
  This package contains the OpenCV (Open Computer Vision) High-level GUI
  and Media I/O runtime libraries.
@@ -710,7 +708,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-video2.4v5 (= ${binary:Version}),
 	libopencv-calib3d2.4v5 (= ${binary:Version}),
 	libopencv-ml2.4v5 (= ${binary:Version}),
-	libopencv-highgui2.4v5 (= ${binary:Version})
+	libopencv-highgui2.4-deb0 (= ${binary:Version})
 Conflicts: libopencv-legacy2.4
 Replaces: libopencv-legacy2.4
 Description: computer vision legacy library
@@ -759,7 +757,7 @@ Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-calib3d2.4v5 (= ${binary:Version}),
-	libopencv-highgui2.4v5 (= ${binary:Version}),
+	libopencv-highgui2.4-deb0 (= ${binary:Version}),
 	libopencv-ml2.4v5 (= ${binary:Version}),
 	libopencv-video2.4v5 (= ${binary:Version}),
 	libopencv-objdetect2.4v5 (= ${binary:Version})
@@ -901,7 +899,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-features2d2.4v5 (= ${binary:Version}),
 	libopencv-video2.4v5 (= ${binary:Version}),
-	libopencv-highgui2.4v5 (= ${binary:Version}),
+	libopencv-highgui2.4-deb0 (= ${binary:Version}),
 	libopencv-photo2.4v5 (= ${binary:Version}),
 	libopencv-gpu2.4v5 (= ${binary:Version})
 Conflicts: libopencv-videostab2.4
@@ -1038,7 +1036,7 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
-	libopencv-highgui2.4v5 (= ${binary:Version}),
+	libopencv-highgui2.4-deb0 (= ${binary:Version}),
 	libopencv-video2.4v5 (= ${binary:Version}),
 	libopencv-gpu2.4v5 (= ${binary:Version})
 Conflicts: libopencv-superres2.4
@@ -1091,7 +1089,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-calib3d2.4v5 (= ${binary:Version}),
 	libopencv-ml2.4v5 (= ${binary:Version}),
 	libopencv-objdetect2.4v5 (= ${binary:Version}),
-	libopencv-highgui2.4v5 (= ${binary:Version}),
+	libopencv-highgui2.4-deb0 (= ${binary:Version}),
 	libopencv-video2.4v5 (= ${binary:Version})
 Conflicts: libopencv-ocl2.4
 Replaces: libopencv-ocl2.4
@@ -1135,7 +1133,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-calib3d2.4v5 (= ${binary:Version}),
 	libopencv-ml2.4v5 (= ${binary:Version}),
 	libopencv-objdetect2.4v5 (= ${binary:Version}),
-	libopencv-highgui2.4v5 (= ${binary:Version}),
+	libopencv-highgui2.4-deb0 (= ${binary:Version}),
 	libopencv-video2.4v5 (= ${binary:Version}),
 	libopencv-contrib2.4v5 (= ${binary:Version}),
 	libopencv-photo2.4v5 (= ${binary:Version})

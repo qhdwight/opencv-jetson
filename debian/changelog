@@ -3,8 +3,11 @@ opencv (2.4.9.1+dfsg-2) UNRELEASED; urgency=medium
   * Team upload.
   * Use HTTPS in Vcs-* fields.
   * Disable opengl when building in armhf (in Ubuntu only)
-  * Fix typo in README.Debian
-  * Remove unused lintian override python-script-but-no-python-dep
+  * Don't build with jasper.  Closes: #818207
+    This causes libopencv-highgui to lose symbols, so we need to rename the
+    package and do a transition.
+  * Fix typo in README.Debian.
+  * Remove unused lintian override python-script-but-no-python-dep.
 
  -- Mattia Rizzolo <mattia@debian.org>  Sun, 26 Jun 2016 15:12:33 +0000
 
