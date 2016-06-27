@@ -969,6 +969,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends: ${misc:Depends},
+	libopencv-gpu2.4v5 (= ${binary:Version}),
 	libopencv-core-dev (= ${binary:Version})
 Description: development files for libopencv-gpu2.4v5
  This package contains the header files and static library needed to compile
