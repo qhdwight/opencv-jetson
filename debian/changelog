@@ -15,8 +15,8 @@ opencv (3.0.0+dfsg-1~exp3) UNRELEASED; urgency=medium
   * Use HTTPS in Vcs-* fields.
   * Disable opengl when building in armhf (in Ubuntu only)
   * Don't build with jasper.  Closes: #818207
-    This causes libopencv-highgui to lose symbols, so we need to rename the
-    package and do a transition.
+    - This causes libopencv-highgui to lose symbols, but we don't rename the
+      package because the breakage is in experimental only.
   * Fix typo in README.Debian.
   * Remove unused lintian override python-script-but-no-python-dep.
 
