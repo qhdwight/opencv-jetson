@@ -8,7 +8,6 @@ Build-Depends: debhelper (>= 9),
  cmake (>= 2.8.7),
  libavcodec-dev, libavformat-dev, libswscale-dev, libgtk2.0-dev, libgtkglext1-dev,
  libgl1-mesa-dev, libglu1-mesa-dev,
- libjasper-dev (>= 1.900.1),
  libjpeg-dev,
  libpng-dev,
  libtiff-dev,
@@ -505,7 +504,7 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
-	libopencv-highgui3.0 (= ${binary:Version}),
+	libopencv-highgui3.0-deb0 (= ${binary:Version}),
 	libopencv-ml3.0 (= ${binary:Version})
 Description: computer vision Object Detection library
  This package contains the OpenCV (Open Computer Vision) Object Detection
@@ -548,12 +547,11 @@ Architecture: any
 Multi-Arch: same
 Depends: ${misc:Depends},
 	libopencv-videoio-dev (= ${binary:Version}),
-	libopencv-highgui3.0 (= ${binary:Version}),
+	libopencv-highgui3.0-deb0 (= ${binary:Version}),
  	libavcodec-dev (>= 0.svn20080206),
 	libavformat-dev,
 	libswscale-dev,
 	libgtk2.0-dev,
-	libjasper-dev (>= 1.900.1),
 	libjpeg-dev,
 	libpng-dev,
 	libtiff-dev,
@@ -575,7 +573,7 @@ Description: development files for libopencv-highgui3.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-highgui3.0
+Package: libopencv-highgui3.0-deb0
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -583,6 +581,8 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
 	${shlibs:Depends},
 	libopencv-videoio3.0 (= ${binary:Version})
+Conflicts: libopencv-highgui3.0-deb0
+Replaces: libopencv-highgui3.0-deb0
 Description: computer vision High-level GUI and Media I/O library
  This package contains the OpenCV (Open Computer Vision) High-level GUI
  and Media I/O runtime libraries.
@@ -602,7 +602,7 @@ Section: debug
 Architecture: any
 Priority: extra
 Depends: ${misc:Depends},
-	libopencv-highgui3.0 (= ${binary:Version})
+	libopencv-highgui3.0-deb0 (= ${binary:Version})
 Description: debugging symbols for libopencv-highgui3.0
  This package contains detached debugging symbols for OpenCV (Open Computer
  Vision) High-level GUI and Media I/O runtime libraries.
@@ -774,7 +774,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-flann3.0 (= ${binary:Version}),
 	libopencv-ml3.0 (= ${binary:Version}),
-	libopencv-highgui3.0 (= ${binary:Version}),
+	libopencv-highgui3.0-deb0 (= ${binary:Version}),
 Description: computer vision Feature Detection and Descriptor Extraction library
  This package contains the OpenCV (Open Computer Vision) Feature Detection
  and Descriptor Extraction runtime libraries.
@@ -1259,7 +1259,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 	libopencv-calib3d3.0 (= ${binary:Version}),
 	libopencv-ml3.0 (= ${binary:Version}),
 	libopencv-objdetect3.0 (= ${binary:Version}),
-	libopencv-highgui3.0 (= ${binary:Version}),
+	libopencv-highgui3.0-deb0 (= ${binary:Version}),
 	libopencv-video3.0 (= ${binary:Version}),
 	libopencv-photo3.0 (= ${binary:Version})
 Description: Java jni library for the computer vision library
@@ -1293,7 +1293,7 @@ Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-numpy-abi
 	libopencv-features2d3.0 (= ${binary:Version}),
 	libopencv-flann3.0 (= ${binary:Version}),
 	libopencv-ml3.0 (= ${binary:Version}),
-	libopencv-highgui3.0 (= ${binary:Version}),
+	libopencv-highgui3.0-deb0 (= ${binary:Version}),
 	libopencv-videoio3.0 (= ${binary:Version}),
 	libopencv-imgcodecs3.0 (= ${binary:Version}),
 	libopencv-imgproc3.0 (= ${binary:Version})
