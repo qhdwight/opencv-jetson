@@ -1,4 +1,4 @@
-opencv (3.0.0+dfsg-1~exp3) UNRELEASED; urgency=medium
+opencv (3.0.0+dfsg-1~exp3) experimental; urgency=medium
 
   [ Andreas Cadhalpun ]
   * Fix build with ffmpeg 3.0. (Closes: #803847)
@@ -7,6 +7,7 @@ opencv (3.0.0+dfsg-1~exp3) UNRELEASED; urgency=medium
   * Team upload
   * merge unstable NMUs
   * rebase ffmpeg patch
+  * Disable optimize i586 patch, now Debian has i686
 
   [ Tobias Frost ]
   * Do not use precompiled headers (Closes: #818450)
