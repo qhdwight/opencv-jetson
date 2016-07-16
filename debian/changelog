@@ -1,3 +1,9 @@
+opencv (3.0.0+dfsg-1~exp4) experimental; urgency=medium
+
+  * Upload again on experimental, to build against new gdal 2.1.1
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 16 Jul 2016 10:07:18 +0200
+
 opencv (3.0.0+dfsg-1~exp3) experimental; urgency=medium
 
   [ Andreas Cadhalpun ]
