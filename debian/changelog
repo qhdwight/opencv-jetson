@@ -1,3 +1,9 @@
+opencv (3.0.0+dfsg-1~exp7) experimental; urgency=medium
+
+  * Fix libopencv_shape dependencies.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 27 Jul 2016 15:07:29 +0200
+
 opencv (3.0.0+dfsg-1~exp6) experimental; urgency=medium
 
   [ Nobuhiro Iwamatsu ]
