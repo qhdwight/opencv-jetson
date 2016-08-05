@@ -8,7 +8,6 @@ Build-Depends: debhelper (>= 9),
  cmake (>= 2.8.7),
  libavcodec-dev, libavformat-dev, libswscale-dev, libgtk2.0-dev, libgtkglext1-dev,
  libgl1-mesa-dev, libglu1-mesa-dev,
- libjasper-dev (>= 1.900.1),
  libjpeg-dev,
  libpng-dev,
  libtiff-dev,
@@ -29,8 +28,8 @@ Build-Depends: debhelper (>= 9),
  doxygen,
  ant, default-jdk, javahelper
 Standards-Version: 3.9.6
-Vcs-Git: git://anonscm.debian.org/debian-science/packages/opencv.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=debian-science/packages/opencv.git;a=summary
+Vcs-Git: https://anonscm.debian.org/git/debian-science/packages/opencv.git
+Vcs-Browser: https://anonscm.debian.org/git/debian-science/packages/opencv.git
 Homepage: http://opencv.org/
 
 Package: opencv-doc
@@ -704,7 +703,6 @@ Depends: ${misc:Depends},
 	libavformat-dev,
 	libswscale-dev,
 	libgtk2.0-dev,
-	libjasper-dev (>= 1.900.1),
 	libjpeg-dev,
 	libpng-dev,
 	libtiff-dev,
@@ -1328,7 +1326,7 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
-	libvtk6.2,
+	libvtk6.3,
 	libopencv-core3.1 (= ${binary:Version})
 Description: computer vision 3D data visualization library
  This package contains the OpenCV (Open Computer Vision) 3D data visualization
