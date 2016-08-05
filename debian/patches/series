@@ -9,4 +9,4 @@ support_multiarch
 #libav10.patch
 #optimize_i586.patch
 support_x32
-ffmpeg_2.9.patch
+# ffmpeg_2.9.patch
