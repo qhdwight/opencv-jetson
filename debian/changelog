@@ -2,6 +2,7 @@ opencv (3.1.0+dfsg-1~exp0) UNRELEASED; urgency=medium
 
   * Update to 3.1.0.
   * Add patches/disable_opengl_test_build.
+  * Add libjs-mathjax to Depends of opencv-doc and debian/patches/mathjax.
 
  -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Sat, 25 Jun 2016 06:15:45 +0900
 
