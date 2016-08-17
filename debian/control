@@ -299,25 +299,6 @@ Description: computer vision core library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-core3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends}, libopencv-core3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-core3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) core.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-ml-dev
 Section: libdevel
 Architecture: any
@@ -349,25 +330,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision Machine Learning library
  This package contains the OpenCV (Open Computer Vision) Machine Learning
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-ml3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends}, libopencv-ml3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-ml3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Machine Learning library.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -421,26 +383,6 @@ Description: computer vision Image Processing library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-imgproc3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-imgproc3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-imgproc3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Image Processing runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-imgcodecs-dev
 Section: libdevel
 Architecture: any
@@ -472,26 +414,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision Image Codecs library
  This package contains the OpenCV (Open Computer Vision) Image Codecs
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-imgcodecs3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-imgcodecs3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-imgcodecs3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Image Codecs runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -545,26 +467,6 @@ Description: computer vision Video analysis library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-video3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-video3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-video3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Video analysis runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-videoio-dev
 Section: libdevel
 Architecture: any
@@ -596,26 +498,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision Video I/O library
  This package contains the OpenCV (Open Computer Vision) Video I/O
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-videoio3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Pre-Depends: ${misc:Depends},
-	libopencv-videoio3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-videoio3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Video I/O runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -660,27 +542,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision Object Detection library
  This package contains the OpenCV (Open Computer Vision) Object Detection
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-
-Package: libopencv-objdetect3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-objdetect3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-objdetect3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Object Detection runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -746,26 +607,6 @@ Description: computer vision High-level GUI and Media I/O library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-highgui3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-highgui3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-highgui3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) High-level GUI and Media I/O runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-calib3d-dev
 Section: libdevel
 Architecture: any
@@ -797,26 +638,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision Camera Calibration library
  This package contains the OpenCV (Open Computer Vision) Camera Calibration
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-calib3d3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-calib3d3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-calib3d3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Camera Calibration runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -871,26 +692,6 @@ Description: computer vision Clustering and Search in Multi-Dimensional spaces l
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-flann3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-flann3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-flann3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) clustering and search in Multi-Dimensional spaces runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-features2d-dev
 Section: libdevel
 Architecture: any
@@ -927,26 +728,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision Feature Detection and Descriptor Extraction library
  This package contains the OpenCV (Open Computer Vision) Feature Detection
  and Descriptor Extraction runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-features2d3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-features2d3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-features2d3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Feature Detection and Descriptor Extraction runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -1021,26 +802,6 @@ Description: computer vision computational photography library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-photo3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-photo3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-photo3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) computational photography runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-videostab-dev
 Section: libdevel
 Architecture: any
@@ -1077,26 +838,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision video stabilization library
  This package contains the OpenCV (Open Computer Vision) video stabilization
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-videostab3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-videostab3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-videostab3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) video stabilization runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -1152,26 +893,6 @@ Description: computer vision image stitching library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-stitching3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-stitching3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-stitching3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) image stitching runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-shape-dev
 Section: libdevel
 Architecture: any
@@ -1203,26 +924,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision shape descriptors and matchers library
  This package contains the OpenCV (Open Computer Vision) shape descriptors
  and matchers runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-shape3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-shape3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-shape3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) shape descriptors and matchers runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
@@ -1278,26 +979,6 @@ Description: computer vision Super Resolution library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-superres3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-superres3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-superres3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) Super Resolution runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
 Package: libopencv-viz-dev
 Section: libdevel
 Architecture: any
@@ -1331,26 +1012,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: computer vision 3D data visualization library
  This package contains the OpenCV (Open Computer Vision) 3D data visualization
  runtime libraries.
- .
- The Open Computer Vision Library is a collection of algorithms and sample
- code for various computer vision problems. The library is compatible with
- IPL (Intel's Image Processing Library) and, if available, can use IPP
- (Intel's Integrated Performance Primitives) for better performance.
- .
- OpenCV provides low level portable data types and operators, and a set
- of high level functionalities for video acquisition, image processing and
- analysis, structural analysis, motion analysis and object tracking, object
- recognition, camera calibration and 3D reconstruction.
-
-Package: libopencv-viz3.1-dbg
-Section: debug
-Architecture: any
-Priority: extra
-Depends: ${misc:Depends},
-	libopencv-viz3.1 (= ${binary:Version})
-Description: debugging symbols for libopencv-viz3.1
- This package contains detached debugging symbols for OpenCV (Open Computer
- Vision) 3D data visualization runtime libraries.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
  code for various computer vision problems. The library is compatible with
