@@ -12,3 +12,4 @@ support_x32
 # ffmpeg_2.9.patch
 disable_opengl_test_build
 mathjax
+change_jquery.js_path

@@ -129,6 +129,7 @@ override_dh_install:
 		cp --verbose --preserve=mode $$f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/; done
 
 	rm -rf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*_pch_dephelp.a
+	rm -rf debian/tmp/usr/share/OpenCV/doc/html/jquery.js
 
 	dh_install -O--buildsystem=cmake --list-missing
 

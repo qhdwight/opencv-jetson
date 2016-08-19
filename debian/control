@@ -35,7 +35,7 @@ Homepage: http://opencv.org/
 Package: opencv-doc
 Section: doc
 Architecture: all
-Depends: ${misc:Depends}, libjs-mathjax
+Depends: ${misc:Depends}, libjs-mathjax, libjs-jquery
 Conflicts: libopencv-doc
 Replaces: libopencv-doc
 Description: OpenCV documentation and examples
