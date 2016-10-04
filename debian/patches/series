@@ -11,3 +11,4 @@ Don-t-check-sphinx-build-version.patch
 change_type_from_int_to_Atomic_word
 fix_without_sysctl.patch
 ffmpeg_2.9.patch
+fix_ftbfs_with_gcc6

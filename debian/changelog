@@ -1,3 +1,11 @@
+opencv (2.4.9.1+dfsg-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * debian/patches:
+    - Add fix_ftbfs_with_gcc6 to fix FTBFS with gcc-6. (Closes: #828928)
+
+ -- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>  Tue, 04 Oct 2016 17:07:49 +0200
+
 opencv (2.4.9.1+dfsg-2) unstable; urgency=medium
 
   * Team upload.
