@@ -3,5 +3,7 @@ usr/share/OpenCV/OpenCVConfig.cmake
 usr/share/OpenCV/OpenCVConfig-version.cmake
 usr/share/OpenCV/OpenCVModules-release.cmake
 usr/share/OpenCV/OpenCVModules.cmake
+#header
+usr/include/opencv/*
 # samples
 usr/bin
