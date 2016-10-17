@@ -76,6 +76,9 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 	pkg-config
 Recommends: opencv-data
 Breaks: libopencv-core-dev (<= 2.3.1-8)
+Replaces: libcv-dev, libcvaux-dev, libhighgui-dev
+Conflicts: libcv-dev (<= 2.4.9.1+dfsg-2.1), libcvaux-dev (<= 2.4.9.1+dfsg-2.1),
+	libhighgui-dev (<= 2.4.9.1+dfsg-2.1)
 Description: development files for opencv
  This is a metapackage providing development package necessary for
  development of OpenCV (Open Computer Vision).
