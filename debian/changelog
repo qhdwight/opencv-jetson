@@ -6,6 +6,7 @@ opencv (3.1.0+dfsg-1~exp1) experimental; urgency=medium
     - Fix version of libopencv3.1-jni for libopencv3.1-java.
     - Fix Depends of libopencv-dev. Add libopencv3.1-java. (Closes: #833616)
     - Add libopencv-shape-dev to Depends of libopencv-dev. (Closes: #818738)
+    - Add libtbb-dev to Depends of libopencv-core-dev. (Closes: #838916)
 
  -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Tue, 18 Oct 2016 06:22:32 +0900
 
