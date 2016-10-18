@@ -751,6 +751,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends: ${misc:Depends},
+	libopencv-shape3.1 (= ${binary:Version}),
 	libopencv-video-dev (= ${binary:Version})
 Description: development files for libopencv-shape3.1
  This package contains the header files and static library needed to compile
@@ -773,7 +774,7 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends},
-	libopencv-video-dev (= ${binary:Version})
+	libopencv-video3.1 (= ${binary:Version})
 Description: computer vision shape descriptors and matchers library
  This package contains the OpenCV (Open Computer Vision) shape descriptors
  and matchers runtime libraries.
