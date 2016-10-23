@@ -1,0 +1,14 @@
+Description: fix FTBFS due to wrong include
+Author: Nobuhiro Iwamatsu <iwamatsu@debian.org>
+
+--- a/contrib/modules/hdf/include/opencv2/hdf/hdf5.hpp
++++ b/contrib/modules/hdf/include/opencv2/hdf/hdf5.hpp
+@@ -37,7 +37,7 @@
+ 
+ #include <vector>
+ 
+-#include <hdf5.h>
++#include <hdf5/serial/hdf5.h>
+ 
+ 
+ 
