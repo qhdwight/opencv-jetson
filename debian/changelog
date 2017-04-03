@@ -89,7 +89,7 @@ opencv (3.0.0+dfsg-1~exp2) experimental; urgency=medium
 
 opencv (3.0.0+dfsg-1~exp1) experimental; urgency=medium
 
-  * Update to 3.0.0 (Closes: #792677, #805099).
+  * Update to 3.0.0 (Closes: #792677, #805099; LP: #1516985).
   * Remove libopencv-legacy and libopencv-contrib.
     These features are not provided from the new version.
   * Remove old packages (libcv*, libhightgui*, libcvaux*).
