@@ -132,3 +132,8 @@ override_dh_install:
 	rm -rf debian/tmp/usr/share/OpenCV/doc/html/jquery.js
 
 	dh_install -O--buildsystem=cmake --list-missing
+
+override_dh_gencontrol:
+	dh_numpy
+	dh_numpy3
+	dh_gencontrol

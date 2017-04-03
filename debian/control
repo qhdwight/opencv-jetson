@@ -927,8 +927,7 @@ Description: Java jni library for the computer vision library
 Package: python-opencv
 Section: python
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-numpy-abi9,
-	python-numpy (>= 1:1.6.1),
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends},
 	libopencv-viz3.1 (= ${binary:Version}),
 	libopencv-shape3.1 (= ${binary:Version}),
 	libopencv-superres3.1 (= ${binary:Version}),
@@ -962,8 +961,7 @@ Description: Python bindings for the computer vision library
 Package: python3-opencv
 Section: python
 Architecture: any
-Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python3-numpy-abi9,
-	python3-numpy (>= 1:1.6.1),
+Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends},
 	libopencv-viz3.0 (= ${binary:Version}),
 	libopencv-shape3.0 (= ${binary:Version}),
 	libopencv-superres3.0 (= ${binary:Version}),
