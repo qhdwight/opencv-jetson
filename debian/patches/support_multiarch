@@ -1,3 +1,5 @@
+Description: Install the libraries in the multiarch path
+
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -381,7 +381,7 @@

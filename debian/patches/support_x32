@@ -1,3 +1,5 @@
+Description: Support x32 architecture
+
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -510,8 +510,11 @@
