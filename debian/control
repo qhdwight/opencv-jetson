@@ -23,8 +23,10 @@ Build-Depends: debhelper (>= 9),
  libvtk6-dev,
  ocl-icd-opencl-dev,
  python-dev,
+ python3-dev,
  dh-python,
  python-numpy,
+ python3-numpy,
  doxygen,
  ant, default-jdk, javahelper
 Standards-Version: 3.9.8
@@ -943,9 +945,6 @@ Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-numpy-abi
 	libopencv-videoio3.1 (= ${binary:Version}),
 	libopencv-imgcodecs3.1 (= ${binary:Version}),
 	libopencv-imgproc3.1 (= ${binary:Version})
-Provides: ${python:Provides}
-Replaces: python2.3-opencv (<= 0.9.7-3)
-Conflicts: python2.3-opencv (<= 0.9.7-3)
 Description: Python bindings for the computer vision library
  This package contains Python bindings for the OpenCV (Open Computer Vision)
  library.
@@ -960,3 +959,37 @@ Description: Python bindings for the computer vision library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
+Package: python3-opencv
+Section: python
+Architecture: any
+Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python3-numpy-abi9,
+	python3-numpy (>= 1:1.6.1),
+	libopencv-viz3.0 (= ${binary:Version}),
+	libopencv-shape3.0 (= ${binary:Version}),
+	libopencv-superres3.0 (= ${binary:Version}),
+	libopencv-stitching3.0 (= ${binary:Version}),
+	libopencv-videostab3.0 (= ${binary:Version}),
+	libopencv-objdetect3.0 (= ${binary:Version}),
+	libopencv-photo3.0 (= ${binary:Version}),
+	libopencv-video3.0 (= ${binary:Version}),
+	libopencv-calib3d3.0 (= ${binary:Version}),
+	libopencv-features2d3.0 (= ${binary:Version}),
+	libopencv-flann3.0 (= ${binary:Version}),
+	libopencv-ml3.0 (= ${binary:Version}),
+	libopencv-highgui3.0 (= ${binary:Version}),
+	libopencv-videoio3.0 (= ${binary:Version}),
+	libopencv-imgcodecs3.0 (= ${binary:Version}),
+	libopencv-imgproc3.0 (= ${binary:Version})
+Description: Python 3 bindings for the computer vision library
+ This package contains Python 3 bindings for the OpenCV (Open Computer Vision)
+ library.
+ .
+ The Open Computer Vision Library is a collection of algorithms and sample
+ code for various computer vision problems. The library is compatible with
+ IPL (Intel's Image Processing Library) and, if available, can use IPP
+ (Intel's Integrated Performance Primitives) for better performance.
+ .
+ OpenCV provides low level portable data types and operators, and a set
+ of high level functionalities for video acquisition, image processing and
+ analysis, structural analysis, motion analysis and object tracking, object
+ recognition, camera calibration and 3D reconstruction.
