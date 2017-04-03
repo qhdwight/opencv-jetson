@@ -73,7 +73,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 	libopencv-superres-dev (= ${binary:Version}),
 	libopencv-imgcodecs-dev (= ${binary:Version}),
 	libopencv-viz-dev (= ${binary:Version}),
-	libopencv3.1-java (= ${binary:Version}),
+	libopencv3.1-java (= ${source:Version}),
 	pkg-config
 Recommends: opencv-data
 Suggests: opencv-doc
