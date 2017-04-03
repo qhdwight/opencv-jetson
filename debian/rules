@@ -131,6 +131,7 @@ override_dh_install:
 	rm -rf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*_pch_dephelp.a
 	rm -rf debian/tmp/usr/share/OpenCV/doc/html/jquery.js
 
+	find debian/tmp -type d -empty -delete
 	dh_install -O--buildsystem=cmake --list-missing
 
 override_dh_gencontrol:
