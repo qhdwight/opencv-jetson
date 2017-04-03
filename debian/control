@@ -883,6 +883,8 @@ Architecture: all
 Depends: ${java:Depends}, ${misc:Depends},
 	libopencv3.1-jni (>= ${binary:Version})
 Recommends: ${java:Recommends}
+Breaks: libopencv2.4-java
+Replaces: libopencv2.4-java
 Description: Java bindings for the computer vision library
  This package contains Java bindings for the OpenCV (Open Computer Vision)
  library.
