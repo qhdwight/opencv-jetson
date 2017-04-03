@@ -1,8 +1,6 @@
-diff --git a/samples/gpu/CMakeLists.txt b/samples/gpu/CMakeLists.txt
-index 6085cac..7d3622e 100644
 --- a/samples/gpu/CMakeLists.txt
 +++ b/samples/gpu/CMakeLists.txt
-@@ -96,9 +96,6 @@ endif()
+@@ -96,9 +96,6 @@
  
  if(INSTALL_C_EXAMPLES AND NOT WIN32)
    file(GLOB install_list *.c *.cpp *.jpg *.png *.data makefile.* build_all.sh *.dsp *.cmd )

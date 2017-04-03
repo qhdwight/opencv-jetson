@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -499,8 +499,11 @@
+@@ -510,8 +510,11 @@
    else()
      set(HAVE_LIBPTHREAD YES)
    endif()
@@ -16,7 +16,7 @@
 +++ b/modules/core/src/parallel.cpp
 @@ -58,6 +58,10 @@
          #include <sys/sysconf.h>
-     #elif defined __APPLE__
+     #elif defined __APPLE__ || !defined __GNU__
          #include <sys/sysctl.h>
 +    #elif !defined __GNU__
 +      #ifdef HAVE_SYS_SYSCTL_H
@@ -27,7 +27,7 @@
  
 --- a/modules/videoio/src/cap_ffmpeg_impl.hpp
 +++ b/modules/videoio/src/cap_ffmpeg_impl.hpp
-@@ -141,6 +141,10 @@
+@@ -135,6 +135,10 @@
      #include <sys/types.h>
  #if defined __APPLE__
      #include <sys/sysctl.h>
