@@ -962,22 +962,22 @@ Package: python3-opencv
 Section: python
 Architecture: any
 Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends},
-	libopencv-viz3.0 (= ${binary:Version}),
-	libopencv-shape3.0 (= ${binary:Version}),
-	libopencv-superres3.0 (= ${binary:Version}),
-	libopencv-stitching3.0 (= ${binary:Version}),
-	libopencv-videostab3.0 (= ${binary:Version}),
-	libopencv-objdetect3.0 (= ${binary:Version}),
-	libopencv-photo3.0 (= ${binary:Version}),
-	libopencv-video3.0 (= ${binary:Version}),
-	libopencv-calib3d3.0 (= ${binary:Version}),
-	libopencv-features2d3.0 (= ${binary:Version}),
-	libopencv-flann3.0 (= ${binary:Version}),
-	libopencv-ml3.0 (= ${binary:Version}),
-	libopencv-highgui3.0 (= ${binary:Version}),
-	libopencv-videoio3.0 (= ${binary:Version}),
-	libopencv-imgcodecs3.0 (= ${binary:Version}),
-	libopencv-imgproc3.0 (= ${binary:Version})
+	libopencv-viz3.1 (= ${binary:Version}),
+	libopencv-shape3.1 (= ${binary:Version}),
+	libopencv-superres3.1 (= ${binary:Version}),
+	libopencv-stitching3.1 (= ${binary:Version}),
+	libopencv-videostab3.1 (= ${binary:Version}),
+	libopencv-objdetect3.1 (= ${binary:Version}),
+	libopencv-photo3.1 (= ${binary:Version}),
+	libopencv-video3.1 (= ${binary:Version}),
+	libopencv-calib3d3.1 (= ${binary:Version}),
+	libopencv-features2d3.1 (= ${binary:Version}),
+	libopencv-flann3.1 (= ${binary:Version}),
+	libopencv-ml3.1 (= ${binary:Version}),
+	libopencv-highgui3.1 (= ${binary:Version}),
+	libopencv-videoio3.1 (= ${binary:Version}),
+	libopencv-imgcodecs3.1 (= ${binary:Version}),
+	libopencv-imgproc3.1 (= ${binary:Version})
 Description: Python 3 bindings for the computer vision library
  This package contains Python 3 bindings for the OpenCV (Open Computer Vision)
  library.
