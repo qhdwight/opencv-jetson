@@ -1,5 +1,6 @@
 opencv (3.1.0+dfsg-1~exp3) experimental; urgency=medium
 
+  * Team upload.
   * debian/rules:
     + Do not forcefully disable PIE anymore, -pie changed meaning.
       Also remove +fortify, as that's on by default anyway.  Closes: #859440
