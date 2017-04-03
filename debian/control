@@ -76,6 +76,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 	libopencv3.1-java (= ${binary:Version}),
 	pkg-config
 Recommends: opencv-data
+Suggests: opencv-doc
 Breaks: libopencv-core-dev (<= 2.3.1-8)
 Replaces: libcv-dev, libcvaux-dev, libhighgui-dev
 Conflicts: libcv-dev (<= 2.4.9.1+dfsg-2.1), libcvaux-dev (<= 2.4.9.1+dfsg-2.1),
