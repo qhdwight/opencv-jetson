@@ -1,9 +1,10 @@
-opencv (3.1.0+dfsg-1~exp3) UNRELEASED; urgency=medium
+opencv (3.1.0+dfsg-1~exp3) experimental; urgency=medium
 
   * debian/rules:
     + Do not forcefully disable PIE anymore, -pie changed meaning.
       Also remove +fortify, as that's on by default anyway.  Closes: #859440
     + Drop empty override_dh_fixperms.
+    + Remove empty directories from the installed tree.
   * debian/control:
     + Make libopencv-dev suggest opencv-doc.  Closes: #806703
     + Drop not needed libgtk2.0-dev dependency of libopencv-highgui-dev.
@@ -11,11 +12,16 @@ opencv (3.1.0+dfsg-1~exp3) UNRELEASED; urgency=medium
     + Fix installability problem in case of binNMUs.  Closes: #844067
      Mark libopencv3.1-java as Breaking/Replacing the 2.4 version.
      Closes: #810516
+    + Avoid duplicate long descriptions.
   * Build a python3 package.  Closes: #799262; LP: #1556156
     Thanks to Kota Kato <orangain@gmail.com> for the initial patch.
   * Use dh_numpy instead of hardconding the numpy ABI number.
+  * Build with GTK+ 3 (instead of GTK+ 2). (Closes: #822607)
+  * Remove disabled patches
+  * Refresh patches.
+  * Remove obsolete lintian override.
 
- -- Mattia Rizzolo <mattia@debian.org>  Mon, 03 Apr 2017 21:14:41 +0200
+ -- Mattia Rizzolo <mattia@debian.org>  Mon, 03 Apr 2017 22:25:01 +0200
 
 opencv (3.1.0+dfsg-1~exp2) experimental; urgency=medium
 
