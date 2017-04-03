@@ -103,7 +103,7 @@ Architecture: all
 Depends: ${misc:Depends}
 Breaks: libopencv-dev (<= 2.3.1-12)
 Description: development data for opencv
- This package contains some architecture independant files useful for
+ This package contains some architecture independent files useful for
  development with OpenCV.
  .
  The Open Computer Vision Library is a collection of algorithms and sample
