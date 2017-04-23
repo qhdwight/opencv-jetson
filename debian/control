@@ -15,6 +15,7 @@ Build-Depends:
  javahelper,
  libavcodec-dev,
  libavformat-dev,
+ libavresample-dev,
  libdc1394-22-dev [linux-any],
  libeigen3-dev,
  libgdal-dev,
@@ -375,6 +376,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
+ libavresample-dev,
  libopencv-imgcodecs-dev (= ${binary:Version}),
  libopencv-videoio3.1 (= ${binary:Version}),
  ${misc:Depends},
@@ -471,6 +473,7 @@ Multi-Arch: same
 Depends:
  libavcodec-dev (>= 0.svn20080206),
  libavformat-dev,
+ libavresample-dev,
  libdc1394-22-dev [!kfreebsd-amd64 !kfreebsd-i386 !hurd-i386],
  libjpeg-dev,
  libopencv-highgui3.1 (= ${binary:Version}),
