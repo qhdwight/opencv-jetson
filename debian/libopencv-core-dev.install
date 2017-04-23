@@ -2,6 +2,7 @@
 # libraries
 usr/include/opencv2/core.hpp
 usr/include/opencv2/core/*
+usr/include/opencv2/cvconfig.h
 usr/include/opencv2/opencv.hpp
 usr/include/opencv2/opencv_modules.hpp
 usr/lib/*/libopencv_core.a
