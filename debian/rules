@@ -111,6 +111,9 @@ build_static:
 
 override_dh_auto_test:
 
+override_dh_auto_install:
+	dh_auto_install -B $(BUILDDIR)
+
 override_dh_install:
 	# change install path of java library
 	sed -i -e "s@share\/OpenCV\/java\/@lib\/jni\/@g" \
