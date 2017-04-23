@@ -117,10 +117,6 @@ build_static:
 override_dh_auto_test:
 
 override_dh_install:
-	-rm --verbose -rf debian/tmp/usr/share/opencv/samples/octave
-	-rm --verbose -rf debian/tmp/usr/share/opencv/samples/c/cvsample.dsp
-	-rm --verbose -rf debian/tmp/usr/share/OpenCV/doc/license.txt
-
 	# change install path of java library
 	sed -i -e "s@share\/OpenCV\/java\/@lib\/jni\/@g" \
 		debian/tmp/usr/share/OpenCV/OpenCVModules-release.cmake
