@@ -7,16 +7,16 @@ DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
 # for i386 arch
 ifeq ($(DEB_HOST_ARCH),i386)
-BUILDDIR_ARCH = i686-linux-gnu
+BUILDDIR_ARCH = obj-i686-linux-gnu
 else
-BUILDDIR_ARCH = $(DEB_HOST_MULTIARCH)
+BUILDDIR_ARCH = obj-$(DEB_HOST_MULTIARCH)
 endif
 
 # SSE options
 ifeq ($(DEB_HOST_ARCH),amd64)
-CMAKE_ARCH_FLAGS = -DENABLE_SSE=ON -DENABLE_SSE2=ON -DENABLE_SSE3=OFF 
+CMAKE_ARCH_FLAGS = -DENABLE_SSE=ON -DENABLE_SSE2=ON -DENABLE_SSE3=OFF
 else
-CMAKE_ARCH_FLAGS = -DENABLE_SSE=OFF -DENABLE_SSE2=OFF -DENABLE_SSE3=OFF 
+CMAKE_ARCH_FLAGS = -DENABLE_SSE=OFF -DENABLE_SSE2=OFF -DENABLE_SSE3=OFF
 endif
 
 # TBB support
@@ -89,30 +89,30 @@ override_dh_clean:
 	rm -rf modules/refman.rst
 
 	dh_clean -O--buildsystem=cmake
-	-rm -rf obj-$(BUILDDIR_ARCH)
-	-rm -rf obj-$(BUILDDIR_ARCH)-static
+	-rm -rf $(BUILDDIR_ARCH)
+	-rm -rf $(BUILDDIR_ARCH)-static
 	-rm -rf modules/python/src2/__pycache__
 
 override_dh_auto_configure: configure_dyn configure_static
 configure_dyn:
-	dh_auto_configure -B obj-$(BUILDDIR_ARCH) \
+	dh_auto_configure -B $(BUILDDIR_ARCH) \
 		-- $(CMAKE_FLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
 		-DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=ON
 
 configure_static:
-	dh_auto_configure -B obj-$(BUILDDIR_ARCH)-static \
+	dh_auto_configure -B $(BUILDDIR_ARCH)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF
 
 override_dh_auto_build: build_dyn build_static
 	
 build_dyn:
-	dh_auto_build -B obj-$(BUILDDIR_ARCH)
-	dh_auto_build -B obj-$(BUILDDIR_ARCH) -- doxygen
+	dh_auto_build -B $(BUILDDIR_ARCH)
+	dh_auto_build -B $(BUILDDIR_ARCH) -- doxygen
 
 build_static:
-	dh_auto_build -B obj-$(BUILDDIR_ARCH)-static
+	dh_auto_build -B $(BUILDDIR_ARCH)-static
 
 override_dh_auto_test:
 
