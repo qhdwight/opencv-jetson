@@ -84,9 +84,11 @@ override_dh_clean:
 	rm -rf modules/refman.rst
 
 	dh_clean -O--buildsystem=cmake
-	-rm -rf $(BUILDDIR_ARCH)
-	-rm -rf $(BUILDDIR_ARCH)-static
 	-rm -rf modules/python/src2/__pycache__
+
+override_dh_auto_clean:
+	dh_auto_clean -B $(BUILDDIR)
+	dh_auto_clean -B $(BUILDDIR)-static
 
 override_dh_auto_configure: configure_dyn configure_static
 configure_dyn:
