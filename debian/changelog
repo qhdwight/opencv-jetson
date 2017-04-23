@@ -1,3 +1,15 @@
+opencv (3.1.0+dfsg-1~exp5) experimental; urgency=medium
+
+  * Team upload.
+  * wrap-and-sort -ast.
+  * Add (Build-)Depends on libavresample-dev.
+  * Add (Build-)Depends on libgphoto2-dev.
+  * Install usr/include/opencv2/cvconfig.h in libopencv-core-dev.  LP: #1315418
+  * d/rules: use --fail-missing instead of --list-missing, to be really sure
+    nothing is left out.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Mon, 24 Apr 2017 01:35:03 +0200
+
 opencv (3.1.0+dfsg-1~exp4) experimental; urgency=medium
 
   * Team upload.
