@@ -5,12 +5,7 @@ DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 
-# for i386 arch
-ifeq ($(DEB_HOST_ARCH),i386)
-BUILDDIR_ARCH = obj-i686-linux-gnu
-else
-BUILDDIR_ARCH = obj-$(DEB_HOST_MULTIARCH)
-endif
+BUILDDIR = obj-$(DEB_HOST_MULTIARCH)
 
 # SSE options
 ifeq ($(DEB_HOST_ARCH),amd64)
@@ -78,7 +73,7 @@ CMAKE_FLAGS = \
 	-DENABLE_PRECOMPILED_HEADERS=OFF \
 	-DWITH_IPP=OFF \
 	-DOPENCL_INCLUDE_DIR:PATH="/usr/include/CL/" \
-	$(CMAKE_ARCH_FLAGS) 
+	$(CMAKE_ARCH_FLAGS)
 
 %:
 	dh $@ --buildsystem=cmake --with python2,python3,javahelper --parallel
@@ -95,24 +90,24 @@ override_dh_clean:
 
 override_dh_auto_configure: configure_dyn configure_static
 configure_dyn:
-	dh_auto_configure -B $(BUILDDIR_ARCH) \
+	dh_auto_configure -B $(BUILDDIR) \
 		-- $(CMAKE_FLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
 		-DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=ON
 
 configure_static:
-	dh_auto_configure -B $(BUILDDIR_ARCH)-static \
+	dh_auto_configure -B $(BUILDDIR)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF
 
 override_dh_auto_build: build_dyn build_static
 	
 build_dyn:
-	dh_auto_build -B $(BUILDDIR_ARCH)
-	dh_auto_build -B $(BUILDDIR_ARCH) -- doxygen
+	dh_auto_build -B $(BUILDDIR)
+	dh_auto_build -B $(BUILDDIR) -- doxygen
 
 build_static:
-	dh_auto_build -B $(BUILDDIR_ARCH)-static
+	dh_auto_build -B $(BUILDDIR)-static
 
 override_dh_auto_test:
 
