@@ -76,14 +76,14 @@ CMAKE_FLAGS = \
 	$(CMAKE_ARCH_FLAGS)
 
 %:
-	dh $@ --buildsystem=cmake --with python2,python3,javahelper --parallel
+	dh $@ --with python2,python3,javahelper --parallel
 
 override_dh_clean:
 	rm -rf modules/python/src2/hdr_parser.pyc
 	rm -rf modules/java/generator/rst_parser.pyc
 	rm -rf modules/refman.rst
 
-	dh_clean -O--buildsystem=cmake
+	dh_clean
 	-rm -rf modules/python/src2/__pycache__
 
 override_dh_auto_clean:
@@ -128,7 +128,7 @@ override_dh_install:
 	rm -rf debian/tmp/usr/share/OpenCV/doc/html/jquery.js
 
 	find debian/tmp -type d -empty -delete
-	dh_install -O--buildsystem=cmake --list-missing
+	dh_install --list-missing
 
 override_dh_gencontrol:
 	dh_numpy
