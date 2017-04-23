@@ -1,3 +1,19 @@
+opencv (3.1.0+dfsg-1~exp4) experimental; urgency=medium
+
+  * Team upload.
+  * debian/rules cleanup:
+    + Remove rm(1)s that do not seem to do anything (anymore).
+    + DRY up the BUILDDIR variable.
+    + Do not mangle BUILDDIR on i386, there should be no need for it.
+    + Add an override to dh_auto_install to pass the correct BUILDDIR (should
+      fix FTBFS for kfreebsd-i386 (and probably this is what the original
+      BUILDDIR mangling is about)).
+    + Proper calls to clean cmake build products.
+    + The build system is recognized by debhelper, no need to tell it.
+    + Use a single cp call to copy the static libs.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Sun, 23 Apr 2017 22:12:08 +0200
+
 opencv (3.1.0+dfsg-1~exp3) experimental; urgency=medium
 
   * Team upload.
