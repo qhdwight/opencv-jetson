@@ -1,4 +1,1 @@
-#usr/include/opencv2/ts.h
-#usr/include/opencv2/ts/*
-#usr/lib/*/libopencv_ts.so
 usr/lib/*/libopencv_ts.a
