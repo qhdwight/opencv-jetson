@@ -1,3 +1,5 @@
+Description: use system-installed jquery
+
 --- a/doc/header.html
 +++ b/doc/header.html
 @@ -9,7 +9,7 @@

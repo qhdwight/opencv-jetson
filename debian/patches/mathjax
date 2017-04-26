@@ -1,3 +1,5 @@
+Description: use system-installed mathjx instead of downloading from the net
+
 --- a/doc/Doxyfile.in
 +++ b/doc/Doxyfile.in
 @@ -167,7 +167,7 @@
