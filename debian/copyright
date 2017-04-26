@@ -31,7 +31,7 @@ Copyright: 2000-2015 Intel Corporation
            2015      Itseez Inc.
 License: BSD-3-clause
 
-Filese: debian/*
+Files: debian/*
 Copyright: 2004-2008 Sam Hocevar <sam@zoy.org>
            2009-2017 Nobuhiro Iwamatsu <iwamatsu@debian.org>
            2016-2017 Mattia Rizzolo <mattia@debian.org>
