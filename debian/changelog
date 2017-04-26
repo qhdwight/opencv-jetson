@@ -1,16 +1,24 @@
-opencv (3.1.0+dfsg1-1~exp1) UNRELEASED; urgency=medium
+opencv (3.1.0+dfsg1-1~exp1) experimental; urgency=medium
+
+  * Team upload.
 
   [ Mattia Rizzolo ]
   * Rewrite d/copyright using copyright-format 1.0.
   * Add Files-Excluded listing the removed files.
   * Update watch file, pointing to github.
   * Add the contrib modules as a multiple upstream tarball.
+  * Add new build-dependencies needed by contrib modules.
+  * Override lintian tag debian-watch-file-should-mangle-version (see #505857).
+  * override lintian warning package-name-doesnt-match-sonames for
+    libopencv-contrib.
+  * Add some DEP-3 descriptions to two patches.
 
   [ Nobuhiro Iwamatsu ]
   * Remove obsolete files of libopencv-legacy.
   * Build the opencv_contrib libraries.  Closes: #861194
+  * Fix Build with HDF5. Add patches/moudles_hdf5.patch
 
- -- Mattia Rizzolo <mattia@debian.org>  Wed, 26 Apr 2017 15:11:51 +0200
+ -- Mattia Rizzolo <mattia@debian.org>  Wed, 26 Apr 2017 18:17:33 +0200
 
 opencv (3.1.0+dfsg-1~exp5) experimental; urgency=medium
 
