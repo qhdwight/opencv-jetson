@@ -1,3 +1,17 @@
+opencv (3.1.0+dfsg1-1~exp1) UNRELEASED; urgency=medium
+
+  [ Mattia Rizzolo ]
+  * Rewrite d/copyright using copyright-format 1.0.
+  * Add Files-Excluded listing the removed files.
+  * Update watch file, pointing to github.
+  * Add the contrib modules as a multiple upstream tarball.
+
+  [ Nobuhiro Iwamatsu ]
+  * Remove obsolete files of libopencv-legacy.
+  * Build the opencv_contrib libraries.  Closes: #861194
+
+ -- Mattia Rizzolo <mattia@debian.org>  Wed, 26 Apr 2017 15:11:51 +0200
+
 opencv (3.1.0+dfsg-1~exp5) experimental; urgency=medium
 
   * Team upload.
