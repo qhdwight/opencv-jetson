@@ -1,6 +1,23 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: OpenCV
 Source: http://opencv.org/
+Files-Excluded:
+ 3rdparty
+ doc/tutorials/introduction/biicode/images/bii_lena.png
+ doc/tutorials/introduction/clojure_dev_intro/images/lena.png
+ doc/tutorials/introduction/desktop_java/images/lena.png
+ modules/highgui/src/files_Qt/Milky
+ modules/java/common_test/res/drawable/lena.png
+ samples/data/lena.jpg
+ samples/data/lena_tmpl.jpg
+ samples/java/clojure/simple-sample/resources
+ samples/java/clojure/simple-sample/resources/images
+ samples/java/clojure/simple-sample/resources/images/lena.png
+ samples/winrt/OcvImageProcessing/OcvImageProcessing/Assets/Lena.png
+ samples/winrt_universal/PhoneTutorial/Lena.png
+ samples/wp8/OcvRotatingCube/PhoneXamlDirect3DApp1/PhoneXamlDirect3DApp1/Assets/Lena.png
+ samples/wp8/OpenCVXaml/OpenCVXaml/Assets/Lena.png
+
 
 Files: *
 Copyright: 2000-2015 Intel Corporation
