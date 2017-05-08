@@ -1,3 +1,9 @@
+opencv (3.2.0+dfsg-1~exp1) UNRELEASED; urgency=medium
+
+  * Update to 3.2.0. 
+
+ -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Tue, 09 May 2017 05:28:53 +0900
+
 opencv (3.1.0+dfsg1-1~exp1) experimental; urgency=medium
 
   * Team upload.
