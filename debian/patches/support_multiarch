@@ -1,26 +1,28 @@
 Description: Install the libraries in the multiarch path
 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cc45f6f394..9c55e09538 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -381,7 +381,7 @@
-     set(OPENCV_JAR_INSTALL_PATH java)
-     set(OPENCV_OTHER_INSTALL_PATH   etc)
+@@ -395,7 +395,7 @@ else()
+     ocv_update(OPENCV_OTHER_INSTALL_PATH   etc)
+     ocv_update(OPENCV_CONFIG_INSTALL_PATH  ".")
    else()
--    set(OPENCV_LIB_INSTALL_PATH     lib${LIB_SUFFIX})
+-    ocv_update(OPENCV_LIB_INSTALL_PATH     lib${LIB_SUFFIX})
 +    set(OPENCV_LIB_INSTALL_PATH     ${CMAKE_INSTALL_LIBDIR}${LIB_SUFFIX})
-     set(OPENCV_3P_LIB_INSTALL_PATH  share/OpenCV/3rdparty/${OPENCV_LIB_INSTALL_PATH})
-     set(OPENCV_SAMPLES_SRC_INSTALL_PATH    share/OpenCV/samples)
-     set(OPENCV_JAR_INSTALL_PATH share/OpenCV/java)
-@@ -391,7 +391,7 @@
- 
-   math(EXPR SIZEOF_VOID_P_BITS "8 * ${CMAKE_SIZEOF_VOID_P}")
-   if(LIB_SUFFIX AND NOT SIZEOF_VOID_P_BITS EQUAL LIB_SUFFIX)
--    set(OPENCV_CONFIG_INSTALL_PATH lib${LIB_SUFFIX}/cmake/opencv)
-+    set(OPENCV_CONFIG_INSTALL_PATH ${CMAKE_INSTALL_LIBDIR}${LIB_SUFFIX}/cmake/opencv)
-   else()
-     set(OPENCV_CONFIG_INSTALL_PATH share/OpenCV)
-   endif()
-@@ -494,6 +494,7 @@
+     ocv_update(OPENCV_3P_LIB_INSTALL_PATH  share/OpenCV/3rdparty/${OPENCV_LIB_INSTALL_PATH})
+     ocv_update(OPENCV_SAMPLES_SRC_INSTALL_PATH    share/OpenCV/samples)
+     ocv_update(OPENCV_JAR_INSTALL_PATH share/OpenCV/java)
+@@ -404,7 +404,7 @@ else()
+     if(NOT DEFINED OPENCV_CONFIG_INSTALL_PATH)
+       math(EXPR SIZEOF_VOID_P_BITS "8 * ${CMAKE_SIZEOF_VOID_P}")
+       if(LIB_SUFFIX AND NOT SIZEOF_VOID_P_BITS EQUAL LIB_SUFFIX)
+-        ocv_update(OPENCV_CONFIG_INSTALL_PATH lib${LIB_SUFFIX}/cmake/opencv)
++        ocv_update(OPENCV_CONFIG_INSTALL_PATH ${CMAKE_INSTALL_LIBDIR}${LIB_SUFFIX}/cmake/opencv)
+       else()
+         ocv_update(OPENCV_CONFIG_INSTALL_PATH share/OpenCV)
+       endif()
+@@ -515,6 +515,7 @@ if(UNIX)
    find_package(PkgConfig QUIET)
    include(CheckFunctionExists)
    include(CheckIncludeFile)
