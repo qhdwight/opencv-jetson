@@ -1,8 +1,10 @@
 Description: Fix FTBFS on non linux
 Forwarded: not yet
 Author: Pino Toscano <pino@debian.org>
-Last-Update: 2015-04-27
+Last-Update: 2017-05-09
 
+diff --git a/modules/core/src/parallel.cpp b/modules/core/src/parallel.cpp
+index 71ac94eec8..c36911377d 100644
 --- a/modules/core/src/parallel.cpp
 +++ b/modules/core/src/parallel.cpp
 @@ -50,13 +50,13 @@
@@ -21,7 +23,7 @@ Last-Update: 2015-04-27
          #include <sys/sysctl.h>
      #endif
  #endif
-@@ -514,7 +514,7 @@
+@@ -562,7 +562,7 @@ int cv::getNumberOfCPUs(void)
  #elif defined ANDROID
      static int ncpus = getNumberOfCPUsImpl();
      return ncpus;
@@ -30,14 +32,16 @@ Last-Update: 2015-04-27
      return (int)sysconf( _SC_NPROCESSORS_ONLN );
  #elif defined __APPLE__
      int numCPU=0;
+diff --git a/modules/core/src/system.cpp b/modules/core/src/system.cpp
+index 3c8f39d74b..6264dd6da6 100644
 --- a/modules/core/src/system.cpp
 +++ b/modules/core/src/system.cpp
-@@ -198,12 +198,14 @@
+@@ -198,12 +198,14 @@ std::wstring GetTempFileNameWinRT(std::wstring prefix)
  
  #include <stdarg.h>
  
--#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__
-+#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__ ||  defined __GLIBC__
+-#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__ || defined __FreeBSD__
++#if defined __linux__ || defined __APPLE__ || defined __EMSCRIPTEN__ || defined __FreeBSD__ || defined __GLIBC__
  #include <unistd.h>
  #include <stdio.h>
  #include <sys/types.h>
