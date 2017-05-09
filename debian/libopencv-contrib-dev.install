@@ -82,11 +82,11 @@ usr/include/opencv2/rgbd/*
 usr/include/opencv2/rgbd.hpp
 usr/lib/*/libopencv_rgbd.a
 usr/lib/*/libopencv_rgbd.so
-# tracking
-usr/include/opencv2/tracking/*
-usr/include/opencv2/tracking.hpp
-usr/lib/*/libopencv_tracking.a
-usr/lib/*/libopencv_tracking.so
+# tracking / disable by dnn
+#usr/include/opencv2/tracking/*
+#usr/include/opencv2/tracking.hpp
+#usr/lib/*/libopencv_tracking.a
+#usr/lib/*/libopencv_tracking.so
 # datasets
 usr/include/opencv2/datasets/*
 # usr/include/opencv2/datasets.hpp
@@ -102,6 +102,10 @@ usr/include/opencv2/face/*
 usr/include/opencv2/face.hpp
 usr/lib/*/libopencv_face.a
 usr/lib/*/libopencv_face.so
+# freetype
+usr/include/opencv2/freetype.hpp
+usr/lib/*/libopencv_freetype.a
+usr/lib/*/libopencv_freetype.so
 # ximgproc
 usr/include/opencv2/ximgproc/*
 usr/include/opencv2/ximgproc.hpp
@@ -116,3 +120,8 @@ usr/include/opencv2/xphoto/*
 usr/include/opencv2/xphoto.hpp
 usr/lib/*/libopencv_xphoto.a
 usr/lib/*/libopencv_xphoto.so
+# phase_unwrapping
+usr/include/opencv2/phase_unwrapping/*
+usr/include/opencv2/phase_unwrapping.hpp
+usr/lib/*/libopencv_phase_unwrapping.a
+usr/lib/*/libopencv_phase_unwrapping.so
