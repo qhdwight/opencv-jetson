@@ -1,6 +1,8 @@
 opencv (3.2.0+dfsg-1~exp1) UNRELEASED; urgency=medium
 
-  * Update to 3.2.0. 
+  * Update to 3.2.0.
+    - Add freetype and phase_unwrapping modules into libopencv-contrib.
+    - Disable DNN and tracking module (temporary).
 
  -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Tue, 09 May 2017 05:28:53 +0900
 
