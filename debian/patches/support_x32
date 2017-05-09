@@ -29,10 +29,10 @@ Description: Support x32 architecture
  
 --- a/modules/videoio/src/cap_ffmpeg_impl.hpp
 +++ b/modules/videoio/src/cap_ffmpeg_impl.hpp
-@@ -135,6 +135,10 @@
-     #include <sys/types.h>
- #if defined __APPLE__
+@@ -110,6 +110,10 @@ extern "C" {
      #include <sys/sysctl.h>
+     #include <mach/clock.h>
+     #include <mach/mach.h>
 +#elif !defined __GNU__
 +    #ifdef HAVE_SYS_SYSCTL_H
 +        #include <sys/sysctl.h>
