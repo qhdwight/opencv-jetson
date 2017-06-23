@@ -1,6 +1,7 @@
 Description: fix compilation failure of this header in arm (where VFP is enabled)
 Author: James Clarke <jrtc27@jrtc27.com>
 Forwarded: https://github.com/opencv/opencv/pull/8976
+Applied-Upstream: https://github.com/opencv/opencv/commit/25020f267236ab8e715fabbbdea5b81e39a01120
 
 --- a/modules/core/include/opencv2/core/fast_math.hpp
 +++ b/modules/core/include/opencv2/core/fast_math.hpp
