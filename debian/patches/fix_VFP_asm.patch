@@ -1,0 +1,15 @@
+Description: fix compilation failure of this header in arm (where VFP is enabled)
+Author: James Clarke <jrtc27@jrtc27.com>
+Forwarded: https://github.com/opencv/opencv/pull/8976
+
+--- a/modules/core/include/opencv2/core/fast_math.hpp
++++ b/modules/core/include/opencv2/core/fast_math.hpp
+@@ -71,7 +71,7 @@
+     #define ARM_ROUND(_value, _asm_string) \
+         int res; \
+         float temp; \
+-        asm(_asm_string : [res] "=r" (res), [temp] "=w" (temp) : [value] "w" (_value)); \
++        __asm__(_asm_string : [res] "=r" (res), [temp] "=w" (temp) : [value] "w" (_value)); \
+         return res
+     // 2. version for double
+     #ifdef __clang__

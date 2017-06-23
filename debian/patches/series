@@ -5,3 +5,4 @@ disable_opengl_test_build
 mathjax
 change_jquery.js_path
 disable_dnn.patch
+fix_VFP_asm.patch
