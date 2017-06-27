@@ -5,10 +5,10 @@ Applied-Upstream: https://github.com/opencv/opencv/commit/25020f267236ab8e715fab
 
 --- a/modules/core/include/opencv2/core/fast_math.hpp
 +++ b/modules/core/include/opencv2/core/fast_math.hpp
-@@ -71,7 +71,7 @@
-     #define ARM_ROUND(_value, _asm_string) \
+@@ -72,7 +72,7 @@
          int res; \
          float temp; \
+         (void)temp; \
 -        asm(_asm_string : [res] "=r" (res), [temp] "=w" (temp) : [value] "w" (_value)); \
 +        __asm__(_asm_string : [res] "=r" (res), [temp] "=w" (temp) : [value] "w" (_value)); \
          return res
