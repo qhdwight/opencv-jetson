@@ -141,64 +141,11 @@ UVER = $(shell dpkg-parsechangelog -S Version | sed 's,-.*,,')
 DTYPE = +dfsg
 VER  ?= $(subst $(DTYPE),,$(UVER))
 get-orig-source:
-	$(eval GOS_TMP_DIR := $(shell mktemp -d $(PKG)-XXXXXXXXX))
-
 	@echo "# OpenCV Downloading..."
-	uscan --no-conf --verbose --force-download --download-version $(VER) \
-               --destdir $(GOS_TMP_DIR) --no-symlink
-	$(if $(wildcard $(GOS_TMP_DIR)/$(PKG)-$(VER)),$(error $(PKG)-$(VER) exist, aborting..))
-	
-	@echo "# Extracting..."
-	cd $(GOS_TMP_DIR) \
-		&& mkdir $(PKG)-$(VER)$(DTYPE) \
-		&& tar -xf $(PKG)_$(VER).orig.tar.* \
-			--directory $(PKG)-$(VER)$(DTYPE) \
-			--strip-components 1 \
-		|| $(RM) -r $(PKG)-$(VER)$(DTYPE)
-	
-	@echo "# Cleaning-up..."
-	cd $(GOS_TMP_DIR)/ \
-		&& $(RM) -r -v $(PKG)-$(VER)$(DTYPE)/3rdparty \
-		&& $(RM) -r -v $(PKG)-$(VER)$(DTYPE)/modules/highgui/src/files_Qt/Milky \
-		&& find $(PKG)-$(VER)$(DTYPE)/ -type f -name '[L|l]ena.png' -delete \
-		&& find $(PKG)-$(VER)$(DTYPE)/ -type f -name '[L|l]ena.jpg' -delete
-
+	uscan --no-conf --verbose --force-download --download-version $(VER) --no-symlink
 	@echo "# Packing..."
-	cd $(GOS_TMP_DIR) \
-		&& find -L "$(PKG)-$(VER)$(DTYPE)" -xdev -type f -print \
-		| LC_ALL=C sort \
-		| XZ_OPT="-6v" tar -caf "$(PKG)_$(VER)$(DTYPE).orig.tar.xz" \
-			-T- --owner=root --group=root --mode=a+rX \
-		&& $(RM) -r "$(PKG)-$(VER)$(DTYPE)"
+	mk-origtargz --repack --compression xz -S $(DTYPE) -C .. ../opencv_$(VER).orig.tar.gz -v $(VER)
 
 	@echo "# OpenCV contrib Downloading..."
-	uscan --no-conf --verbose --force-download \
-		--upstream-version 0 --download-version $(VER) \
-		--download --destdir $(GOS_TMP_DIR) --no-symlink
-	$(if $(wildcard $(GOS_TMP_DIR)/contrib_$(VER)),$(error contrib_$(VER) exist, aborting..))
-
-	@echo "# OpenCV contrib Extracting..."
-	cd $(GOS_TMP_DIR) \
-		&& mkdir -p contrib \
-		&& tar -xf $(PKG)_$(VER).orig-contrib.tar.* \
-			--directory contrib/ \
-			--strip-components 1 \
-		|| $(RM) -r contrib
-	
-	@echo "# OpenCV contrib Cleaning-up..."
-	# Remove SIFT/SURF from source tarball by legal concerns
-	cd $(GOS_TMP_DIR)/ \
-		&& $(RM) -r -v contrib/modules/xfeatures2d/
-
-	@echo "# OpenCV contrib Packing..."
-	cd $(GOS_TMP_DIR)/ \
-		&& find -L contrib -xdev -type f -print \
-		| LC_ALL=C sort \
-		| XZ_OPT="-6v" tar -caf "$(PKG)_$(VER)$(DTYPE).orig-contrib.tar.xz" \
-			-T- --owner=root --group=root --mode=a+rX \
-		&& $(RM) -r contrib
-
-	# mv $(GOS_TMP_DIR)/$(PKG)_$(VER)$(DTYPE).orig* $(CURDIR)
-	rm -Rf $(GOS_TMP_DIR)
-	# move files
-	mv "$(PKG)_$(VER)$(DTYPE).*.tar.xz" ../.
+	uscan --no-conf --verbose --force-download --download-version $(VER) --no-symlink
+	mk-origtargz --repack --compression xz -S $(DTYPE) -C .. ../opencv_$(VER).orig-contrib.tar.gz -v $(VER) -c contrib
