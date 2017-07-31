@@ -28,16 +28,6 @@ else
 CMAKE_ARCH_FLAGS += -DWITH_1394=OFF -DWITH_V4L=OFF
 endif
 
-# No GL on armhf in Ubuntu
-ifeq ($(shell dpkg-vendor --is ubuntu && echo true),true)
-ifneq ($(DEB_HOST_ARCH),armhf)
-CMAKE_ARCH_FLAGS += -DWITH_OPENGL=ON
-else
-CMAKE_ARCH_FLAGS += -DWITH_OPENGL=OFF
-endif
-CMAKE_ARCH_FLAGS += -DWITH_OPENGL=ON
-endif
-
 # For Java
 export JAVA_HOME=/usr/lib/jvm/default-java
 
