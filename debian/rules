@@ -65,6 +65,7 @@ CMAKE_FLAGS = \
 	-DWITH_IPP=OFF \
 	-DWITH_CAROTENE=OFF \
 	-DBUILD_opencv_dnn=OFF \
+	-DBUILD_opencv_dnn_modern=OFF \
 	-DOPENCL_INCLUDE_DIR:PATH="/usr/include/CL/" \
 	-DOPENCV_EXTRA_MODULES_PATH="$(CURDIR)/contrib/modules" \
 	$(CMAKE_ARCH_FLAGS)
