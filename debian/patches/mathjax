@@ -1,13 +1,27 @@
-Description: use system-installed mathjx instead of downloading from the net
+From 14e24055b7cc93b0de4b614db5b7bad201d1e055 Mon Sep 17 00:00:00 2001
+From: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date: Tue, 29 Aug 2017 12:30:21 +0900
+Subject: [PATCH 3/4] use system-installed mathjx instead of downloading from
+ the net
 
+Signed-off-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+---
+ doc/Doxyfile.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/Doxyfile.in b/doc/Doxyfile.in
+index dd8d325c4d..f7c8ddff63 100644
 --- a/doc/Doxyfile.in
 +++ b/doc/Doxyfile.in
-@@ -167,7 +167,7 @@
+@@ -174,7 +174,7 @@ FORMULA_FONTSIZE       = 14
  FORMULA_TRANSPARENT    = YES
  USE_MATHJAX            = YES
  MATHJAX_FORMAT         = HTML-CSS
--MATHJAX_RELPATH        = http://cdn.mathjax.org/mathjax/latest
+-MATHJAX_RELPATH        = http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0
 +MATHJAX_RELPATH        = /usr/share/javascript/mathjax/
  MATHJAX_EXTENSIONS     = TeX/AMSmath TeX/AMSsymbols
  MATHJAX_CODEFILE       = @CMAKE_CURRENT_SOURCE_DIR@/mymath.js
  SEARCHENGINE           = YES
+-- 
+2.14.1
+
