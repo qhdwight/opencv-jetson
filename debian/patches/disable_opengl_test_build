@@ -1,14 +1,28 @@
+From 1f29c0d25b2b105fec3f379955228f461330a4ea Mon Sep 17 00:00:00 2001
+From: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date: Tue, 29 Aug 2017 12:29:10 +0900
+Subject: [PATCH 2/4] Disale building opengl test
+
+Signed-off-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+---
+ samples/gpu/CMakeLists.txt | 4 ----
+ 1 file changed, 4 deletions(-)
+
 diff --git a/samples/gpu/CMakeLists.txt b/samples/gpu/CMakeLists.txt
-index 8c97ea865a..3d50dd28f0 100644
+index 0f734677be..505dc9b4e9 100644
 --- a/samples/gpu/CMakeLists.txt
 +++ b/samples/gpu/CMakeLists.txt
-@@ -96,9 +96,6 @@ endif()
+@@ -73,10 +73,6 @@ if(BUILD_EXAMPLES AND OCV_DEPENDENCIES_FOUND)
  
- if(INSTALL_C_EXAMPLES AND NOT WIN32)
-   file(GLOB install_list *.c *.cpp *.jpg *.png *.data makefile.* build_all.sh *.dsp *.cmd )
+   file(GLOB all_samples RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+ 
 -  if(NOT HAVE_OPENGL)
--    list(REMOVE_ITEM install_list "opengl.cpp")
+-    list(REMOVE_ITEM all_samples "opengl.cpp")
 -  endif()
-   install(FILES ${install_list}
-           DESTINATION ${OPENCV_SAMPLES_SRC_INSTALL_PATH}/gpu
-           PERMISSIONS OWNER_READ GROUP_READ WORLD_READ COMPONENT samples)
+-
+   foreach(sample_filename ${all_samples})
+     get_filename_component(sample ${sample_filename} NAME_WE)
+     file(GLOB sample_srcs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${sample}.*)
+-- 
+2.14.1
+
