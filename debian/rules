@@ -121,6 +121,9 @@ override_dh_install:
 
 	rm -vrf debian/tmp/usr/share/OpenCV/doc/html/jquery.js
 
+	rm -vrf debian/tmp/usr/share/OpenCV/valgrind_3rdparty.supp \
+		debian/tmp/usr/share/OpenCV/valgrind.supp
+
 	find debian/tmp -type d -empty -delete
 	dh_install --fail-missing
 
