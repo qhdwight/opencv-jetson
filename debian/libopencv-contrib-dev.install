@@ -125,3 +125,14 @@ usr/include/opencv2/phase_unwrapping/*
 usr/include/opencv2/phase_unwrapping.hpp
 usr/lib/*/libopencv_phase_unwrapping.a
 usr/lib/*/libopencv_phase_unwrapping.so
+# img_hash
+usr/include/opencv2/img_hash/*
+usr/include/opencv2/img_hash.hpp
+usr/lib/*/libopencv_img_hash.a
+usr/lib/*/libopencv_img_hash.so
+# tracking
+usr/include/opencv2/tracking/*
+usr/include/opencv2/tracking.hpp
+usr/lib/*/libopencv_tracking.a
+usr/lib/*/libopencv_tracking.so
+
