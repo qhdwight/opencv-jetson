@@ -1,9 +1,19 @@
-opencv (3.3.0+dfsg-1~exp1) experimental; urgency=medium
+opencv (3.3.0+dfsg-1~exp1) UNRELEASED; urgency=medium
 
   * Update to 3.3.0.
   * Add Add img_hasn and traking modules to libopencv-contrib.
 
  -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Mon, 28 Aug 2017 08:09:26 +0900
+
+opencv (3.2.0+dfsg-1) unstable; urgency=medium
+
+  * Team upload.
+  * Upload to unstable.
+  * Bump Standards-Version to 4.1.1:
+    + Use HTTPS in debian/copyright's Format field.
+  * Use HTTPS for the Homepage URL.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Fri, 13 Oct 2017 19:32:01 +0200
 
 opencv (3.2.0+dfsg-1~exp2) experimental; urgency=medium
 
