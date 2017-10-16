@@ -74,24 +74,23 @@ override_dh_auto_clean:
 	dh_auto_clean -B $(BUILDDIR)
 	dh_auto_clean -B $(BUILDDIR)-static
 
+
 override_dh_auto_configure: configure_dyn configure_static
 configure_dyn:
 	dh_auto_configure -B $(BUILDDIR) \
 		-- $(CMAKE_FLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
 		-DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=ON
-
 configure_static:
 	dh_auto_configure -B $(BUILDDIR)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF
 
+
 override_dh_auto_build: build_dyn build_static
-	
 build_dyn:
 	dh_auto_build -B $(BUILDDIR)
 	dh_auto_build -B $(BUILDDIR) -- doxygen
-
 build_static:
 	dh_auto_build -B $(BUILDDIR)-static
 
