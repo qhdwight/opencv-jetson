@@ -1,3 +1,20 @@
+opencv (3.2.0+dfsg-2) unstable; urgency=medium
+
+  * Team upload.
+  * d/patches:
+    + support_x32 patch: drop, it actually did nothing useful.
+    + fix_ftbfs_on_non_linux: simplify patch, by removing several hunks no
+      longer needed.
+      Incidentally, this fixes the FTBFS in x32.  Closes: #878705
+  * d/rules:
+    + Enable DICOM support.  Closes: #843513
+    + tbb is now available in all linux archs, so enable it for all linux-any.
+    + Enable SSE and SSE2 on all architectures based on a amd64 cpu, not just
+      amd64 itself
+    + Use /usr/share/dpkg/architecture.mk instead of calling dpkg-architecture.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Mon, 16 Oct 2017 23:44:22 +0200
+
 opencv (3.2.0+dfsg-1) unstable; urgency=medium
 
   * Team upload.
