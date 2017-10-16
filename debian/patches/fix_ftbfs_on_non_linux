@@ -3,11 +3,9 @@ Forwarded: not yet
 Author: Pino Toscano <pino@debian.org>
 Last-Update: 2017-08-27
 
-diff --git a/modules/core/src/parallel.cpp b/modules/core/src/parallel.cpp
-index 53ebb4212e..0edef5b30e 100644
 --- a/modules/core/src/parallel.cpp
 +++ b/modules/core/src/parallel.cpp
-@@ -52,13 +52,13 @@
+@@ -52,7 +52,7 @@
      #undef abs
  #endif
  
@@ -16,14 +14,7 @@ index 53ebb4212e..0edef5b30e 100644
      #include <unistd.h>
      #include <stdio.h>
      #include <sys/types.h>
-     #if defined __ANDROID__
-         #include <sys/sysconf.h>
--    #elif defined __APPLE__
-+    #elif defined __APPLE__ || !defined __GNU__
-         #include <sys/sysctl.h>
-     #endif
- #endif
-@@ -644,7 +644,7 @@ int cv::getNumberOfCPUs(void)
+@@ -644,7 +644,7 @@
  #elif defined __ANDROID__
      static int ncpus = getNumberOfCPUsImpl();
      return ncpus;
@@ -32,11 +23,9 @@ index 53ebb4212e..0edef5b30e 100644
      return (int)sysconf( _SC_NPROCESSORS_ONLN );
  #elif defined __APPLE__
      int numCPU=0;
-diff --git a/modules/core/src/system.cpp b/modules/core/src/system.cpp
-index 3eeb5fe9ba..3d628cda3b 100644
 --- a/modules/core/src/system.cpp
 +++ b/modules/core/src/system.cpp
-@@ -202,12 +202,14 @@ std::wstring GetTempFileNameWinRT(std::wstring prefix)
+@@ -202,7 +202,7 @@
  #include "omp.h"
  #endif
  
@@ -45,10 +34,3 @@ index 3eeb5fe9ba..3d628cda3b 100644
  #include <unistd.h>
  #include <stdio.h>
  #include <sys/types.h>
- #if defined __ANDROID__
- #include <sys/sysconf.h>
-+#elif !defined __GNU__
-+#include <sys/sysctl.h>
- #endif
- #endif
- 

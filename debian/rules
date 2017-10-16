@@ -1,31 +1,22 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
-DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+include /usr/share/dpkg/architecture.mk
 
 BUILDDIR = obj-$(DEB_HOST_MULTIARCH)
 
 # SSE options
-ifeq ($(DEB_HOST_ARCH),amd64)
+ifeq ($(DEB_HOST_ARCH_CPU),amd64)
 CMAKE_ARCH_FLAGS = -DENABLE_MSSE=ON -DENABLE_MSSE2=ON -DENABLE_MSSE3=OFF
 else
 CMAKE_ARCH_FLAGS = -DENABLE_MSSE=OFF -DENABLE_MSSE2=OFF -DENABLE_MSSE3=OFF
 endif
 
-# TBB support
-ifneq (,$(findstring $(DEB_HOST_ARCH), i386 amd64 ia64 powerpc ppc64 ppc64el))
-CMAKE_ARCH_FLAGS += -DWITH_TBB=ON
-else
-CMAKE_ARCH_FLAGS += -DWITH_TBB=OFF
-endif
-
 # Linux-specific stuff
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-CMAKE_ARCH_FLAGS += -DWITH_1394=ON -DWITH_V4L=ON
+CMAKE_ARCH_FLAGS += -DWITH_1394=ON -DWITH_V4L=ON -DWITH_TBB=ON
 else
-CMAKE_ARCH_FLAGS += -DWITH_1394=OFF -DWITH_V4L=OFF
+CMAKE_ARCH_FLAGS += -DWITH_1394=OFF -DWITH_V4L=OFF -DWITH_TBB=OFF
 endif
 
 # For Java
@@ -55,6 +46,7 @@ CMAKE_FLAGS = \
 	-DWITH_EIGEN=ON \
 	-DWITH_VTK=ON \
 	-DWITH_GDAL=ON \
+	-DWITH_GDCM=ON \
 	-DWITH_XINE=OFF	\
 	-DWITH_IPP=OFF \
 	-DWITH_ITT=OFF \
@@ -74,16 +66,17 @@ CMAKE_FLAGS = \
 	dh $@ --with python2,python3,javahelper --parallel
 
 override_dh_clean:
-	rm -rf modules/python/src2/hdr_parser.pyc
-	rm -rf modules/java/generator/rst_parser.pyc
-	rm -rf modules/refman.rst
+	rm -rvf modules/python/src2/hdr_parser.pyc
+	rm -rvf modules/java/generator/rst_parser.pyc
+	rm -rvf modules/refman.rst
 
 	dh_clean
-	-rm -rf modules/python/src2/__pycache__
+	-rm -rvf modules/python/src2/__pycache__
 
 override_dh_auto_clean:
 	dh_auto_clean -B $(BUILDDIR)
 	dh_auto_clean -B $(BUILDDIR)-static
+
 
 override_dh_auto_configure: configure_dyn configure_static
 configure_dyn:
@@ -91,18 +84,16 @@ configure_dyn:
 		-- $(CMAKE_FLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
 		-DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=ON
-
 configure_static:
 	dh_auto_configure -B $(BUILDDIR)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF
 
+
 override_dh_auto_build: build_dyn build_static
-	
 build_dyn:
 	dh_auto_build -B $(BUILDDIR)
 	dh_auto_build -B $(BUILDDIR) -- doxygen
-
 build_static:
 	dh_auto_build -B $(BUILDDIR)-static
 
