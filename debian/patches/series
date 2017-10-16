@@ -1,6 +1,5 @@
 support_multiarch
 fix_ftbfs_on_non_linux
-support_x32
 disable_opengl_test_build
 mathjax
 change_jquery.js_path
