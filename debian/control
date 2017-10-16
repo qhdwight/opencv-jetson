@@ -292,6 +292,7 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
+ libgdcm2-dev [!hppa !m68k !powerpcspe !sh4],
  libopencv-imgcodecs3.2 (= ${binary:Version}),
  libopencv-imgproc-dev (= ${binary:Version}),
  ${misc:Depends},
