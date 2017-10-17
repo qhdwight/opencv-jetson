@@ -1,4 +1,4 @@
-opencv (3.2.0+dfsg-3) UNRELEASED; urgency=medium
+opencv (3.2.0+dfsg-3) unstable; urgency=medium
 
   * Team upload.
   * d/p/support_multiarch: forward the patch after a small edit.
@@ -6,11 +6,11 @@ opencv (3.2.0+dfsg-3) UNRELEASED; urgency=medium
     through cmake, and then forward the patch.
   * Despite tbb being available in all linux architectures, we need it in a
     version that is not available everywhere, so revert back to enabling it
-    only on a hand-picked list of architectures.
+    only on a hand-picked list of architectures.  Closes: #878830
   * d/control: work around #878878 in dbus by explictly adding dbus-x11 to
     build-deps for !linux.
 
- -- Mattia Rizzolo <mattia@debian.org>  Tue, 17 Oct 2017 16:20:10 +0200
+ -- Mattia Rizzolo <mattia@debian.org>  Tue, 17 Oct 2017 16:27:02 +0200
 
 opencv (3.2.0+dfsg-2) unstable; urgency=medium
 
