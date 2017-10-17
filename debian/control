@@ -33,7 +33,7 @@ Build-Depends:
  libprotobuf-dev,
  libraw1394-dev [linux-any],
  libswscale-dev,
- libtbb-dev [linux-any],
+ libtbb-dev [i386 amd64 ia64 powerpc ppc64 ppc64el],
  libtesseract-dev,
  libtiff-dev,
  libv4l-dev [linux-any],
@@ -156,7 +156,7 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core3.2 (= ${binary:Version}),
- libtbb-dev [linux-any],
+ libtbb-dev [i386 amd64 ia64 powerpc ppc64 ppc64el],
  zlib1g-dev,
  ${misc:Depends},
 Description: development files for libopencv-core3.2
