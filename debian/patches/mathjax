@@ -1,6 +1,8 @@
 Description: use system-installed mathjx instead of downloading from the net
 Forwarded: https://github.com/opencv/opencv/pull/9866
 
+--- a/doc/Doxyfile.in
++++ b/doc/Doxyfile.in
 @@ -174,7 +174,7 @@
  FORMULA_TRANSPARENT    = YES
  USE_MATHJAX            = YES
