@@ -8,6 +8,9 @@ Uploaders:
 Build-Depends:
  ant,
  cmake (>= 2.8.7),
+# specifically include dbus-x11 to temporary work around #878878
+# and allow apt on !linux to satisfy the build-deps
+ dbus-x11 [!linux-any],
  debhelper (>= 9),
  default-jdk,
  dh-python,
@@ -33,7 +36,7 @@ Build-Depends:
  libprotobuf-dev,
  libraw1394-dev [linux-any],
  libswscale-dev,
- libtbb-dev [linux-any],
+ libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 sh4 sparc64],
  libtesseract-dev,
  libtiff-dev,
  libv4l-dev [linux-any],
@@ -156,7 +159,7 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core3.3 (= ${binary:Version}),
- libtbb-dev [linux-any],
+ libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 sh4 sparc64],
  zlib1g-dev,
  ${misc:Depends},
 Description: development files for libopencv-core3.3

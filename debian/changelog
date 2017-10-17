@@ -5,6 +5,20 @@ opencv (3.3.0+dfsg-1~exp1) UNRELEASED; urgency=medium
 
  -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Mon, 28 Aug 2017 08:09:26 +0900
 
+opencv (3.2.0+dfsg-3) unstable; urgency=medium
+
+  * Team upload.
+  * d/p/support_multiarch: forward the patch after a small edit.
+  * d/p/mathjax: make the MATHJAX_RELPATH option configurable at build time
+    through cmake, and then forward the patch.
+  * Despite tbb being available in all linux architectures, we need it in a
+    version that is not available everywhere, so revert back to enabling it
+    only on a hand-picked list of architectures.  Closes: #878830
+  * d/control: work around #878878 in dbus by explictly adding dbus-x11 to
+    build-deps for !linux.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Tue, 17 Oct 2017 16:27:02 +0200
+
 opencv (3.2.0+dfsg-2) unstable; urgency=medium
 
   * Team upload.
