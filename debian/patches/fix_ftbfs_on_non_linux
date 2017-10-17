@@ -1,7 +1,6 @@
 Description: Fix FTBFS on non linux
-Forwarded: not yet
-Author: Pino Toscano <pino@debian.org>
-Last-Update: 2017-08-27
+Forwarded: https://github.com/opencv/opencv/pull/9877
+Last-Update: 2017-10-17
 
 --- a/modules/core/src/parallel.cpp
 +++ b/modules/core/src/parallel.cpp
