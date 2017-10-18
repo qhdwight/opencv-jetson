@@ -1,9 +1,27 @@
 opencv (3.3.0+dfsg-1~exp1) UNRELEASED; urgency=medium
 
-  * Update to 3.3.0.
-  * Add Add img_hasn and traking modules to libopencv-contrib.
+  * Team upload.
 
- -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Mon, 28 Aug 2017 08:09:26 +0900
+  [ Nobuhiro Iwamatsu ]
+  * Update to OpenCV 3.3.0.
+  * Refresh patches.
+    + Remove fix_VFP_asm patch, applied upstream.
+  * Disable ITT.
+  * Disable the dnn module through a CMake option instead of a patch.
+  * Disable the dnn_modern module.
+  * Add img_hasn and traking modules to libopencv-contrib.
+  * Remove valgrind.supp and valgrind_3rdparty.supp.
+
+  [ Mattia Rizzolo ]
+  * d/patches:
+    + Drop unused Don-t-check-sphinx-build-version.patch patch file.
+    + Forward fix_ftbfs_on_non_linux.
+  * d/rules:
+    + Handle CPU optimization the way OpenCV 3.3 expects us to.
+  * Bump debhelper compat level to 10.
+    + Drop dh --parallel option, now default.
+
+ -- Mattia Rizzolo <mattia@debian.org>  Wed, 18 Oct 2017 11:14:26 +0200
 
 opencv (3.2.0+dfsg-3) unstable; urgency=medium
 
