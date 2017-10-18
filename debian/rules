@@ -5,11 +5,22 @@ include /usr/share/dpkg/architecture.mk
 
 BUILDDIR = obj-$(DEB_HOST_MULTIARCH)
 
-# SSE options
+CMAKE_ARCH_FLAGS :=
+
+# Comply with Debian architectures baseline.
+# See cmake/OpenCVCompilerOptimizations.cmake for a list of known features.
+# Don't try to autodetect CPU features
+CMAKE_ARCH_FLAGS += -DCPU_DISPATCH=
 ifeq ($(DEB_HOST_ARCH_CPU),amd64)
-CMAKE_ARCH_FLAGS = -DENABLE_MSSE=ON -DENABLE_MSSE2=ON -DENABLE_MSSE3=OFF
-else
-CMAKE_ARCH_FLAGS = -DENABLE_MSSE=OFF -DENABLE_MSSE2=OFF -DENABLE_MSSE3=OFF
+ # Only SSE2 on amd64
+ CMAKE_ARCH_FLAGS += -DCPU_BASELINE=SSE2
+ CMAKE_ARCH_FLAGS += -DCPU_BASELINE_REQUIRE=SSE2
+ CMAKE_ARCH_FLAGS += -DCPU_BASELINE_DISABLE=SSE3
+else ifeq ($(DEB_HOST_ARCH_CPU),armhf)
+ CMAKE_ARCH_FLAGS += -DCPU_BASELINE_DISABLE="VFPV3 NEON"
+else ifeq ($(DEB_HOST_ARCH_CPU),i386)
+ # Be extra sure SSE is not picked up on i386
+ CMAKE_ARCH_FLAGS += -DCPU_BASELINE_DISABLE="SSE SSE2"
 endif
 
 # TBB support
