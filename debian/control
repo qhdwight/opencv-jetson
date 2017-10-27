@@ -1122,6 +1122,7 @@ Description: Java bindings for the computer vision library
  recognition, camera calibration and 3D reconstruction.
 
 Package: libopencv3.3-jni
+Section: java
 Architecture: any
 Depends:
  libopencv-calib3d3.3 (= ${binary:Version}),
