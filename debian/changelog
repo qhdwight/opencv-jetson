@@ -1,4 +1,4 @@
-opencv (3.3.0+dfsg-1~exp1) UNRELEASED; urgency=medium
+opencv (3.3.0+dfsg-1~exp0) experimental; urgency=medium
 
   * Team upload.
 
@@ -20,8 +20,14 @@ opencv (3.3.0+dfsg-1~exp1) UNRELEASED; urgency=medium
     + Handle CPU optimization the way OpenCV 3.3 expects us to.
   * Bump debhelper compat level to 10.
     + Drop dh --parallel option, now default.
+  * Drop unused lintian override debian-watch-file-should-mangle-version
+  * d/patches/fix_java_build.patch: add to fix FTBFS in certain conditions.
+  * d/control: place libopencv3.3-jni in section java.
+  * Install maven artifacts with maven-repo-helper so reverse dependencies can
+    automatically pick the dependency by using ${maven:Depends}.
+    Thanks to Gilles Filippini <pini@debian.org> for the patch. Closes: #878949
 
- -- Mattia Rizzolo <mattia@debian.org>  Wed, 18 Oct 2017 11:14:26 +0200
+ -- Mattia Rizzolo <mattia@debian.org>  Sun, 29 Oct 2017 15:59:18 +0100
 
 opencv (3.2.0+dfsg-3) unstable; urgency=medium
 
