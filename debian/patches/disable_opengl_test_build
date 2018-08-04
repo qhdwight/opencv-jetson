@@ -1,28 +1,27 @@
-From 1f29c0d25b2b105fec3f379955228f461330a4ea Mon Sep 17 00:00:00 2001
-From: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-Date: Tue, 29 Aug 2017 12:29:10 +0900
-Subject: [PATCH 2/4] Disale building opengl test
+From 4f0613a0badce78ba48ad2d40d83a142a8f0e55c Mon Sep 17 00:00:00 2001
+From: Nobuhiro Iwamatsu <iwamatsu@debian.org>
+Date: Sat, 4 Aug 2018 09:26:04 +0900
+Subject: [PATCH 1/2] Disale building opengl test
 
-Signed-off-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Signed-off-by: Nobuhiro Iwamatsu <iwamatsu@debian.org>
 ---
- samples/gpu/CMakeLists.txt | 4 ----
- 1 file changed, 4 deletions(-)
+ samples/gpu/CMakeLists.txt | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/samples/gpu/CMakeLists.txt b/samples/gpu/CMakeLists.txt
-index 0f734677be..505dc9b4e9 100644
+index 0a3a2d053..fe5657fed 100644
 --- a/samples/gpu/CMakeLists.txt
 +++ b/samples/gpu/CMakeLists.txt
-@@ -73,10 +73,6 @@ if(BUILD_EXAMPLES AND OCV_DEPENDENCIES_FOUND)
- 
-   file(GLOB all_samples RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
- 
--  if(NOT HAVE_OPENGL)
--    list(REMOVE_ITEM all_samples "opengl.cpp")
--  endif()
--
-   foreach(sample_filename ${all_samples})
-     get_filename_component(sample ${sample_filename} NAME_WE)
-     file(GLOB sample_srcs RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${sample}.*)
+@@ -47,9 +47,6 @@ if((CV_GCC OR CV_CLANG) AND NOT ENABLE_NOISY_WARNINGS)
+   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-unused-function")
+ endif()
+ file(GLOB all_samples RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
+-if(NOT HAVE_OPENGL)
+-  ocv_list_filterout(all_samples "opengl")
+-endif()
+ foreach(sample_filename ${all_samples})
+   ocv_define_sample(tgt ${sample_filename} gpu)
+   ocv_target_link_libraries(${tgt} ${OPENCV_LINKER_LIBS} ${OPENCV_CUDA_SAMPLES_REQUIRED_DEPS})
 -- 
-2.14.1
+2.18.0
 
