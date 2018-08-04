@@ -1,3 +1,2 @@
 disable_opengl_test_build
 change_jquery.js_path
-fix_java_build.patch
