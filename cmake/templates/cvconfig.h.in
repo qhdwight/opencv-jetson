@@ -105,9 +105,7 @@
 #cmakedefine HAVE_IPP
 #cmakedefine HAVE_IPP_ICV
 #cmakedefine HAVE_IPP_IW
-
-/* Intel IPP Async */
-#cmakedefine HAVE_IPP_A
+#cmakedefine HAVE_IPP_IW_LL
 
 /* JPEG-2000 codec */
 #cmakedefine HAVE_JASPER
@@ -244,5 +242,7 @@
 /* OpenCV trace utilities */
 #cmakedefine OPENCV_TRACE
 
+/* Library QR-code decoding */
+#cmakedefine HAVE_QUIRC
 
 #endif // OPENCV_CVCONFIG_H_INCLUDED

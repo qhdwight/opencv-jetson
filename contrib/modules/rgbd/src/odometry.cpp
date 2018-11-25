@@ -36,10 +36,19 @@
 #include "precomp.hpp"
 
 #if defined(HAVE_EIGEN) && EIGEN_WORLD_VERSION == 3
-#define HAVE_EIGEN3_HERE
-#include <Eigen/Core>
-#include <unsupported/Eigen/MatrixFunctions>
-#include <Eigen/Dense>
+#  define HAVE_EIGEN3_HERE
+#  if defined(_MSC_VER)
+#    pragma warning(push)
+#    pragma warning(disable:4701)  // potentially uninitialized local variable
+#    pragma warning(disable:4702)  // unreachable code
+#    pragma warning(disable:4714)  // const marked as __forceinline not inlined
+#  endif
+#  include <Eigen/Core>
+#  include <unsupported/Eigen/MatrixFunctions>
+#  include <Eigen/Dense>
+#  if defined(_MSC_VER)
+#    pragma warning(pop)
+#  endif
 #endif
 
 namespace cv
@@ -469,7 +478,7 @@ void computeCorresps(const Mat& K, const Mat& K_inv, const Mat& Rt,
     const double * Kt_ptr = Kt.ptr<const double>();
 
     AutoBuffer<float> buf(3 * (depth1.cols + depth1.rows));
-    float *KRK_inv0_u1 = buf;
+    float *KRK_inv0_u1 = buf.data();
     float *KRK_inv1_v1_plus_KRK_inv2 = KRK_inv0_u1 + depth1.cols;
     float *KRK_inv3_u1 = KRK_inv1_v1_plus_KRK_inv2 + depth1.rows;
     float *KRK_inv4_v1_plus_KRK_inv5 = KRK_inv3_u1 + depth1.cols;
@@ -647,7 +656,7 @@ void calcRgbdLsmMatrices(const Mat& image0, const Mat& cloud0, const Mat& Rt,
     const double * Rt_ptr = Rt.ptr<const double>();
 
     AutoBuffer<float> diffs(correspsCount);
-    float* diffs_ptr = diffs;
+    float* diffs_ptr = diffs.data();
 
     const Vec4i* corresps_ptr = corresps.ptr<Vec4i>();
 
@@ -720,10 +729,10 @@ void calcICPLsmMatrices(const Mat& cloud0, const Mat& Rt,
     const double * Rt_ptr = Rt.ptr<const double>();
 
     AutoBuffer<float> diffs(correspsCount);
-    float * diffs_ptr = diffs;
+    float * diffs_ptr = diffs.data();
 
     AutoBuffer<Point3f> transformedPoints0(correspsCount);
-    Point3f * tps0_ptr = transformedPoints0;
+    Point3f * tps0_ptr = transformedPoints0.data();
 
     const Vec4i* corresps_ptr = corresps.ptr<Vec4i>();
 

@@ -91,7 +91,7 @@ static bool pMFCreateDXGIDeviceManager_initialized = false;
 static FN_MFCreateDXGIDeviceManager pMFCreateDXGIDeviceManager = NULL;
 static void init_MFCreateDXGIDeviceManager()
 {
-    HMODULE h = LoadLibraryA("mfplat.dll");
+    HMODULE h = LoadLibraryExA("mfplat.dll", NULL, LOAD_LIBRARY_SEARCH_SYSTEM32);
     if (h)
     {
         pMFCreateDXGIDeviceManager = (FN_MFCreateDXGIDeviceManager)GetProcAddress(h, "MFCreateDXGIDeviceManager");
@@ -616,7 +616,7 @@ class SourceReaderCB : public IMFSourceReaderCallback
 {
 public:
     SourceReaderCB() :
-        m_nRefCount(1), m_hEvent(CreateEvent(NULL, FALSE, FALSE, NULL)), m_bEOS(FALSE), m_hrStatus(S_OK), m_dwStreamIndex(0)
+        m_nRefCount(0), m_hEvent(CreateEvent(NULL, FALSE, FALSE, NULL)), m_bEOS(FALSE), m_hrStatus(S_OK), m_reader(NULL), m_dwStreamIndex(0)
     {
     }
 
@@ -677,7 +677,7 @@ public:
     BOOL                m_bEOS;
     HRESULT             m_hrStatus;
 
-    _ComPtr<IMFSourceReader> m_reader;
+    IMFSourceReader *m_reader;
     DWORD m_dwStreamIndex;
     _ComPtr<IMFSample>  m_lastSample;
 };
@@ -701,7 +701,7 @@ public:
     virtual bool grabFrame() CV_OVERRIDE;
     virtual bool retrieveFrame(int, cv::OutputArray) CV_OVERRIDE;
     virtual bool isOpened() const CV_OVERRIDE { return isOpen; }
-    virtual int getCaptureDomain() CV_OVERRIDE { return CV_CAP_MSMF; } // Return the type of the capture object: CV_CAP_VFW, etc...
+    virtual int getCaptureDomain() CV_OVERRIDE { return CV_CAP_MSMF; }
 protected:
     double getFramerate(MediaType MT) const;
     bool configureOutput(UINT32 width, UINT32 height, double prefFramerate, UINT32 aspectRatioN, UINT32 aspectRatioD, int outFormat, bool convertToFormat);
@@ -1029,8 +1029,8 @@ bool CvCapture_MSMF::open(const cv::String& _filename)
             srAttr->SetUnknown(MF_SOURCE_READER_D3D_MANAGER, D3DMgr.Get());
 #endif
         cv::AutoBuffer<wchar_t> unicodeFileName(_filename.length() + 1);
-        MultiByteToWideChar(CP_ACP, 0, _filename.c_str(), -1, unicodeFileName, (int)_filename.length() + 1);
-        if (SUCCEEDED(MFCreateSourceReaderFromURL(unicodeFileName, srAttr.Get(), &videoFileSource)))
+        MultiByteToWideChar(CP_ACP, 0, _filename.c_str(), -1, unicodeFileName.data(), (int)_filename.length() + 1);
+        if (SUCCEEDED(MFCreateSourceReaderFromURL(unicodeFileName.data(), srAttr.Get(), &videoFileSource)))
         {
             isOpen = true;
             sampleTime = 0;
@@ -1140,7 +1140,7 @@ bool CvCapture_MSMF::grabFrame()
         if (!reader->m_reader)
         {
             // Initiate capturing with async callback
-            reader->m_reader = videoFileSource;
+            reader->m_reader = videoFileSource.Get();
             reader->m_dwStreamIndex = dwStreamIndex;
             if (FAILED(hr = videoFileSource->ReadSample(dwStreamIndex, 0, NULL, NULL, NULL, NULL)))
             {
@@ -1720,7 +1720,7 @@ bool CvCapture_MSMF::setProperty( int property_id, double value )
                 return setTime(duration * value, true);
             break;
         case CV_CAP_PROP_POS_FRAMES:
-            if (getFramerate(nativeFormat) != 0)
+            if (std::fabs(getFramerate(nativeFormat)) > 0)
                 return setTime(value  * 1e7 / getFramerate(nativeFormat), false);
             break;
         case CV_CAP_PROP_POS_MSEC:
@@ -1955,6 +1955,7 @@ public:
     virtual bool setProperty(int, double) { return false; }
     virtual bool isOpened() const { return initiated; }
 
+    int getCaptureDomain() const CV_OVERRIDE { return cv::CAP_MSMF; }
 private:
     Media_Foundation& MF;
     UINT32 videoWidth;
@@ -1978,7 +1979,17 @@ private:
 
 CvVideoWriter_MSMF::CvVideoWriter_MSMF():
     MF(Media_Foundation::getInstance()),
-    initiated(false)
+    videoWidth(0),
+    videoHeight(0),
+    fps(0),
+    bitRate(0),
+    frameSize(0),
+    encodingFormat(),
+    inputFormat(),
+    streamIndex(0),
+    initiated(false),
+    rtStart(0),
+    rtDuration(0)
 {
 }
 
@@ -2081,8 +2092,8 @@ bool CvVideoWriter_MSMF::open( const cv::String& filename, int fourcc,
     {
         // Create the sink writer
         cv::AutoBuffer<wchar_t> unicodeFileName(filename.length() + 1);
-        MultiByteToWideChar(CP_ACP, 0, filename.c_str(), -1, unicodeFileName, (int)filename.length() + 1);
-        HRESULT hr = MFCreateSinkWriterFromURL(unicodeFileName, NULL, spAttr.Get(), &sinkWriter);
+        MultiByteToWideChar(CP_ACP, 0, filename.c_str(), -1, unicodeFileName.data(), (int)filename.length() + 1);
+        HRESULT hr = MFCreateSinkWriterFromURL(unicodeFileName.data(), NULL, spAttr.Get(), &sinkWriter);
         if (SUCCEEDED(hr))
         {
             // Configure the sink writer and tell it start to start accepting data

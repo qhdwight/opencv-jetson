@@ -24,24 +24,28 @@ enum SceneSettings
     SCENE_INTERACTIVE = 2,
     /// draw coordinate system crosses for debugging
     SCENE_SHOW_CS_CROSS = 4,
-    /// @ref WindowScene::getScreenshot returns images as CV_32FC4 instead of CV_8UC3
-    SCENE_RENDER_FLOAT = 8,
     /// Apply anti-aliasing. The first window determines the setting for all windows.
-    SCENE_AA = 16
+    SCENE_AA = 8
 };
 
 enum MaterialProperty
 {
     MATERIAL_POINT_SIZE,
+    MATERIAL_LINE_WIDTH,
     MATERIAL_OPACITY,
     MATERIAL_EMISSIVE,
-    MATERIAL_TEXTURE
+    MATERIAL_TEXTURE0,
+    MATERIAL_TEXTURE = MATERIAL_TEXTURE0,
+    MATERIAL_TEXTURE1,
+    MATERIAL_TEXTURE2,
+    MATERIAL_TEXTURE3,
 };
 
 enum EntityProperty
 {
     ENTITY_MATERIAL,
     ENTITY_SCALE,
+    ENTITY_AABB_WORLD
 };
 
 /**
@@ -104,6 +108,14 @@ public:
     CV_WRAP virtual void setEntityProperty(const String& name, int prop, const String& value) = 0;
 
     /**
+     * get the property of an entity
+     * @param name entity name
+     * @param prop @ref EntityProperty
+     * @param value the value
+     */
+    CV_WRAP virtual void getEntityProperty(const String& name, int prop, OutputArray value) = 0;
+
+    /**
      * convenience method to visualize a camera position
      *
      * the entity uses a material with the same name that can be used to change the line color.
@@ -158,6 +170,16 @@ public:
     CV_WRAP virtual void getScreenshot(OutputArray frame) = 0;
 
     /**
+     * read back the texture of an active compositor
+     * @param compname name of the compositor
+     * @param texname name of the texture inside the compositor
+     * @param mrtIndex if texture is a MRT, specifies the attachment
+     * @param out the texture contents
+     */
+    CV_WRAP virtual void getCompositorTexture(const String& compname, const String& texname,
+                                              OutputArray out, int mrtIndex = 0) = 0;
+
+    /**
      * get the depth for the current frame.
      *
      * return the per pixel distance to the camera in world units
@@ -200,10 +222,16 @@ public:
 
     /**
      * set intrinsics of the camera
-     * @param K intrinsic matrix
+     *
+     * @param K intrinsic matrix or noArray(). If noArray() is specified, imsize
+     * is ignored and zNear/ zFar can be set separately.
      * @param imsize image size
+     * @param zNear near clip distance or -1 to keep the current
+     * @param zFar  far clip distance or -1 to keep the current
      */
-    CV_WRAP virtual void setCameraIntrinsics(InputArray K, const Size& imsize) = 0;
+    CV_WRAP virtual void setCameraIntrinsics(InputArray K, const Size& imsize,
+                                             float zNear = -1,
+                                             float zFar = -1) = 0;
 };
 
 /**
@@ -281,6 +309,15 @@ CV_EXPORTS_W void createPointCloudMesh(const String& name, InputArray vertices, 
  * @param segments number of segments per side
  */
 CV_EXPORTS_W void createGridMesh(const String& name, const Size2f& size, const Size& segments = Size(1, 1));
+
+/**
+ * updates an existing texture
+ *
+ * A new texture can be created with @ref createPlaneMesh
+ * @param name name of the texture
+ * @param image the image data
+ */
+CV_EXPORTS_W void updateTexture(const String& name, InputArray image);
 //! @}
 }
 }

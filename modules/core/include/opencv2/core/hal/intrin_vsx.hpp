@@ -249,6 +249,10 @@ inline void v_store(_Tp* ptr, const _Tpvec& a)                              \
 { st(a.val, 0, ptr); }                                                      \
 inline void v_store_aligned(VSX_UNUSED(_Tp* ptr), const _Tpvec& a)          \
 { st_a(a.val, 0, ptr); }                                                    \
+inline void v_store_aligned_nocache(VSX_UNUSED(_Tp* ptr), const _Tpvec& a)  \
+{ st_a(a.val, 0, ptr); }                                                    \
+inline void v_store(_Tp* ptr, const _Tpvec& a, hal::StoreMode mode)         \
+{ if(mode == hal::STORE_UNALIGNED) st(a.val, 0, ptr); else st_a(a.val, 0, ptr); } \
 inline void v_store_low(_Tp* ptr, const _Tpvec& a)                          \
 { vec_st_l8(a.val, ptr); }                                                  \
 inline void v_store_high(_Tp* ptr, const _Tpvec& a)                         \
@@ -281,13 +285,16 @@ inline void v_load_deinterleave(const _Tp* ptr, _Tpvec& a,                   \
 inline void v_load_deinterleave(const _Tp* ptr, _Tpvec& a, _Tpvec& b,        \
                                                 _Tpvec& c, _Tpvec& d)        \
 { vec_ld_deinterleave(ptr, a.val, b.val, c.val, d.val); }                    \
-inline void v_store_interleave(_Tp* ptr, const _Tpvec& a, const _Tpvec& b)   \
+inline void v_store_interleave(_Tp* ptr, const _Tpvec& a, const _Tpvec& b,   \
+                               hal::StoreMode /*mode*/=hal::STORE_UNALIGNED) \
 { vec_st_interleave(a.val, b.val, ptr); }                                    \
 inline void v_store_interleave(_Tp* ptr, const _Tpvec& a,                    \
-                               const _Tpvec& b, const _Tpvec& c)             \
+                               const _Tpvec& b, const _Tpvec& c,             \
+                               hal::StoreMode /*mode*/=hal::STORE_UNALIGNED) \
 { vec_st_interleave(a.val, b.val, c.val, ptr); }                             \
 inline void v_store_interleave(_Tp* ptr, const _Tpvec& a, const _Tpvec& b,   \
-                                         const _Tpvec& c, const _Tpvec& d)   \
+                                         const _Tpvec& c, const _Tpvec& d,   \
+                               hal::StoreMode /*mode*/=hal::STORE_UNALIGNED) \
 { vec_st_interleave(a.val, b.val, c.val, d.val, ptr); }
 
 OPENCV_HAL_IMPL_VSX_INTERLEAVE(uchar, v_uint8x16)
@@ -298,6 +305,8 @@ OPENCV_HAL_IMPL_VSX_INTERLEAVE(uint, v_uint32x4)
 OPENCV_HAL_IMPL_VSX_INTERLEAVE(int, v_int32x4)
 OPENCV_HAL_IMPL_VSX_INTERLEAVE(float, v_float32x4)
 OPENCV_HAL_IMPL_VSX_INTERLEAVE(double, v_float64x2)
+OPENCV_HAL_IMPL_VSX_INTERLEAVE(int64, v_int64x2)
+OPENCV_HAL_IMPL_VSX_INTERLEAVE(uint64, v_uint64x2)
 
 /* Expand */
 #define OPENCV_HAL_IMPL_VSX_EXPAND(_Tpvec, _Tpwvec, _Tp, fl, fh)  \
@@ -306,6 +315,10 @@ inline void v_expand(const _Tpvec& a, _Tpwvec& b0, _Tpwvec& b1)   \
     b0.val = fh(a.val);                                           \
     b1.val = fl(a.val);                                           \
 }                                                                 \
+inline _Tpwvec v_expand_low(const _Tpvec& a)                      \
+{ return _Tpwvec(fh(a.val)); }                                    \
+inline _Tpwvec v_expand_high(const _Tpvec& a)                     \
+{ return _Tpwvec(fl(a.val)); }                                    \
 inline _Tpwvec v_load_expand(const _Tp* ptr)                      \
 { return _Tpwvec(fh(vec_ld_l8(ptr))); }
 
@@ -370,6 +383,35 @@ OPENCV_HAL_IMPL_VSX_PACK(v_uint16x8, ushort, v_int32x4, unsigned int, int,
 //OPENCV_HAL_IMPL_VSX_PACK(v_uint32x4, uint, v_int64x2, unsigned long long, long long,
 //                         vec_sra, vec_packsu, vec_add, pack_u)
 
+// pack boolean
+inline v_uint8x16 v_pack_b(const v_uint16x8& a, const v_uint16x8& b)
+{
+    vec_uchar16 ab = vec_pack(a.val, b.val);
+    return v_uint8x16(ab);
+}
+
+inline v_uint8x16 v_pack_b(const v_uint32x4& a, const v_uint32x4& b,
+                           const v_uint32x4& c, const v_uint32x4& d)
+{
+    vec_ushort8 ab = vec_pack(a.val, b.val);
+    vec_ushort8 cd = vec_pack(c.val, d.val);
+    return v_uint8x16(vec_pack(ab, cd));
+}
+
+inline v_uint8x16 v_pack_b(const v_uint64x2& a, const v_uint64x2& b, const v_uint64x2& c,
+                           const v_uint64x2& d, const v_uint64x2& e, const v_uint64x2& f,
+                           const v_uint64x2& g, const v_uint64x2& h)
+{
+    vec_uint4 ab = vec_pack(a.val, b.val);
+    vec_uint4 cd = vec_pack(c.val, d.val);
+    vec_uint4 ef = vec_pack(e.val, f.val);
+    vec_uint4 gh = vec_pack(g.val, h.val);
+
+    vec_ushort8 abcd = vec_pack(ab, cd);
+    vec_ushort8 efgh = vec_pack(ef, gh);
+    return v_uint8x16(vec_pack(abcd, efgh));
+}
+
 /* Recombine */
 template <typename _Tpvec>
 inline void v_zip(const _Tpvec& a0, const _Tpvec& a1, _Tpvec& b0, _Tpvec& b1)
@@ -409,10 +451,8 @@ OPENCV_HAL_IMPL_VSX_BIN_OP(+, v_int8x16,  vec_adds)
 OPENCV_HAL_IMPL_VSX_BIN_OP(-, v_int8x16, vec_subs)
 OPENCV_HAL_IMPL_VSX_BIN_OP(+, v_uint16x8, vec_adds)
 OPENCV_HAL_IMPL_VSX_BIN_OP(-, v_uint16x8, vec_subs)
-OPENCV_HAL_IMPL_VSX_BIN_OP(*, v_uint16x8, vec_mul)
 OPENCV_HAL_IMPL_VSX_BIN_OP(+, v_int16x8, vec_adds)
 OPENCV_HAL_IMPL_VSX_BIN_OP(-, v_int16x8, vec_subs)
-OPENCV_HAL_IMPL_VSX_BIN_OP(*, v_int16x8, vec_mul)
 OPENCV_HAL_IMPL_VSX_BIN_OP(+, v_uint32x4, vec_add)
 OPENCV_HAL_IMPL_VSX_BIN_OP(-, v_uint32x4, vec_sub)
 OPENCV_HAL_IMPL_VSX_BIN_OP(*, v_uint32x4, vec_mul)
@@ -432,20 +472,49 @@ OPENCV_HAL_IMPL_VSX_BIN_OP(-, v_uint64x2, vec_sub)
 OPENCV_HAL_IMPL_VSX_BIN_OP(+, v_int64x2, vec_add)
 OPENCV_HAL_IMPL_VSX_BIN_OP(-, v_int64x2, vec_sub)
 
-inline void v_mul_expand(const v_int16x8& a, const v_int16x8& b, v_int32x4& c, v_int32x4& d)
+// saturating multiply
+#define OPENCV_HAL_IMPL_VSX_MUL_SAT(_Tpvec, _Tpwvec)             \
+    inline _Tpvec operator * (const _Tpvec& a, const _Tpvec& b)  \
+    {                                                            \
+        _Tpwvec c, d;                                            \
+        v_mul_expand(a, b, c, d);                                \
+        return v_pack(c, d);                                     \
+    }                                                            \
+    inline _Tpvec& operator *= (_Tpvec& a, const _Tpvec& b)      \
+    { a = a * b; return a; }
+
+OPENCV_HAL_IMPL_VSX_MUL_SAT(v_int8x16,  v_int16x8)
+OPENCV_HAL_IMPL_VSX_MUL_SAT(v_uint8x16, v_uint16x8)
+OPENCV_HAL_IMPL_VSX_MUL_SAT(v_int16x8,  v_int32x4)
+OPENCV_HAL_IMPL_VSX_MUL_SAT(v_uint16x8, v_uint32x4)
+
+template<typename Tvec, typename Twvec>
+inline void v_mul_expand(const Tvec& a, const Tvec& b, Twvec& c, Twvec& d)
 {
-    c.val = vec_mul(vec_unpackh(a.val), vec_unpackh(b.val));
-    d.val = vec_mul(vec_unpackl(a.val), vec_unpackl(b.val));
+    Twvec p0 = Twvec(vec_mule(a.val, b.val));
+    Twvec p1 = Twvec(vec_mulo(a.val, b.val));
+    v_zip(p0, p1, c, d);
 }
-inline void v_mul_expand(const v_uint16x8& a, const v_uint16x8& b, v_uint32x4& c, v_uint32x4& d)
-{
-    c.val = vec_mul(vec_unpackhu(a.val), vec_unpackhu(b.val));
-    d.val = vec_mul(vec_unpacklu(a.val), vec_unpacklu(b.val));
-}
+
 inline void v_mul_expand(const v_uint32x4& a, const v_uint32x4& b, v_uint64x2& c, v_uint64x2& d)
 {
     c.val = vec_mul(vec_unpackhu(a.val), vec_unpackhu(b.val));
     d.val = vec_mul(vec_unpacklu(a.val), vec_unpacklu(b.val));
+}
+
+inline v_int16x8 v_mul_hi(const v_int16x8& a, const v_int16x8& b)
+{
+    vec_int4 p0 = vec_mule(a.val, b.val);
+    vec_int4 p1 = vec_mulo(a.val, b.val);
+    static const vec_uchar16 perm = {2, 3, 18, 19, 6, 7, 22, 23, 10, 11, 26, 27, 14, 15, 30, 31};
+    return v_int16x8(vec_perm(vec_short8_c(p0), vec_short8_c(p1), perm));
+}
+inline v_uint16x8 v_mul_hi(const v_uint16x8& a, const v_uint16x8& b)
+{
+    vec_uint4 p0 = vec_mule(a.val, b.val);
+    vec_uint4 p1 = vec_mulo(a.val, b.val);
+    static const vec_uchar16 perm = {2, 3, 18, 19, 6, 7, 22, 23, 10, 11, 26, 27, 14, 15, 30, 31};
+    return v_uint16x8(vec_perm(vec_ushort8_c(p0), vec_ushort8_c(p1), perm));
 }
 
 /** Non-saturating arithmetics **/
@@ -456,6 +525,7 @@ inline _Tpvec func(const _Tpvec& a, const _Tpvec& b)  \
 
 OPENCV_HAL_IMPL_VSX_BIN_FUNC(v_add_wrap, vec_add)
 OPENCV_HAL_IMPL_VSX_BIN_FUNC(v_sub_wrap, vec_sub)
+OPENCV_HAL_IMPL_VSX_BIN_FUNC(v_mul_wrap, vec_mul)
 
 /** Bitwise shifts **/
 #define OPENCV_HAL_IMPL_VSX_SHIFT_OP(_Tpvec, shr, splfunc)   \
@@ -764,6 +834,8 @@ inline _Tpvec v_magnitude(const _Tpvec& a, const _Tpvec& b)                 \
 { return _Tpvec(vec_sqrt(vec_madd(a.val, a.val, vec_mul(b.val, b.val)))); } \
 inline _Tpvec v_sqr_magnitude(const _Tpvec& a, const _Tpvec& b)             \
 { return _Tpvec(vec_madd(a.val, a.val, vec_mul(b.val, b.val))); }           \
+inline _Tpvec v_fma(const _Tpvec& a, const _Tpvec& b, const _Tpvec& c)      \
+{ return _Tpvec(vec_madd(a.val, b.val, c.val)); }                           \
 inline _Tpvec v_muladd(const _Tpvec& a, const _Tpvec& b, const _Tpvec& c)   \
 { return _Tpvec(vec_madd(a.val, b.val, c.val)); }
 
@@ -791,25 +863,39 @@ inline v_float32x4 v_abs(const v_float32x4& x)
 inline v_float64x2 v_abs(const v_float64x2& x)
 { return v_float64x2(vec_abs(x.val)); }
 
+/** Absolute difference **/
+// unsigned
 OPENCV_HAL_IMPL_VSX_BIN_FUNC(v_absdiff, vec_absd)
 
-#define OPENCV_HAL_IMPL_VSX_BIN_FUNC2(_Tpvec, _Tpvec2, cast, func, intrin)  \
-inline _Tpvec2 func(const _Tpvec& a, const _Tpvec& b)                       \
-{ return _Tpvec2(cast(intrin(a.val, b.val))); }
+inline v_uint8x16 v_absdiff(const v_int8x16& a, const v_int8x16& b)
+{ return v_reinterpret_as_u8(v_sub_wrap(v_max(a, b), v_min(a, b))); }
+inline v_uint16x8 v_absdiff(const v_int16x8& a, const v_int16x8& b)
+{ return v_reinterpret_as_u16(v_sub_wrap(v_max(a, b), v_min(a, b))); }
+inline v_uint32x4 v_absdiff(const v_int32x4& a, const v_int32x4& b)
+{ return v_reinterpret_as_u32(v_max(a, b) - v_min(a, b)); }
 
-OPENCV_HAL_IMPL_VSX_BIN_FUNC2(v_int8x16, v_uint8x16, vec_uchar16_c, v_absdiff, vec_absd)
-OPENCV_HAL_IMPL_VSX_BIN_FUNC2(v_int16x8, v_uint16x8, vec_ushort8_c, v_absdiff, vec_absd)
-OPENCV_HAL_IMPL_VSX_BIN_FUNC2(v_int32x4, v_uint32x4, vec_uint4_c, v_absdiff, vec_absd)
-OPENCV_HAL_IMPL_VSX_BIN_FUNC2(v_int64x2, v_uint64x2, vec_udword2_c, v_absdiff, vec_absd)
+inline v_float32x4 v_absdiff(const v_float32x4& a, const v_float32x4& b)
+{ return v_abs(a - b); }
+inline v_float64x2 v_absdiff(const v_float64x2& a, const v_float64x2& b)
+{ return v_abs(a - b); }
+
+/** Absolute difference for signed integers **/
+inline v_int8x16 v_absdiffs(const v_int8x16& a, const v_int8x16& b)
+{ return v_int8x16(vec_abss(vec_subs(a.val, b.val))); }
+inline v_int16x8 v_absdiffs(const v_int16x8& a, const v_int16x8& b)
+{ return v_int16x8(vec_abss(vec_subs(a.val, b.val))); }
 
 ////////// Conversions /////////
 
 /** Rounding **/
 inline v_int32x4 v_round(const v_float32x4& a)
-{ return v_int32x4(vec_cts(vec_round(a.val))); }
+{ return v_int32x4(vec_cts(vec_rint(a.val))); }
 
 inline v_int32x4 v_round(const v_float64x2& a)
-{ return v_int32x4(vec_mergesqo(vec_ctso(vec_round(a.val)), vec_int4_z)); }
+{ return v_int32x4(vec_mergesqo(vec_ctso(vec_rint(a.val)), vec_int4_z)); }
+
+inline v_int32x4 v_round(const v_float64x2& a, const v_float64x2& b)
+{ return v_int32x4(vec_mergesqo(vec_ctso(vec_rint(a.val)), vec_ctso(vec_rint(b.val)))); }
 
 inline v_int32x4 v_floor(const v_float32x4& a)
 { return v_int32x4(vec_cts(vec_floor(a.val))); }
@@ -836,6 +922,9 @@ inline v_float32x4 v_cvt_f32(const v_int32x4& a)
 inline v_float32x4 v_cvt_f32(const v_float64x2& a)
 { return v_float32x4(vec_mergesqo(vec_cvfo(a.val), vec_float4_z)); }
 
+inline v_float32x4 v_cvt_f32(const v_float64x2& a, const v_float64x2& b)
+{ return v_float32x4(vec_mergesqo(vec_cvfo(a.val), vec_cvfo(b.val))); }
+
 inline v_float64x2 v_cvt_f64(const v_int32x4& a)
 { return v_float64x2(vec_ctdo(vec_mergeh(a.val, a.val))); }
 
@@ -847,6 +936,66 @@ inline v_float64x2 v_cvt_f64(const v_float32x4& a)
 
 inline v_float64x2 v_cvt_f64_high(const v_float32x4& a)
 { return v_float64x2(vec_cvfo(vec_mergel(a.val, a.val))); }
+
+////////////// Lookup table access ////////////////////
+
+inline v_int32x4 v_lut(const int* tab, const v_int32x4& idxvec)
+{
+    int CV_DECL_ALIGNED(32) idx[4];
+    v_store_aligned(idx, idxvec);
+    return v_int32x4(tab[idx[0]], tab[idx[1]], tab[idx[2]], tab[idx[3]]);
+}
+
+inline v_float32x4 v_lut(const float* tab, const v_int32x4& idxvec)
+{
+    int CV_DECL_ALIGNED(32) idx[4];
+    v_store_aligned(idx, idxvec);
+    return v_float32x4(tab[idx[0]], tab[idx[1]], tab[idx[2]], tab[idx[3]]);
+}
+
+inline v_float64x2 v_lut(const double* tab, const v_int32x4& idxvec)
+{
+    int CV_DECL_ALIGNED(32) idx[4];
+    v_store_aligned(idx, idxvec);
+    return v_float64x2(tab[idx[0]], tab[idx[1]]);
+}
+
+inline void v_lut_deinterleave(const float* tab, const v_int32x4& idxvec, v_float32x4& x, v_float32x4& y)
+{
+    int CV_DECL_ALIGNED(32) idx[4];
+    v_store_aligned(idx, idxvec);
+    x = v_float32x4(tab[idx[0]], tab[idx[1]], tab[idx[2]], tab[idx[3]]);
+    y = v_float32x4(tab[idx[0]+1], tab[idx[1]+1], tab[idx[2]+1], tab[idx[3]+1]);
+}
+
+inline void v_lut_deinterleave(const double* tab, const v_int32x4& idxvec, v_float64x2& x, v_float64x2& y)
+{
+    int CV_DECL_ALIGNED(32) idx[4];
+    v_store_aligned(idx, idxvec);
+    x = v_float64x2(tab[idx[0]], tab[idx[1]]);
+    y = v_float64x2(tab[idx[0]+1], tab[idx[1]+1]);
+}
+
+/////// FP16 support ////////
+
+// [TODO] implement these 2 using VSX or universal intrinsics (copy from intrin_sse.cpp and adopt)
+inline v_float32x4 v_load_expand(const float16_t* ptr)
+{
+    return v_float32x4((float)ptr[0], (float)ptr[1], (float)ptr[2], (float)ptr[3]);
+}
+
+inline void v_pack_store(float16_t* ptr, const v_float32x4& v)
+{
+    float CV_DECL_ALIGNED(32) f[4];
+    v_store_aligned(f, v);
+    ptr[0] = float16_t(f[0]);
+    ptr[1] = float16_t(f[1]);
+    ptr[2] = float16_t(f[2]);
+    ptr[3] = float16_t(f[3]);
+}
+
+inline void v_cleanup() {}
+
 
 /** Reinterpret **/
 /** its up there with load and store operations **/

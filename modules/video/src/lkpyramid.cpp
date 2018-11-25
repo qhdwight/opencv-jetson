@@ -67,7 +67,7 @@ static void calcSharrDeriv(const cv::Mat& src, cv::Mat& dst)
 
     int x, y, delta = (int)alignSize((cols + 2)*cn, 16);
     AutoBuffer<deriv_type> _tempBuf(delta*2 + 64);
-    deriv_type *trow0 = alignPtr(_tempBuf + cn, 16), *trow1 = alignPtr(trow0 + delta, 16);
+    deriv_type *trow0 = alignPtr(_tempBuf.data() + cn, 16), *trow1 = alignPtr(trow0 + delta, 16);
 
 #if CV_SIMD128
     v_int16x8 c3 = v_setall_s16(3), c10 = v_setall_s16(10);
@@ -93,7 +93,7 @@ static void calcSharrDeriv(const cv::Mat& src, cv::Mat& dst)
                 v_int16x8 s2 = v_reinterpret_as_s16(v_load_expand(srow2 + x));
 
                 v_int16x8 t1 = s2 - s0;
-                v_int16x8 t0 = (s0 + s2) * c3 + s1 * c10;
+                v_int16x8 t0 = v_mul_wrap(s0 + s2, c3) + v_mul_wrap(s1, c10);
 
                 v_store(trow0 + x, t0);
                 v_store(trow1 + x, t1);
@@ -131,7 +131,7 @@ static void calcSharrDeriv(const cv::Mat& src, cv::Mat& dst)
                 v_int16x8 s4 = v_load(trow1 + x + cn);
 
                 v_int16x8 t0 = s1 - s0;
-                v_int16x8 t1 = ((s2 + s4) * c3) + (s3 * c10);
+                v_int16x8 t1 = v_mul_wrap(s2 + s4, c3) + v_mul_wrap(s3, c10);
 
                 v_store_interleave((drow + x*2), t0, t1);
             }
@@ -180,7 +180,7 @@ typedef float itemtype;
 
 void cv::detail::LKTrackerInvoker::operator()(const Range& range) const
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     Point2f halfWin((winSize.width-1)*0.5f, (winSize.height-1)*0.5f);
     const Mat& I = *prevImg;
@@ -191,8 +191,8 @@ void cv::detail::LKTrackerInvoker::operator()(const Range& range) const
     cv::AutoBuffer<deriv_type> _buf(winSize.area()*(cn + cn2));
     int derivDepth = DataType<deriv_type>::depth;
 
-    Mat IWinBuf(winSize, CV_MAKETYPE(derivDepth, cn), (deriv_type*)_buf);
-    Mat derivIWinBuf(winSize, CV_MAKETYPE(derivDepth, cn2), (deriv_type*)_buf + winSize.area()*cn);
+    Mat IWinBuf(winSize, CV_MAKETYPE(derivDepth, cn), _buf.data());
+    Mat derivIWinBuf(winSize, CV_MAKETYPE(derivDepth, cn2), _buf.data() + winSize.area()*cn);
 
     for( int ptidx = range.start; ptidx < range.end; ptidx++ )
     {
@@ -700,7 +700,7 @@ void cv::detail::LKTrackerInvoker::operator()(const Range& range) const
 int cv::buildOpticalFlowPyramid(InputArray _img, OutputArrayOfArrays pyramid, Size winSize, int maxLevel, bool withDerivatives,
                                 int pyrBorder, int derivBorder, bool tryReuseInputImage)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     Mat img = _img.getMat();
     CV_Assert(img.depth() == CV_8U && winSize.width > 2 && winSize.height > 2 );
@@ -814,7 +814,7 @@ namespace
                          double minEigThreshold_ = 1e-4) :
           winSize(winSize_), maxLevel(maxLevel_), criteria(criteria_), flags(flags_), minEigThreshold(minEigThreshold_)
 #ifdef HAVE_OPENCL
-          , iters(criteria_.maxCount), derivLambda(criteria_.epsilon), useInitialFlow(0 != (flags_ & OPTFLOW_LK_GET_MIN_EIGENVALS)), waveSize(0)
+          , iters(criteria_.maxCount), derivLambda(criteria_.epsilon), useInitialFlow(0 != (flags_ & OPTFLOW_LK_GET_MIN_EIGENVALS))
 #endif
         {
         }
@@ -855,8 +855,6 @@ namespace
                 return false;
             calcPatchSize();
             if (patch.x <= 0 || patch.x >= 6 || patch.y <= 0 || patch.y >= 6)
-                return false;
-            if (!initWaveSize())
                 return false;
             return true;
         }
@@ -926,19 +924,6 @@ namespace
         int iters;
         double derivLambda;
         bool useInitialFlow;
-        int waveSize;
-        bool initWaveSize()
-        {
-            waveSize = 1;
-            if (isDeviceCPU())
-                return true;
-
-            ocl::Kernel kernel;
-            if (!kernel.create("lkSparse", cv::ocl::video::pyrlk_oclsrc, ""))
-                return false;
-            waveSize = (int)kernel.preferedWorkGroupSizeMultiple();
-            return true;
-        }
         dim3 patch;
         void calcPatchSize()
         {
@@ -977,8 +962,8 @@ namespace
             if (isDeviceCPU())
                 build_options = " -D CPU";
             else
-                build_options = cv::format("-D WAVE_SIZE=%d -D WSX=%d -D WSY=%d",
-                                           waveSize, wsx, wsy);
+                build_options = cv::format("-D WSX=%d -D WSY=%d",
+                                           wsx, wsy);
 
             ocl::Kernel kernel;
             if (!kernel.create("lkSparse", cv::ocl::video::pyrlk_oclsrc, build_options))
@@ -1064,7 +1049,9 @@ namespace
         _status.create((int)npoints, 1, CV_8UC1);
         UMat umatNextPts = _nextPts.getUMat();
         UMat umatStatus = _status.getUMat();
-        return sparse(_prevImg.getUMat(), _nextImg.getUMat(), _prevPts.getUMat(), umatNextPts, umatStatus, umatErr);
+        UMat umatPrevPts;
+        _prevPts.getMat().copyTo(umatPrevPts);
+        return sparse(_prevImg.getUMat(), _nextImg.getUMat(), umatPrevPts, umatNextPts, umatStatus, umatErr);
     }
 #endif
 
@@ -1204,11 +1191,11 @@ namespace
         prevImg.swapHandle(); nextImg.swapHandle();
 #endif
         }
-        catch (RuntimeError & e)
+        catch (const RuntimeError & e)
         {
             VX_DbgThrow(e.what());
         }
-        catch (WrapperError & e)
+        catch (const WrapperError & e)
         {
             VX_DbgThrow(e.what());
         }
@@ -1224,7 +1211,7 @@ void SparsePyrLKOpticalFlowImpl::calc( InputArray _prevImg, InputArray _nextImg,
                            InputArray _prevPts, InputOutputArray _nextPts,
                            OutputArray _status, OutputArray _err)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CV_OCL_RUN(ocl::isOpenCLActivated() &&
                (_prevImg.isUMat() || _nextImg.isUMat()) &&
@@ -1495,7 +1482,7 @@ cv::Mat cv::estimateRigidTransform( InputArray src1, InputArray src2, bool fullA
 cv::Mat cv::estimateRigidTransform( InputArray src1, InputArray src2, bool fullAffine, int ransacMaxIters, double ransacGoodRatio,
                                     const int ransacSize0)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     Mat M(2, 3, CV_64F), A = src1.getMat(), B = src2.getMat();
 

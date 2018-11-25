@@ -42,6 +42,47 @@
 #ifndef __OPENCV_TEST_COMMON_HPP__
 #define __OPENCV_TEST_COMMON_HPP__
 
+#ifdef HAVE_OPENCL
+#include "opencv2/core/ocl.hpp"
+#endif
+
+namespace cv { namespace dnn {
+CV__DNN_EXPERIMENTAL_NS_BEGIN
+static inline void PrintTo(const cv::dnn::Backend& v, std::ostream* os)
+{
+    switch (v) {
+    case DNN_BACKEND_DEFAULT: *os << "DEFAULT"; return;
+    case DNN_BACKEND_HALIDE: *os << "HALIDE"; return;
+    case DNN_BACKEND_INFERENCE_ENGINE: *os << "DLIE"; return;
+    case DNN_BACKEND_OPENCV: *os << "OCV"; return;
+    } // don't use "default:" to emit compiler warnings
+    *os << "DNN_BACKEND_UNKNOWN(" << (int)v << ")";
+}
+
+static inline void PrintTo(const cv::dnn::Target& v, std::ostream* os)
+{
+    switch (v) {
+    case DNN_TARGET_CPU: *os << "CPU"; return;
+    case DNN_TARGET_OPENCL: *os << "OCL"; return;
+    case DNN_TARGET_OPENCL_FP16: *os << "OCL_FP16"; return;
+    case DNN_TARGET_MYRIAD: *os << "MYRIAD"; return;
+    } // don't use "default:" to emit compiler warnings
+    *os << "DNN_TARGET_UNKNOWN(" << (int)v << ")";
+}
+
+using opencv_test::tuple;
+using opencv_test::get;
+static inline void PrintTo(const tuple<cv::dnn::Backend, cv::dnn::Target> v, std::ostream* os)
+{
+    PrintTo(get<0>(v), os);
+    *os << "/";
+    PrintTo(get<1>(v), os);
+}
+
+CV__DNN_EXPERIMENTAL_NS_END
+}} // namespace
+
+
 static inline const std::string &getOpenCVExtraDir()
 {
     return cvtest::TS::ptr()->get_data_path();
@@ -189,5 +230,157 @@ static inline bool readFileInMemory(const std::string& filename, std::string& co
 
     return true;
 }
+
+namespace opencv_test {
+
+using namespace cv::dnn;
+
+static inline
+testing::internal::ParamGenerator<tuple<Backend, Target> > dnnBackendsAndTargets(
+        bool withInferenceEngine = true,
+        bool withHalide = false,
+        bool withCpuOCV = true
+)
+{
+    std::vector<tuple<Backend, Target> > targets;
+#ifdef HAVE_HALIDE
+    if (withHalide)
+    {
+        targets.push_back(make_tuple(DNN_BACKEND_HALIDE, DNN_TARGET_CPU));
+#ifdef HAVE_OPENCL
+        if (cv::ocl::useOpenCL())
+            targets.push_back(make_tuple(DNN_BACKEND_HALIDE, DNN_TARGET_OPENCL));
+#endif
+    }
+#endif
+#ifdef HAVE_INF_ENGINE
+    if (withInferenceEngine)
+    {
+        targets.push_back(make_tuple(DNN_BACKEND_INFERENCE_ENGINE, DNN_TARGET_CPU));
+#ifdef HAVE_OPENCL
+        if (cv::ocl::useOpenCL() && ocl::Device::getDefault().isIntel())
+        {
+            targets.push_back(make_tuple(DNN_BACKEND_INFERENCE_ENGINE, DNN_TARGET_OPENCL));
+            targets.push_back(make_tuple(DNN_BACKEND_INFERENCE_ENGINE, DNN_TARGET_OPENCL_FP16));
+        }
+#endif
+        if (checkMyriadTarget())
+            targets.push_back(make_tuple(DNN_BACKEND_INFERENCE_ENGINE, DNN_TARGET_MYRIAD));
+    }
+#endif
+    if (withCpuOCV)
+        targets.push_back(make_tuple(DNN_BACKEND_OPENCV, DNN_TARGET_CPU));
+#ifdef HAVE_OPENCL
+    if (cv::ocl::useOpenCL())
+    {
+        targets.push_back(make_tuple(DNN_BACKEND_OPENCV, DNN_TARGET_OPENCL));
+        targets.push_back(make_tuple(DNN_BACKEND_OPENCV, DNN_TARGET_OPENCL_FP16));
+    }
+#endif
+    if (targets.empty())  // validate at least CPU mode
+        targets.push_back(make_tuple(DNN_BACKEND_OPENCV, DNN_TARGET_CPU));
+    return testing::ValuesIn(targets);
+}
+
+} // namespace
+
+
+namespace opencv_test {
+using namespace cv::dnn;
+
+static inline
+testing::internal::ParamGenerator<Target> availableDnnTargets()
+{
+    static std::vector<Target> targets;
+    if (targets.empty())
+    {
+        targets.push_back(DNN_TARGET_CPU);
+#ifdef HAVE_OPENCL
+        if (cv::ocl::useOpenCL())
+            targets.push_back(DNN_TARGET_OPENCL);
+#endif
+    }
+    return testing::ValuesIn(targets);
+}
+
+class DNNTestLayer : public TestWithParam<tuple<Backend, Target> >
+{
+public:
+    dnn::Backend backend;
+    dnn::Target target;
+    double default_l1, default_lInf;
+
+    DNNTestLayer()
+    {
+        backend = (dnn::Backend)(int)get<0>(GetParam());
+        target = (dnn::Target)(int)get<1>(GetParam());
+        getDefaultThresholds(backend, target, &default_l1, &default_lInf);
+    }
+
+   static void getDefaultThresholds(int backend, int target, double* l1, double* lInf)
+   {
+       if (target == DNN_TARGET_OPENCL_FP16 || target == DNN_TARGET_MYRIAD)
+       {
+           *l1 = 4e-3;
+           *lInf = 2e-2;
+       }
+       else
+       {
+           *l1 = 1e-5;
+           *lInf = 1e-4;
+       }
+   }
+
+   static void checkBackend(int backend, int target, Mat* inp = 0, Mat* ref = 0)
+   {
+       if (backend == DNN_BACKEND_OPENCV && (target == DNN_TARGET_OPENCL || target == DNN_TARGET_OPENCL_FP16))
+       {
+#ifdef HAVE_OPENCL
+           if (!cv::ocl::useOpenCL())
+#endif
+           {
+               throw SkipTestException("OpenCL is not available/disabled in OpenCV");
+           }
+       }
+       if (backend == DNN_BACKEND_INFERENCE_ENGINE && target == DNN_TARGET_MYRIAD)
+       {
+           if (!checkMyriadTarget())
+           {
+               throw SkipTestException("Myriad is not available/disabled in OpenCV");
+           }
+#if defined(INF_ENGINE_RELEASE) && INF_ENGINE_RELEASE < 2018030000
+           if (inp && ref && inp->size[0] != 1)
+           {
+               // Myriad plugin supports only batch size 1. Slice a single sample.
+               if (inp->size[0] == ref->size[0])
+               {
+                   std::vector<cv::Range> range(inp->dims, Range::all());
+                   range[0] = Range(0, 1);
+                   *inp = inp->operator()(range);
+
+                   range = std::vector<cv::Range>(ref->dims, Range::all());
+                   range[0] = Range(0, 1);
+                   *ref = ref->operator()(range);
+               }
+               else
+                   throw SkipTestException("Myriad plugin supports only batch size 1");
+           }
+#else
+           if (inp && ref && inp->dims == 4 && ref->dims == 4 &&
+               inp->size[0] != 1 && inp->size[0] != ref->size[0])
+               throw SkipTestException("Inconsistent batch size of input and output blobs for Myriad plugin");
+
+#endif
+       }
+   }
+
+protected:
+    void checkBackend(Mat* inp = 0, Mat* ref = 0)
+    {
+        checkBackend(backend, target, inp, ref);
+    }
+};
+
+} // namespace
 
 #endif
