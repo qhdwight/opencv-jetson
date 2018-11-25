@@ -1,4 +1,4 @@
-opencv (3.4.2+dfsg-1~exp1) UNRELEASED; urgency=medium
+opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
 
   [ Mattia Rizzolo ]
   * Team upload.
@@ -6,11 +6,32 @@ opencv (3.4.2+dfsg-1~exp1) UNRELEASED; urgency=medium
     + Use unversioned Conflicts in libopencv-dev, to force the removal
       of some old packages.  Closes: #880921
     + Remove dbus-x11 work around now that #878878 is fixed.
+  * Fix version in pom.xml
 
   [ Nobuhiro Iwamatsu ]
-  * Update to 3.4.2.
+  * Add libvtkgdcm2-dev to D-B
+  * Set -DBUILD_PROTOBUF=OFF to build option
+  * Add libgdcm-tools to B-D
+  * Remove patches/fix_ftbfs_on_non_linux, patches/support_multiarch
+    and debian/patches/mathjax
+  * Update module list of contrib
+  * Set disable building of face module
+  * Not install face and text module
+  * Add hfs to contrib
+  * Install usr/share/OpenCV/licenses/SoftFloat-COPYING.txt to libopencv-dev
+  * Update debhelper compatibility to 11
+  * Bump Standards-Version to 4.1.5
+  * Change Vcs-Git and Vcs-Browser to salsa
+  * Remove patches/disable_dnn_modern
+  * Remove patches/fix_java_build.patch
+  * Update patches/disable_opengl_test_build
+  * Update patches/change_jquery.js_path
 
- -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Sat, 28 Jul 2018 16:48:56 +0900
+  [ Mo Zhou ]
+  * New upstream version 3.4.4+dfsg
+  * Append myself to Uploaders.
+
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 25 Nov 2018 12:25:06 +0000
 
 opencv (3.3.0+dfsg-1~exp0) experimental; urgency=medium
 
