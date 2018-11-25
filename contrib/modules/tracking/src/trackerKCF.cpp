@@ -495,7 +495,7 @@ namespace cv{
       int rows = dst.rows, cols = dst.cols;
 
       AutoBuffer<float> _wc(cols);
-      float * const wc = (float *)_wc;
+      float * const wc = _wc.data();
 
       const float coeff0 = 2.0f * (float)CV_PI / (cols - 1);
       const float coeff1 = 2.0f * (float)CV_PI / (rows - 1);
@@ -675,6 +675,10 @@ namespace cv{
     if(region.width>img.cols)region.width=img.cols;
     if(region.height>img.rows)region.height=img.rows;
 
+    // return false if region is empty
+    if (region.empty())
+        return false;
+
     patch=img(region).clone();
 
     // add some padding to compensate when the patch is outside image border
@@ -696,7 +700,7 @@ namespace cv{
         break;
       default: // GRAY
         if(img.channels()>1)
-          cvtColor(patch,feat, CV_BGR2GRAY);
+          cvtColor(patch,feat, COLOR_BGR2GRAY);
         else
           feat=patch;
         //feat.convertTo(feat,CV_32F);

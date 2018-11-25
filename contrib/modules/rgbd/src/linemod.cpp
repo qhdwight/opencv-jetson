@@ -290,11 +290,11 @@ static void quantizedOrientations(const Mat& src, Mat& magnitude,
   float * ptr0y = (float *)sobel_dy.data;
   float * ptrmg = (float *)magnitude.data;
 
-  const int length1 = static_cast<const int>(sobel_3dx.step1());
-  const int length2 = static_cast<const int>(sobel_3dy.step1());
-  const int length3 = static_cast<const int>(sobel_dx.step1());
-  const int length4 = static_cast<const int>(sobel_dy.step1());
-  const int length5 = static_cast<const int>(magnitude.step1());
+  const int length1 = static_cast<int>(sobel_3dx.step1());
+  const int length2 = static_cast<int>(sobel_3dy.step1());
+  const int length3 = static_cast<int>(sobel_dx.step1());
+  const int length4 = static_cast<int>(sobel_dy.step1());
+  const int length5 = static_cast<int>(magnitude.step1());
   const int length0 = sobel_3dy.cols * 3;
 
   for (int r = 0; r < sobel_3dy.rows; ++r)
@@ -994,8 +994,8 @@ static void spread(const Mat& src, Mat& dst, int T)
     int height = src.rows - r;
     for (int c = 0; c < T; ++c)
     {
-      orUnaligned8u(&src.at<unsigned char>(r, c), static_cast<const int>(src.step1()), dst.ptr(),
-                    static_cast<const int>(dst.step1()), src.cols - c, height);
+      orUnaligned8u(&src.at<unsigned char>(r, c), static_cast<int>(src.step1()), dst.ptr(),
+                    static_cast<int>(dst.step1()), src.cols - c, height);
     }
   }
 }

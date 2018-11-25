@@ -84,7 +84,7 @@ bool  SunRasterDecoder::readHeader()
 
     if( !m_strm.open( m_filename )) return false;
 
-    CV_TRY
+    try
     {
         m_strm.skip( 4 );
         m_width  = m_strm.getDWord();
@@ -144,7 +144,7 @@ bool  SunRasterDecoder::readHeader()
             }
         }
     }
-    CV_CATCH_ALL
+    catch(...)
     {
     }
 
@@ -160,7 +160,7 @@ bool  SunRasterDecoder::readHeader()
 
 bool  SunRasterDecoder::readData( Mat& img )
 {
-    int color = img.channels() > 1;
+    bool color = img.channels() > 1;
     uchar* data = img.ptr();
     size_t step = img.step;
     uchar  gray_palette[256] = {0};
@@ -174,12 +174,12 @@ bool  SunRasterDecoder::readData( Mat& img )
         return false;
 
     AutoBuffer<uchar> _src(src_pitch + 32);
-    uchar* src = _src;
+    uchar* src = _src.data();
 
     if( !color && m_maptype == RMT_EQUAL_RGB )
         CvtPaletteToGray( m_palette, gray_palette, 1 << m_bpp );
 
-    CV_TRY
+    try
     {
         m_strm.setPos( m_offset );
 
@@ -376,7 +376,7 @@ bad_decoding_end:
             CV_Error(Error::StsInternal, "");
         }
     }
-    CV_CATCH_ALL
+    catch( ... )
     {
     }
 

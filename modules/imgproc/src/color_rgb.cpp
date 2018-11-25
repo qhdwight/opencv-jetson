@@ -5,188 +5,125 @@
 #include "precomp.hpp"
 #include "color.hpp"
 
+#define IPP_DISABLE_CVTCOLOR_GRAY2BGR_8UC3 1
+
 namespace cv
 {
 
 ////////////////// Various 3/4-channel to 3/4-channel RGB transformations /////////////////
 
-template<typename _Tp> struct RGB2RGB
-{
-    typedef _Tp channel_type;
+template<typename _Tp> struct v_type;
 
-    RGB2RGB(int _srccn, int _dstcn, int _blueIdx) : srccn(_srccn), dstcn(_dstcn), blueIdx(_blueIdx) {}
-    void operator()(const _Tp* src, _Tp* dst, int n) const
-    {
-        int scn = srccn, dcn = dstcn, bidx = blueIdx;
-        if( dcn == 3 )
-        {
-            n *= 3;
-            for( int i = 0; i < n; i += 3, src += scn )
-            {
-                _Tp t0 = src[bidx], t1 = src[1], t2 = src[bidx ^ 2];
-                dst[i] = t0; dst[i+1] = t1; dst[i+2] = t2;
-            }
-        }
-        else if( scn == 3 )
-        {
-            n *= 3;
-            _Tp alpha = ColorChannel<_Tp>::max();
-            for( int i = 0; i < n; i += 3, dst += 4 )
-            {
-                _Tp t0 = src[i], t1 = src[i+1], t2 = src[i+2];
-                dst[bidx] = t0; dst[1] = t1; dst[bidx^2] = t2; dst[3] = alpha;
-            }
-        }
-        else
-        {
-            n *= 4;
-            for( int i = 0; i < n; i += 4 )
-            {
-                _Tp t0 = src[i], t1 = src[i+1], t2 = src[i+2], t3 = src[i+3];
-                dst[i+bidx] = t0; dst[i+1] = t1; dst[i+(bidx^2)] = t2; dst[i+3] = t3;
-            }
-        }
-    }
-
-    int srccn, dstcn, blueIdx;
+template<>
+struct v_type<uchar>{
+    typedef v_uint8 t;
 };
 
-#if CV_NEON
+template<>
+struct v_type<ushort>{
+    typedef v_uint16 t;
+};
 
-template<> struct RGB2RGB<uchar>
+template<>
+struct v_type<float>{
+    typedef v_float32 t;
+};
+
+template<typename _Tp> struct v_set;
+
+template<>
+struct v_set<uchar>
 {
-    typedef uchar channel_type;
+    static inline v_type<uchar>::t set(uchar x)
+    {
+        return vx_setall_u8(x);
+    }
+};
+
+template<>
+struct v_set<ushort>
+{
+    static inline v_type<ushort>::t set(ushort x)
+    {
+        return vx_setall_u16(x);
+    }
+};
+
+template<>
+struct v_set<float>
+{
+    static inline v_type<float>::t set(float x)
+    {
+        return vx_setall_f32(x);
+    }
+};
+
+template<typename _Tp>
+struct RGB2RGB
+{
+    typedef _Tp channel_type;
+    typedef typename v_type<_Tp>::t vt;
 
     RGB2RGB(int _srccn, int _dstcn, int _blueIdx) :
         srccn(_srccn), dstcn(_dstcn), blueIdx(_blueIdx)
     {
-        v_alpha = vdupq_n_u8(ColorChannel<uchar>::max());
-        v_alpha2 = vget_low_u8(v_alpha);
+        CV_Assert(srccn == 3 || srccn == 4);
+        CV_Assert(dstcn == 3 || dstcn == 4);
     }
 
-    void operator()(const uchar * src, uchar * dst, int n) const
+    void operator()(const _Tp* src, _Tp* dst, int n) const
     {
-        int scn = srccn, dcn = dstcn, bidx = blueIdx, i = 0;
-        if (dcn == 3)
+        int scn = srccn, dcn = dstcn, bi = blueIdx;
+        int i = 0;
+        _Tp alphav = ColorChannel<_Tp>::max();
+
+#if CV_SIMD
+        const int vsize = vt::nlanes;
+
+        for(; i < n-vsize+1;
+            i += vsize, src += vsize*scn, dst += vsize*dcn)
         {
-            n *= 3;
-            if (scn == 3)
+            vt a, b, c, d;
+            if(scn == 4)
             {
-                for ( ; i <= n - 48; i += 48, src += 48 )
-                {
-                    uint8x16x3_t v_src = vld3q_u8(src), v_dst;
-                    v_dst.val[0] = v_src.val[bidx];
-                    v_dst.val[1] = v_src.val[1];
-                    v_dst.val[2] = v_src.val[bidx ^ 2];
-                    vst3q_u8(dst + i, v_dst);
-                }
-                for ( ; i <= n - 24; i += 24, src += 24 )
-                {
-                    uint8x8x3_t v_src = vld3_u8(src), v_dst;
-                    v_dst.val[0] = v_src.val[bidx];
-                    v_dst.val[1] = v_src.val[1];
-                    v_dst.val[2] = v_src.val[bidx ^ 2];
-                    vst3_u8(dst + i, v_dst);
-                }
-                for ( ; i < n; i += 3, src += 3 )
-                {
-                    uchar t0 = src[bidx], t1 = src[1], t2 = src[bidx ^ 2];
-                    dst[i] = t0; dst[i+1] = t1; dst[i+2] = t2;
-                }
+                v_load_deinterleave(src, a, b, c, d);
             }
             else
             {
-                for ( ; i <= n - 48; i += 48, src += 64 )
-                {
-                    uint8x16x4_t v_src = vld4q_u8(src);
-                    uint8x16x3_t v_dst;
-                    v_dst.val[0] = v_src.val[bidx];
-                    v_dst.val[1] = v_src.val[1];
-                    v_dst.val[2] = v_src.val[bidx ^ 2];
-                    vst3q_u8(dst + i, v_dst);
-                }
-                for ( ; i <= n - 24; i += 24, src += 32 )
-                {
-                    uint8x8x4_t v_src = vld4_u8(src);
-                    uint8x8x3_t v_dst;
-                    v_dst.val[0] = v_src.val[bidx];
-                    v_dst.val[1] = v_src.val[1];
-                    v_dst.val[2] = v_src.val[bidx ^ 2];
-                    vst3_u8(dst + i, v_dst);
-                }
-                for ( ; i < n; i += 3, src += 4 )
-                {
-                    uchar t0 = src[bidx], t1 = src[1], t2 = src[bidx ^ 2];
-                    dst[i] = t0; dst[i+1] = t1; dst[i+2] = t2;
-                }
+                v_load_deinterleave(src, a, b, c);
+                d = v_set<_Tp>::set(alphav);
+            }
+            if(bi == 2)
+                swap(a, c);
+
+            if(dcn == 4)
+            {
+                v_store_interleave(dst, a, b, c, d);
+            }
+            else
+            {
+                v_store_interleave(dst, a, b, c);
             }
         }
-        else if (scn == 3)
+        vx_cleanup();
+#endif
+        for ( ; i < n; i++, src += scn, dst += dcn )
         {
-            n *= 3;
-            for ( ; i <= n - 48; i += 48, dst += 64 )
+            _Tp t0 = src[0], t1 = src[1], t2 = src[2];
+            dst[bi  ] = t0;
+            dst[1]         = t1;
+            dst[bi^2] = t2;
+            if(dcn == 4)
             {
-                uint8x16x3_t v_src = vld3q_u8(src + i);
-                uint8x16x4_t v_dst;
-                v_dst.val[bidx] = v_src.val[0];
-                v_dst.val[1] = v_src.val[1];
-                v_dst.val[bidx ^ 2] = v_src.val[2];
-                v_dst.val[3] = v_alpha;
-                vst4q_u8(dst, v_dst);
-            }
-            for ( ; i <= n - 24; i += 24, dst += 32 )
-            {
-                uint8x8x3_t v_src = vld3_u8(src + i);
-                uint8x8x4_t v_dst;
-                v_dst.val[bidx] = v_src.val[0];
-                v_dst.val[1] = v_src.val[1];
-                v_dst.val[bidx ^ 2] = v_src.val[2];
-                v_dst.val[3] = v_alpha2;
-                vst4_u8(dst, v_dst);
-            }
-            uchar alpha = ColorChannel<uchar>::max();
-            for (; i < n; i += 3, dst += 4 )
-            {
-                uchar t0 = src[i], t1 = src[i+1], t2 = src[i+2];
-                dst[bidx] = t0; dst[1] = t1; dst[bidx^2] = t2; dst[3] = alpha;
-            }
-        }
-        else
-        {
-            n *= 4;
-            for ( ; i <= n - 64; i += 64 )
-            {
-                uint8x16x4_t v_src = vld4q_u8(src + i), v_dst;
-                v_dst.val[0] = v_src.val[bidx];
-                v_dst.val[1] = v_src.val[1];
-                v_dst.val[2] = v_src.val[bidx^2];
-                v_dst.val[3] = v_src.val[3];
-                vst4q_u8(dst + i, v_dst);
-            }
-            for ( ; i <= n - 32; i += 32 )
-            {
-                uint8x8x4_t v_src = vld4_u8(src + i), v_dst;
-                v_dst.val[0] = v_src.val[bidx];
-                v_dst.val[1] = v_src.val[1];
-                v_dst.val[2] = v_src.val[bidx^2];
-                v_dst.val[3] = v_src.val[3];
-                vst4_u8(dst + i, v_dst);
-            }
-            for ( ; i < n; i += 4)
-            {
-                uchar t0 = src[i], t1 = src[i+1], t2 = src[i+2], t3 = src[i+3];
-                dst[i+bidx] = t0; dst[i+1] = t1; dst[i+(bidx^2)] = t2; dst[i+3] = t3;
+                _Tp d = scn == 4 ? src[3] : alphav;
+                dst[3] = d;
             }
         }
     }
 
     int srccn, dstcn, blueIdx;
-
-    uint8x16_t v_alpha;
-    uint8x8_t v_alpha2;
 };
 
-#endif
 
 /////////// Transforming 16-bit (565 or 555) RGB to/from 24/32-bit (888[8]) RGB //////////
 
@@ -1228,10 +1165,12 @@ static ippiGeneralFunc ippiRGB2GrayC4Tab[] =
 };
 
 
+#if !IPP_DISABLE_CVTCOLOR_GRAY2BGR_8UC3
 static IppStatus ippiGrayToRGB_C1C3R(const Ipp8u*  pSrc, int srcStep, Ipp8u*  pDst, int dstStep, IppiSize roiSize)
 {
     return CV_INSTRUMENT_FUN_IPP(ippiGrayToRGB_8u_C1C3R, pSrc, srcStep, pDst, dstStep, roiSize);
 }
+#endif
 static IppStatus ippiGrayToRGB_C1C3R(const Ipp16u* pSrc, int srcStep, Ipp16u* pDst, int dstStep, IppiSize roiSize)
 {
     return CV_INSTRUMENT_FUN_IPP(ippiGrayToRGB_16u_C1C3R, pSrc, srcStep, pDst, dstStep, roiSize);
@@ -1367,7 +1306,7 @@ void cvtBGRtoBGR(const uchar * src_data, size_t src_step,
                  int width, int height,
                  int depth, int scn, int dcn, bool swapBlue)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtBGRtoBGR, cv_hal_cvtBGRtoBGR, src_data, src_step, dst_data, dst_step, width, height, depth, scn, dcn, swapBlue);
 
@@ -1430,7 +1369,7 @@ void cvtBGRtoBGR5x5(const uchar * src_data, size_t src_step,
                     int width, int height,
                     int scn, bool swapBlue, int greenBits)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtBGRtoBGR5x5, cv_hal_cvtBGRtoBGR5x5, src_data, src_step, dst_data, dst_step, width, height, scn, swapBlue, greenBits);
 
@@ -1443,7 +1382,7 @@ void cvtBGR5x5toBGR(const uchar * src_data, size_t src_step,
                     int width, int height,
                     int dcn, bool swapBlue, int greenBits)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtBGR5x5toBGR, cv_hal_cvtBGR5x5toBGR, src_data, src_step, dst_data, dst_step, width, height, dcn, swapBlue, greenBits);
 
@@ -1456,7 +1395,7 @@ void cvtBGRtoGray(const uchar * src_data, size_t src_step,
                   int width, int height,
                   int depth, int scn, bool swapBlue)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtBGRtoGray, cv_hal_cvtBGRtoGray, src_data, src_step, dst_data, dst_step, width, height, depth, scn, swapBlue);
 
@@ -1505,7 +1444,7 @@ void cvtGraytoBGR(const uchar * src_data, size_t src_step,
                   int width, int height,
                   int depth, int dcn)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtGraytoBGR, cv_hal_cvtGraytoBGR, src_data, src_step, dst_data, dst_step, width, height, depth, dcn);
 
@@ -1516,7 +1455,11 @@ void cvtGraytoBGR(const uchar * src_data, size_t src_step,
         if(dcn == 3)
         {
             if( depth == CV_8U )
+            {
+#if !IPP_DISABLE_CVTCOLOR_GRAY2BGR_8UC3
                 ippres = CvtColorIPPLoop(src_data, src_step, dst_data, dst_step, width, height, IPPGray2BGRFunctor<Ipp8u>());
+#endif
+            }
             else if( depth == CV_16U )
                 ippres = CvtColorIPPLoop(src_data, src_step, dst_data, dst_step, width, height, IPPGray2BGRFunctor<Ipp16u>());
             else
@@ -1550,7 +1493,7 @@ void cvtBGR5x5toGray(const uchar * src_data, size_t src_step,
                      int width, int height,
                      int greenBits)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtBGR5x5toGray, cv_hal_cvtBGR5x5toGray, src_data, src_step, dst_data, dst_step, width, height, greenBits);
     CvtColorLoop(src_data, src_step, dst_data, dst_step, width, height, RGB5x52Gray(greenBits));
@@ -1562,7 +1505,7 @@ void cvtGraytoBGR5x5(const uchar * src_data, size_t src_step,
                      int width, int height,
                      int greenBits)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtGraytoBGR5x5, cv_hal_cvtGraytoBGR5x5, src_data, src_step, dst_data, dst_step, width, height, greenBits);
     CvtColorLoop(src_data, src_step, dst_data, dst_step, width, height, Gray2RGB5x5(greenBits));
@@ -1572,7 +1515,7 @@ void cvtRGBAtoMultipliedRGBA(const uchar * src_data, size_t src_step,
                              uchar * dst_data, size_t dst_step,
                              int width, int height)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtRGBAtoMultipliedRGBA, cv_hal_cvtRGBAtoMultipliedRGBA, src_data, src_step, dst_data, dst_step, width, height);
 
@@ -1592,7 +1535,7 @@ void cvtMultipliedRGBAtoRGBA(const uchar * src_data, size_t src_step,
                              uchar * dst_data, size_t dst_step,
                              int width, int height)
 {
-    CV_INSTRUMENT_REGION()
+    CV_INSTRUMENT_REGION();
 
     CALL_HAL(cvtMultipliedRGBAtoRGBA, cv_hal_cvtMultipliedRGBAtoRGBA, src_data, src_step, dst_data, dst_step, width, height);
     CvtColorLoop(src_data, src_step, dst_data, dst_step, width, height, mRGBA2RGBA<uchar>());

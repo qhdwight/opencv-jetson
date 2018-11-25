@@ -20,8 +20,12 @@ endforeach()
 set(opencv_hdrs "")
 set(opencv_userdef_hdrs "")
 foreach(m ${OPENCV_PYTHON_MODULES})
-  ocv_list_filter(OPENCV_MODULE_${m}_HEADERS "${OPENCV_MODULE_${m}_LOCATION}/include" __hdrs)
-  list(APPEND opencv_hdrs ${__hdrs})
+  foreach (hdr ${OPENCV_MODULE_${m}_HEADERS})
+    ocv_is_subdir(is_sub "${OPENCV_MODULE_${m}_LOCATION}/include" "${hdr}")
+    if(is_sub)
+      list(APPEND opencv_hdrs "${hdr}")
+    endif()
+  endforeach()
   file(GLOB userdef_hdrs ${OPENCV_MODULE_${m}_LOCATION}/misc/python/pyopencv*.hpp)
   list(APPEND opencv_userdef_hdrs ${userdef_hdrs})
 endforeach(m)
@@ -38,6 +42,7 @@ ocv_list_filterout(opencv_hdrs "modules/.*\\\\.inl\\\\.h*")
 ocv_list_filterout(opencv_hdrs "modules/.*_inl\\\\.h*")
 ocv_list_filterout(opencv_hdrs "modules/.*\\\\.details\\\\.h*")
 ocv_list_filterout(opencv_hdrs "modules/.*\\\\.private\\\\.h*")
+ocv_list_filterout(opencv_hdrs "modules/.*/private\\\\.h*")
 ocv_list_filterout(opencv_hdrs "modules/.*/detection_based_tracker\\\\.hpp") # Conditional compilation
 
 set(cv2_generated_files
@@ -96,6 +101,7 @@ ocv_cmake_script_append_var(PYTHON_CONFIG_SCRIPT
 
     CMAKE_MODULE_LINKER_FLAGS
     CMAKE_INSTALL_PREFIX
+    OPENCV_PYTHON_INSTALL_PATH
 
     OpenCV_SOURCE_DIR
 

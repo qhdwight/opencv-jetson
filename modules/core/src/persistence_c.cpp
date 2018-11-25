@@ -417,7 +417,7 @@ cvOpenFileStorage( const char* query, CvMemStorage* dststorage, int flags, const
 
         //mode = cvGetErrMode();
         //cvSetErrMode( CV_ErrModeSilent );
-        CV_TRY
+        try
         {
             switch (fs->fmt)
             {
@@ -427,7 +427,7 @@ cvOpenFileStorage( const char* query, CvMemStorage* dststorage, int flags, const
             default: break;
             }
         }
-        CV_CATCH_ALL
+        catch (...)
         {
             fs->is_opened = true;
             cvReleaseFileStorage( &fs );
@@ -1063,7 +1063,7 @@ cvReadRawDataSlice( const CvFileStorage* fs, CvSeqReader* reader,
         CV_Error( CV_StsNullPtr, "Null pointer to reader or destination array" );
 
     if( !reader->seq && len != 1 )
-        CV_Error( CV_StsBadSize, "The readed sequence is a scalar, thus len must be 1" );
+        CV_Error( CV_StsBadSize, "The read sequence is a scalar, thus len must be 1" );
 
     fmt_pair_count = icvDecodeFormat( dt, fmt_pairs, CV_FS_MAX_FMT_PAIRS );
     size_t step = ::icvCalcStructSize(dt, 0);
