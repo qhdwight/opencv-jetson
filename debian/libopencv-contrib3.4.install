@@ -25,3 +25,4 @@ usr/lib/*/libopencv_tracking.so.*
 usr/lib/*/libopencv_ximgproc.so.*
 usr/lib/*/libopencv_xobjdetect.so.*
 usr/lib/*/libopencv_xphoto.so.*
+usr/lib/*/libopencv_dnn_objdetect.so*
