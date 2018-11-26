@@ -36,8 +36,10 @@ opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
   * Install face and text modules to the -contrib package.
   * New binary package libopencv-dnn3.4, and it's corresponding dev package.
   * New shared object libopencv_dnn_objdetect.so in the -contrib package.
+  * Update d/copyright.
+  * Misc cleanup: fix metadata syntax error, add patch headers.
 
- -- Mo Zhou <cdluminate@gmail.com>  Mon, 26 Nov 2018 04:33:13 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Mon, 26 Nov 2018 05:47:28 +0000
 
 opencv (3.3.0+dfsg-1~exp0) experimental; urgency=medium
 
