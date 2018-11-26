@@ -1,3 +1,5 @@
+Description: protoc --cpp_out . xxx.proto
+Author: Mo Zhou
 diff --git a/modules/dnn/misc/onnx/opencv-onnx.pb.cc b/modules/dnn/misc/onnx/opencv-onnx.pb.cc
 index 6d7049623..05cda1e41 100644
 --- a/modules/dnn/misc/onnx/opencv-onnx.pb.cc

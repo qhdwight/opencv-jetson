@@ -1,3 +1,5 @@
+Description: prevent cmake from downloading binary blob from internet.
+Author: Mo Zhou
 diff --git a/contrib/modules/face/CMakeLists.txt b/contrib/modules/face/CMakeLists.txt
 index 2d5f8075a..1776b9dae 100644
 --- a/contrib/modules/face/CMakeLists.txt

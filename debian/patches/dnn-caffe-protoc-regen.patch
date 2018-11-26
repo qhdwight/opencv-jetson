@@ -1,3 +1,5 @@
+Description: protoc --cpp_out . xxx.proto
+Author: Mo Zhou
 diff --git a/modules/dnn/misc/caffe/opencv-caffe.pb.cc b/modules/dnn/misc/caffe/opencv-caffe.pb.cc
 index af84d7227..aaab057f4 100644
 --- a/modules/dnn/misc/caffe/opencv-caffe.pb.cc

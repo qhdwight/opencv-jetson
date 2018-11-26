@@ -1,3 +1,5 @@
+Description: protoc --cpp_out . xxx.proto
+Author: Mo Zhou
 diff --git a/modules/dnn/misc/tensorflow/attr_value.pb.cc b/modules/dnn/misc/tensorflow/attr_value.pb.cc
 index 99860999b..bb286112b 100644
 --- a/modules/dnn/misc/tensorflow/attr_value.pb.cc
