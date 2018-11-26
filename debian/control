@@ -85,6 +85,7 @@ Depends:
  libopencv-calib3d-dev (= ${binary:Version}),
  libopencv-contrib-dev (= ${binary:Version}),
  libopencv-core-dev (= ${binary:Version}),
+ libopencv-dnn-dev (= ${binary:Version}),
  libopencv-features2d-dev (= ${binary:Version}),
  libopencv-flann-dev (= ${binary:Version}),
  libopencv-highgui-dev (= ${binary:Version}),
@@ -1046,6 +1047,7 @@ Depends:
  libopencv-calib3d-dev (= ${binary:Version}),
  libopencv-contrib3.4 (= ${binary:Version}),
  libopencv-core-dev (= ${binary:Version}),
+ libopencv-dnn-dev (= ${binary:Version}),
  libopencv-features2d-dev (= ${binary:Version}),
  libopencv-flann-dev (= ${binary:Version}),
  libopencv-highgui-dev (= ${binary:Version}),
@@ -1085,6 +1087,7 @@ Pre-Depends:
 Depends:
  libopencv-calib3d3.4 (= ${binary:Version}),
  libopencv-core3.4 (= ${binary:Version}),
+ libopencv-dnn3.4 (= ${binary:Version}),
  libopencv-features2d3.4 (= ${binary:Version}),
  libopencv-flann3.4 (= ${binary:Version}),
  libopencv-highgui3.4 (= ${binary:Version}),
@@ -1208,6 +1211,7 @@ Section: python
 Architecture: any
 Depends:
  libopencv-calib3d3.4 (= ${binary:Version}),
+ libopencv-dnn3.4 (= ${binary:Version}),
  libopencv-features2d3.4 (= ${binary:Version}),
  libopencv-flann3.4 (= ${binary:Version}),
  libopencv-highgui3.4 (= ${binary:Version}),
@@ -1245,6 +1249,7 @@ Section: python
 Architecture: any
 Depends:
  libopencv-calib3d3.4 (= ${binary:Version}),
+ libopencv-dnn3.4 (= ${binary:Version}),
  libopencv-features2d3.4 (= ${binary:Version}),
  libopencv-flann3.4 (= ${binary:Version}),
  libopencv-highgui3.4 (= ${binary:Version}),
