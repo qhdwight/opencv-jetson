@@ -1,1 +1,5 @@
-usr/python/cv2/python-3*/*.so  usr/lib/python3/dist-packages/
+usr/python/cv2/python-3*/*.so      usr/lib/python3/dist-packages/cv2/
+usr/python/cv2/__init__.py         usr/lib/python3/dist-packages/cv2/
+usr/python/cv2/config-3.7.py       usr/lib/python3/dist-packages/cv2/
+usr/python/cv2/config.py           usr/lib/python3/dist-packages/cv2/
+usr/python/cv2/load_config_py3.py  usr/lib/python3/dist-packages/cv2/

@@ -1,1 +1,5 @@
-usr/python/cv2/python-2.7/*.so  usr/lib/python2.7/dist-packages/
+usr/python/cv2/python-2.7/*.so     usr/lib/python2.7/dist-packages/cv2/
+usr/python/cv2/load_config_py2.py  usr/lib/python2.7/dist-packages/cv2/
+usr/python/cv2/__init__.py         usr/lib/python2.7/dist-packages/cv2/
+usr/python/cv2/config-2.7.py       usr/lib/python2.7/dist-packages/cv2/
+usr/python/cv2/config.py           usr/lib/python2.7/dist-packages/cv2/
