@@ -41,9 +41,11 @@ endif
 export JAVA_HOME=/usr/lib/jvm/default-java
 
 CMAKE_FLAGS = \
+	-DANT_EXECUTABLE=/usr/bin/ant \
 	-DBUILD_EXAMPLES=ON	\
 	-DBUILD_PROTOBUF=OFF \
 	-DBUILD_TESTS=OFF \
+	-DBUILD_JAVA=ON \
 	-DBUILD_opencv_dnn=ON \
 	-DBUILD_opencv_dnn_modern=ON \
 	-DBUILD_opencv_face=ON \
