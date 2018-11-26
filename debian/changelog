@@ -39,6 +39,13 @@ opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
   * Update d/copyright.
   * Misc cleanup: fix metadata syntax error, add patch headers.
 
+  [ Vulnerabilities Fixed in Upstream 3.4.4 Release ]
+  * CVE-2016-1516  * CVE-2017-12597 * CVE-2017-12598 * CVE-2017-12599
+  * CVE-2017-12600 * CVE-2017-12601 * CVE-2017-12602 * CVE-2017-12603
+  * CVE-2017-12604 * CVE-2017-12605 * CVE-2017-12606 * CVE-2017-17760
+  * CVE-2017-12862 * CVE-2017-12863 * CVE-2017-12864 * CVE-2017-18009
+  * CVE-2018-5268  * CVE-2018-5269  * CVE-2017-1000450
+
  -- Mo Zhou <cdluminate@gmail.com>  Mon, 26 Nov 2018 05:47:28 +0000
 
 opencv (3.3.0+dfsg-1~exp0) experimental; urgency=medium
