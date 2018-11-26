@@ -1,37 +1,43 @@
 opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
 
   [ Mattia Rizzolo ]
-  * Team upload.
   * d/control:
     + Use unversioned Conflicts in libopencv-dev, to force the removal
       of some old packages.  Closes: #880921
     + Remove dbus-x11 work around now that #878878 is fixed.
-  * Fix version in pom.xml
 
   [ Nobuhiro Iwamatsu ]
-  * Add libvtkgdcm2-dev to D-B
-  * Set -DBUILD_PROTOBUF=OFF to build option
-  * Add libgdcm-tools to B-D
-  * Remove patches/fix_ftbfs_on_non_linux, patches/support_multiarch
-    and debian/patches/mathjax
-  * Update module list of contrib
-  * Set disable building of face module
-  * Not install face and text module
-  * Add hfs to contrib
+  * Add libvtkgdcm2-dev, libgdcm-tools to Build-Depends.
+  * Set -DBUILD_PROTOBUF=OFF in CMake options
+  * Remove patches:
+    - fix_ftbfs_on_non_linux, support_multiarch, mathjax
+    - disable_dnn_modern, fix_java_build.patch
+  * Update module list of contrib, add hfs module to contrib.
   * Install usr/share/OpenCV/licenses/SoftFloat-COPYING.txt to libopencv-dev
   * Update debhelper compatibility to 11
   * Bump Standards-Version to 4.1.5
   * Change Vcs-Git and Vcs-Browser to salsa
-  * Remove patches/disable_dnn_modern
-  * Remove patches/fix_java_build.patch
   * Update patches/disable_opengl_test_build
   * Update patches/change_jquery.js_path
 
   [ Mo Zhou ]
   * New upstream version 3.4.4+dfsg
   * Append myself to Uploaders.
+  * Disable patch disable_opengl_test_build.
+  * Re-generate protobuf files for the dnn module.
+    + From opencv-caffe.proto (via patch).
+    + From opencv-onnx.proto (via patch)
+    + From tensorflow's proto definitions. (via patch)
+  * Sort CMake options in rules.
+  * Enable the dnn and face modules in CMake options.
+  * Prevent CMake from downloading pre-trained model for face module. (patch)
+  * Update jar Version in d/pom.xml
+  * Fix java build/installation and python installation layout.
+  * Install face and text modules to the -contrib package.
+  * New binary package libopencv-dnn3.4, and it's corresponding dev package.
+  * New shared object libopencv_dnn_objdetect.so in the -contrib package.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 25 Nov 2018 12:25:06 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Mon, 26 Nov 2018 04:33:13 +0000
 
 opencv (3.3.0+dfsg-1~exp0) experimental; urgency=medium
 
