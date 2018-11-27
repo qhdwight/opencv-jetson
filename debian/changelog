@@ -24,10 +24,6 @@ opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
   * New upstream version 3.4.4+dfsg
   * Append myself to Uploaders.
   * Remove patch disable_opengl_test_build, not useful anymore.
-  * Re-generate protobuf files for the dnn module.
-    + From opencv-caffe.proto (via patch).
-    + From opencv-onnx.proto (via patch)
-    + From tensorflow's proto definitions. (via patch)
   * Sort CMake options in rules.
   * Explicitly enable the dnn and face modules in CMake options.
   * Prevent CMake from downloading pre-trained model for face module. (patch)
@@ -38,6 +34,8 @@ opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
   * New shared object libopencv_dnn_objdetect.so in the -contrib package.
   * Update d/copyright.
   * Misc cleanup: fix metadata syntax error.
+  * Define PROTOBUF_UPDATE_FILES=ON in cmake options in order to refresh
+    protobuf related files for the dnn module.
 
   [ Vulnerabilities Fixed in Upstream 3.4.4 Release ]
   * CVE-2016-1516  * CVE-2017-12597 * CVE-2017-12598 * CVE-2017-12599
