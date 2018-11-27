@@ -1,4 +1,4 @@
-opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
+opencv (3.4.4+dfsg-1~exp1) experimental; urgency=medium
 
   [ Mattia Rizzolo ]
   * d/control:
@@ -44,7 +44,7 @@ opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
   * CVE-2017-12862 * CVE-2017-12863 * CVE-2017-12864 * CVE-2017-18009
   * CVE-2018-5268  * CVE-2018-5269  * CVE-2017-1000450
 
- -- Mo Zhou <cdluminate@gmail.com>  Mon, 26 Nov 2018 05:47:28 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Tue, 27 Nov 2018 14:13:09 +0000
 
 opencv (3.3.0+dfsg-1~exp0) experimental; urgency=medium
 
