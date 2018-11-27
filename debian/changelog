@@ -28,7 +28,7 @@ opencv (3.4.4+dfsg-1~exp1) UNRELEASED; urgency=medium
   * Explicitly enable the dnn and face modules in CMake options.
   * Prevent CMake from downloading pre-trained model for face module. (patch)
   * Update jar Version in d/pom.xml
-  * Fix java build/installation and python installation layout.
+  * Fix java build/installation by explicitly specifying ANT_EXECUTABLE.
   * Compile then install the text module to the -contrib package.
   * New binary package libopencv-dnn3.4, and it's corresponding dev package.
   * New shared object libopencv_dnn_objdetect.so in the -contrib package.
