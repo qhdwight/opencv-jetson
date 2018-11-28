@@ -108,6 +108,7 @@ Depends:
  ${shlibs:Depends},
 Recommends:
  opencv-data,
+ libilmbase-dev,
 Suggests:
  opencv-doc,
 Breaks:
