@@ -1,7 +1,7 @@
 opencv (3.4.4+dfsg-1~exp2) UNRELEASED; urgency=medium
 
   * Reference bugs forgot to close in changelog of previous revision.
-  * Add Recommends: libilmbase-dev to libopencv-dev to fix missing shlib
+  * Add Depends: libilmbase-dev to libopencv-dev to fix missing shlib
     deps for binary executables shipped in libopencv-dev.
   * Update the list of closed CVEs in the previous changelog section.
     Referenced Gianfranco Costamagna's Ubuntu delta (3.2.0+dfsg-5ubuntu1).

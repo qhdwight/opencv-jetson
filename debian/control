@@ -106,9 +106,9 @@ Depends:
  pkg-config,
  ${misc:Depends},
  ${shlibs:Depends},
+ libilmbase-dev,
 Recommends:
  opencv-data,
- libilmbase-dev,
 Suggests:
  opencv-doc,
 Breaks:
