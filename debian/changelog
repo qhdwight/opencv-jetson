@@ -21,14 +21,16 @@ opencv (3.4.4+dfsg-1~exp1) experimental; urgency=medium
   * Update patches/change_jquery.js_path
 
   [ Mo Zhou ]
-  * New upstream version 3.4.4+dfsg
+  * New upstream version 3.4.4+dfsg (Closes: #913330)
   * Append myself to Uploaders.
   * Remove patch disable_opengl_test_build, not useful anymore.
   * Sort CMake options in rules.
   * Explicitly enable the dnn and face modules in CMake options.
+    (Closes: #909179)
   * Prevent CMake from downloading pre-trained model for face module. (patch)
   * Update jar Version in d/pom.xml
   * Fix java build/installation by explicitly specifying ANT_EXECUTABLE.
+    (Ref: #914748)
   * Compile then install the text module to the -contrib package.
   * New binary package libopencv-dnn3.4, and it's corresponding dev package.
   * New shared object libopencv_dnn_objdetect.so in the -contrib package.
