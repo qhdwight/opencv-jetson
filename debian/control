@@ -1164,9 +1164,11 @@ Recommends:
 Breaks:
  libopencv2.4-java,
  libopencv3.2-java,
+ libopencv3.3-java,
 Replaces:
  libopencv2.4-java,
  libopencv3.2-java,
+ libopencv3.3-java,
 Description: Java bindings for the computer vision library
  This package contains Java bindings for the OpenCV (Open Computer Vision)
  library.
