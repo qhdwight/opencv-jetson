@@ -1,15 +1,15 @@
-opencv (3.4.4+dfsg-1~exp2) UNRELEASED; urgency=medium
+opencv (3.4.5+dfsg-1~exp1) UNRELEASED; urgency=medium
 
+  * New upstream version 3.4.5+dfsg
   * Reference bugs forgot to close in changelog of previous revision.
   * Add Depends: libilmbase-dev to libopencv-dev to fix missing shlib
     deps for binary executables shipped in libopencv-dev.
   * Update the list of closed CVEs in the previous changelog section.
-    Referenced Gianfranco Costamagna's Ubuntu delta (3.2.0+dfsg-5ubuntu1).
-  * Remove README.source. Please Refer d/copyright for excluded files.
-    (Closes: #862796)
+    Synced with Gianfranco Costamagna's Ubuntu delta (3.2.0+dfsg-5ubuntu1).
+  * RM README.source, move Files-Excluded to d/copyright (Closes: #862796)
   * Breaks+Replaces libopencv3.3-java. (Closes: #880212)
 
- -- Mo Zhou <cdluminate@gmail.com>  Thu, 06 Dec 2018 01:49:05 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Sat, 29 Dec 2018 03:45:28 +0000
 
 opencv (3.4.4+dfsg-1~exp1) experimental; urgency=medium
 
