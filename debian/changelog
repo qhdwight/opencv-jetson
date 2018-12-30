@@ -1,4 +1,4 @@
-opencv (3.4.5+dfsg-1~exp1) UNRELEASED; urgency=medium
+opencv (3.4.5+dfsg-1~exp1) experimental; urgency=medium
 
   * New upstream version 3.4.5+dfsg
   * Reference bugs forgot to close in changelog of previous revision.
@@ -12,7 +12,7 @@ opencv (3.4.5+dfsg-1~exp1) UNRELEASED; urgency=medium
   * Amend installation of python files.
   * Define OPENCV_SKIP_PYTHON_LOADER=ON.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 30 Dec 2018 09:28:00 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 30 Dec 2018 10:18:57 +0000
 
 opencv (3.4.4+dfsg-1~exp1) experimental; urgency=medium
 
