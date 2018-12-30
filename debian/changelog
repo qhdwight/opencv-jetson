@@ -8,8 +8,11 @@ opencv (3.4.5+dfsg-1~exp1) UNRELEASED; urgency=medium
     Synced with Gianfranco Costamagna's Ubuntu delta (3.2.0+dfsg-5ubuntu1).
   * RM README.source, move Files-Excluded to d/copyright (Closes: #862796)
   * Breaks+Replaces libopencv3.3-java. (Closes: #880212)
+  * Bump version string from 344 to 345 for Java stuff and pom.xml
+  * Amend installation of python files.
+  * Define OPENCV_SKIP_PYTHON_LOADER=ON.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sat, 29 Dec 2018 03:45:28 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 30 Dec 2018 09:28:00 +0000
 
 opencv (3.4.4+dfsg-1~exp1) experimental; urgency=medium
 
