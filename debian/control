@@ -38,7 +38,7 @@ Build-Depends:
  libtesseract-dev,
  libtiff-dev,
  libv4l-dev [linux-any],
- libvtk6-dev,
+ libvtk7-dev,
  libvtkgdcm2-dev,
  libgdcm-tools,
  maven-repo-helper,
