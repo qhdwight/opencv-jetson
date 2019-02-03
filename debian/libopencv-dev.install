@@ -1,13 +1,6 @@
 # samples
 usr/bin
-# header
-usr/include/opencv/*
 # pkgconfig
 usr/lib/*/pkgconfig
 # cmake
-usr/share/OpenCV/OpenCVConfig-version.cmake
-usr/share/OpenCV/OpenCVConfig.cmake
-usr/share/OpenCV/OpenCVModules-release.cmake
-usr/share/OpenCV/OpenCVModules.cmake
-# other license file
-usr/share/OpenCV/licenses/SoftFloat-COPYING.txt
+usr/lib/*/cmake/opencv4/*.cmake
