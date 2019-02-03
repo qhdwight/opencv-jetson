@@ -2,3 +2,5 @@
 usr/bin
 # cmake
 usr/lib/*/cmake/opencv4/*.cmake
+# misc
+usr/share/licenses/opencv4/SoftFloat-COPYING.txt
