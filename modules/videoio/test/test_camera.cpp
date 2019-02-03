@@ -56,6 +56,20 @@ TEST(DISABLED_VideoIO_Camera, validate_V4L2_MJPEG)
     capture.release();
 }
 
+//Following test if for capture device using PhysConn_Video_SerialDigital as crossbar input pin
+TEST(DISABLED_VideoIO_Camera, dshow_avermedia_capture)
+{
+    VideoCapture capture(0);
+    ASSERT_TRUE(capture.isOpened());
+    capture.set(CAP_PROP_CHANNEL, 6);
+    std::cout << "Camera 0 via " << capture.getBackendName() << " backend" << std::endl;
+    std::cout << "Frame width: " << capture.get(CAP_PROP_FRAME_WIDTH) << std::endl;
+    std::cout << "     height: " << capture.get(CAP_PROP_FRAME_HEIGHT) << std::endl;
+    std::cout << "Capturing FPS: " << capture.get(CAP_PROP_FPS) << std::endl;
+    test_readFrames(capture);
+    capture.release();
+}
+
 TEST(DISABLED_VideoIO_Camera, validate_V4L2_FrameSize)
 {
     VideoCapture capture(CAP_V4L2);
