@@ -4,8 +4,10 @@ opencv (4.0.1+dfsg-1) UNRELEASED; urgency=medium
     + Bump package names: 3.4 => 4.0
     + Bump version number for java package installation files.
     + libopencv4.0-java breaks & replaces libopencv3.4-java.
-  * New packages for "gapi" module (Graph API).
+  * New place-holder packages for "gapi" module (Graph API).
     + libopencv-gapi4.0, libopencv-gapi-dev
+    - Append CMake option WITH_ADE=OFF to disable building gapi,
+      because WITH_ADE=ON triggers 3rdparty tarball download.
   * Remove unused "modules/dnn/3rdparty" exclusion from copyright.
   * Bump VTK B-D from libvtk6-dev to libvtk7-dev.
   * Remove sed-patch for installed CMake files and update install target.
@@ -18,7 +20,7 @@ opencv (4.0.1+dfsg-1) UNRELEASED; urgency=medium
   * Fix typo for the -DOPENCV_SKIP_PYTHON_LOADER=ON argument.
   * Pkg-config file (deprecated) is no longer provided by libopencv-dev.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 03 Feb 2019 16:03:18 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 03 Feb 2019 16:48:24 +0000
 
 opencv (3.4.5+dfsg-1~exp1) experimental; urgency=medium
 
