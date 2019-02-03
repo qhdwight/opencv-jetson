@@ -1,6 +1,4 @@
 # samples
 usr/bin
-# pkgconfig
-usr/lib/*/pkgconfig
 # cmake
 usr/lib/*/cmake/opencv4/*.cmake
