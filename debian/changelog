@@ -3,8 +3,22 @@ opencv (4.0.1+dfsg-1) UNRELEASED; urgency=medium
   * New upstream version 4.0.1+dfsg
     + Bump package names: 3.4 => 4.0
     + Bump version number for java package installation files.
+    + libopencv4.0-java breaks & replaces libopencv3.4-java.
+  * New packages for "gapi" module (Graph API).
+     + libopencv-gapi4.0, libopencv-gapi-dev
+  * Remove unused "modules/dnn/3rdparty" exclusion from copyright.
+  * Bump VTK B-D from libvtk6-dev to libvtk7-dev.
+  * Remove sed-patch for installed CMake files and update install target.
+  * Add WITH_OPENCL=on and WITH_OPENGL=on to CMake options.
+  * Reflect changes of upstream installation layout.
+     + /usr/include/opencv/ has been completely removed.
+     + Headers have been moved to /usr/include/opencv4/opencv2/*
+  * Remove debian/not-installed
+  * Replace dh_install --fail-missing with override_dh_missing target.
+  * Fix typo for the -DOPENCV_SKIP_PYTHON_LOADER=ON argument.
+  * Pkg-config file (deprecated) is no longer provided by libopencv-dev.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 03 Feb 2019 09:21:58 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 03 Feb 2019 16:03:18 +0000
 
 opencv (3.4.5+dfsg-1~exp1) experimental; urgency=medium
 
