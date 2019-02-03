@@ -127,19 +127,11 @@ override_dh_auto_install:
 	dh_auto_install -B $(BUILDDIR)
 
 override_dh_install:
-	# change install path of java library
-	sed -i -e "s@share\/OpenCV\/java\/@lib\/jni\/@g" \
-		debian/tmp/usr/share/OpenCV/OpenCVModules-release.cmake
-
 	# put the static libs together with the rest of the stuff
 	cp -v $(BUILDDIR)-static/lib/*.a debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/
-
-	rm -vrf debian/tmp/usr/share/OpenCV/doc/html/jquery.js
-
-	rm -vrf debian/tmp/usr/share/OpenCV/valgrind_3rdparty.supp \
-		debian/tmp/usr/share/OpenCV/valgrind.supp
-
-	find debian/tmp -type d -empty -delete
+	-find debian/tmp -type f -name jquery.js -delete
+	-find debian/tmp -type f -name '*.supp' -delete
+	-find debian/tmp -type d -empty -delete
 	dh_install --fail-missing
 
 override_dh_gencontrol:
