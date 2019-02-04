@@ -1,4 +1,4 @@
-opencv (4.0.1+dfsg-1) UNRELEASED; urgency=medium
+opencv (4.0.1+dfsg-1~exp1) experimental; urgency=medium
 
   * New upstream version 4.0.1+dfsg
     + Bump package names: 3.4 => 4.0
@@ -19,8 +19,10 @@ opencv (4.0.1+dfsg-1) UNRELEASED; urgency=medium
   * Replace dh_install --fail-missing with override_dh_missing target.
   * Fix typo for the -DOPENCV_SKIP_PYTHON_LOADER=ON argument.
   * Pkg-config file (deprecated) is no longer provided by libopencv-dev.
+  * Append myself to copyright holders of debian directory.
+  * Bump Standards-Version to 4.3.0 (no change).
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 03 Feb 2019 16:48:24 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Mon, 04 Feb 2019 02:13:51 +0000
 
 opencv (3.4.5+dfsg-1~exp1) experimental; urgency=medium
 
