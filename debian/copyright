@@ -65,6 +65,7 @@ Files: debian/*
 Copyright: 2004-2008 Sam Hocevar <sam@zoy.org>
            2009-2017 Nobuhiro Iwamatsu <iwamatsu@debian.org>
            2016-2017 Mattia Rizzolo <mattia@debian.org>
+           2018-2019 Mo Zhou <cdluminate@gmail.com>
 License: BSD-3-clause
 
 License: BSD-3-clause
