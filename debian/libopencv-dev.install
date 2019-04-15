@@ -1,5 +1,10 @@
 # samples
-usr/bin
+usr/bin/opencv_annotation
+usr/bin/opencv_interactive-calibration
+usr/bin/opencv_version
+usr/bin/opencv_visualisation
+usr/bin/opencv_waldboost_detector
+usr/bin/setup_vars_opencv4.sh  usr/bin/setup_vars_opencv4
 # cmake
 usr/lib/*/cmake/opencv4/*.cmake
 # misc
