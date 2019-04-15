@@ -133,3 +133,8 @@ usr/lib/*/libopencv_tracking.so
 usr/include/opencv4/opencv2/core_detect.hpp
 usr/lib/*/libopencv_dnn_objdetect.so
 usr/lib/*/libopencv_dnn_objdetect.a
+# quality
+usr/include/opencv4/opencv2/quality.hpp
+usr/include/opencv4/opencv2/quality/*
+usr/lib/*/libopencv_quality.a
+usr/lib/*/libopencv_quality.so
