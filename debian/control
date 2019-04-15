@@ -102,7 +102,7 @@ Depends:
  libopencv-videoio-dev (= ${binary:Version}),
  libopencv-videostab-dev (= ${binary:Version}),
  libopencv-viz-dev (= ${binary:Version}),
- libopencv4.0-java (= ${source:Version}),
+ libopencv4.1-java (= ${source:Version}),
  pkg-config,
  ${misc:Depends},
  ${shlibs:Depends},
@@ -161,11 +161,11 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
- libopencv-core4.0 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
  libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 sh4 sparc64],
  zlib1g-dev,
  ${misc:Depends},
-Description: development files for libopencv-core4.0
+Description: development files for libopencv-core4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) core.
  .
@@ -179,7 +179,7 @@ Description: development files for libopencv-core4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-core4.0
+Package: libopencv-core4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -207,9 +207,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core-dev (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-ml4.0
+Description: development files for libopencv-ml4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Machine Learning library.
  .
@@ -223,14 +223,14 @@ Description: development files for libopencv-ml4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-ml4.0
+Package: libopencv-ml4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-core4.0 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Machine Learning library
@@ -253,9 +253,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core-dev (= ${binary:Version}),
- libopencv-imgproc4.0 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-imgproc4.0
+Description: development files for libopencv-imgproc4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Image Processing library.
  .
@@ -269,14 +269,14 @@ Description: development files for libopencv-imgproc4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-imgproc4.0
+Package: libopencv-imgproc4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-core4.0 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Image Processing library
@@ -299,10 +299,10 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libgdcm2-dev [!hppa !m68k !powerpcspe !sh4],
- libopencv-imgcodecs4.0 (= ${binary:Version}),
+ libopencv-imgcodecs4.1 (= ${binary:Version}),
  libopencv-imgproc-dev (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-imgcodecs4.0
+Description: development files for libopencv-imgcodecs4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Image Codecs library.
  .
@@ -316,14 +316,14 @@ Description: development files for libopencv-imgcodecs4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-imgcodecs4.0
+Package: libopencv-imgcodecs4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-imgproc4.0 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Image Codecs library
@@ -346,9 +346,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-imgproc-dev (= ${binary:Version}),
- libopencv-video4.0 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-video4.0
+Description: development files for libopencv-video4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Video analysis library.
  .
@@ -362,14 +362,14 @@ Description: development files for libopencv-video4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-video4.0
+Package: libopencv-video4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-imgproc4.0 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Video analysis library
@@ -394,9 +394,9 @@ Depends:
  libavresample-dev,
  libgphoto2-dev,
  libopencv-imgcodecs-dev (= ${binary:Version}),
- libopencv-videoio4.0 (= ${binary:Version}),
+ libopencv-videoio4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-videoio4.0
+Description: development files for libopencv-videoio4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Video I/O library.
  .
@@ -410,14 +410,14 @@ Description: development files for libopencv-videoio4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-videoio4.0
+Package: libopencv-videoio4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-imgcodecs4.0 (= ${binary:Version}),
+ libopencv-imgcodecs4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Video I/O library
@@ -441,9 +441,9 @@ Multi-Arch: same
 Depends:
  libopencv-highgui-dev (= ${binary:Version}),
  libopencv-ml-dev (= ${binary:Version}),
- libopencv-objdetect4.0 (= ${binary:Version}),
+ libopencv-objdetect4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-objdetect4.0
+Description: development files for libopencv-objdetect4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Object Detection library.
  .
@@ -457,15 +457,15 @@ Description: development files for libopencv-objdetect4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-objdetect4.0
+Package: libopencv-objdetect4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-highgui4.0 (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Object Detection library
@@ -493,15 +493,15 @@ Depends:
  libdc1394-22-dev [!kfreebsd-amd64 !kfreebsd-i386 !hurd-i386],
  libgphoto2-dev,
  libjpeg-dev,
- libopencv-highgui4.0 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
  libopencv-videoio-dev (= ${binary:Version}),
- libopenexr-dev (>= 1.4.0),
+ libopenexr-dev (>= 1.4.1),
  libpng-dev,
  libraw1394-dev [!kfreebsd-amd64 !kfreebsd-i386 !hurd-i386],
  libswscale-dev,
  libtiff-dev,
  ${misc:Depends},
-Description: development files for libopencv-highgui4.0
+Description: development files for libopencv-highgui4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) High-level GUI and
  Media I/O library.
@@ -516,14 +516,14 @@ Description: development files for libopencv-highgui4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-highgui4.0
+Package: libopencv-highgui4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-videoio4.0 (= ${binary:Version}),
+ libopencv-videoio4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision High-level GUI and Media I/O library
@@ -545,10 +545,10 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
  libopencv-features2d-dev (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-calib3d4.0
+Description: development files for libopencv-calib3d4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Camera Calibration library.
  .
@@ -562,14 +562,14 @@ Description: development files for libopencv-calib3d4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-calib3d4.0
+Package: libopencv-calib3d4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-features2d4.0 (= ${binary:Version}),
+ libopencv-features2d4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Camera Calibration library
@@ -592,9 +592,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core-dev (= ${binary:Version}),
- libopencv-flann4.0 (= ${binary:Version}),
+ libopencv-flann4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-flann4.0
+Description: development files for libopencv-flann4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Clustering and Search
  in Multi-Dimensional spaces library.
@@ -609,14 +609,14 @@ Description: development files for libopencv-flann4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-flann4.0
+Package: libopencv-flann4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-core4.0 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Clustering and Search in Multi-Dimensional spaces library
@@ -639,9 +639,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core-dev (= ${binary:Version}),
- libopencv-dnn4.0 (= ${binary:Version}),
+ libopencv-dnn4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-dnn4.0
+Description: development files for libopencv-dnn4.1
  This package contains the header files and static library needed to compile
  in deep neural network module.
  .
@@ -655,14 +655,14 @@ Description: development files for libopencv-dnn4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-dnn4.0
+Package: libopencv-dnn4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-core4.0 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Deep neural network module
@@ -684,12 +684,12 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
- libopencv-features2d4.0 (= ${binary:Version}),
+ libopencv-features2d4.1 (= ${binary:Version}),
  libopencv-flann-dev (= ${binary:Version}),
  libopencv-highgui-dev (= ${binary:Version}),
  libopencv-ml-dev (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-features2d4.0
+Description: development files for libopencv-features2d4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Feature Detection and
  Descriptor Extraction library.
@@ -704,16 +704,16 @@ Description: development files for libopencv-features2d4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-features2d4.0
+Package: libopencv-features2d4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-flann4.0 (= ${binary:Version}),
- libopencv-highgui4.0 (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
+ libopencv-flann4.1 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Feature Detection and Descriptor Extraction library
@@ -757,9 +757,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-imgproc-dev (= ${binary:Version}),
- libopencv-photo4.0 (= ${binary:Version}),
+ libopencv-photo4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-photo4.0
+Description: development files for libopencv-photo4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) computational photography
  library.
@@ -774,14 +774,14 @@ Description: development files for libopencv-photo4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-photo4.0
+Package: libopencv-photo4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-imgproc4.0 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision computational photography library
@@ -806,9 +806,9 @@ Depends:
  libopencv-calib3d-dev (= ${binary:Version}),
  libopencv-photo-dev (= ${binary:Version}),
  libopencv-video-dev (= ${binary:Version}),
- libopencv-videostab4.0 (= ${binary:Version}),
+ libopencv-videostab4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-videostab4.0
+Description: development files for libopencv-videostab4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) video stabilization
  library.
@@ -823,16 +823,16 @@ Description: development files for libopencv-videostab4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-videostab4.0
+Package: libopencv-videostab4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
- libopencv-photo4.0 (= ${binary:Version}),
- libopencv-video4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
+ libopencv-photo4.1 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision video stabilization library
@@ -856,9 +856,9 @@ Multi-Arch: same
 Depends:
  libopencv-calib3d-dev (= ${binary:Version}),
  libopencv-objdetect-dev (= ${binary:Version}),
- libopencv-stitching4.0 (= ${binary:Version}),
+ libopencv-stitching4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-stitching4.0
+Description: development files for libopencv-stitching4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) image stitching library.
  .
@@ -872,15 +872,15 @@ Description: development files for libopencv-stitching4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-stitching4.0
+Package: libopencv-stitching4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
- libopencv-objdetect4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
+ libopencv-objdetect4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision image stitching library
@@ -902,10 +902,10 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
- libopencv-shape4.0 (= ${binary:Version}),
+ libopencv-shape4.1 (= ${binary:Version}),
  libopencv-video-dev (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-shape4.0
+Description: development files for libopencv-shape4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) shape descriptors and
  matchers library.
@@ -920,14 +920,14 @@ Description: development files for libopencv-shape4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-shape4.0
+Package: libopencv-shape4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-video4.0 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision shape descriptors and matchers library
@@ -949,11 +949,11 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends:
- libopencv-superres4.0 (= ${binary:Version}),
+ libopencv-superres4.1 (= ${binary:Version}),
  libopencv-video-dev (= ${binary:Version}),
  libopencv-videoio-dev (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-superres4.0
+Description: development files for libopencv-superres4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) Super Resolution library.
  .
@@ -967,15 +967,15 @@ Description: development files for libopencv-superres4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-superres4.0
+Package: libopencv-superres4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-video4.0 (= ${binary:Version}),
- libopencv-videoio4.0 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
+ libopencv-videoio4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision Super Resolution library
@@ -998,9 +998,9 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-core-dev (= ${binary:Version}),
- libopencv-viz4.0 (= ${binary:Version}),
+ libopencv-viz4.1 (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-viz4.0
+Description: development files for libopencv-viz4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) 3D data visualization
  library.
@@ -1015,14 +1015,14 @@ Description: development files for libopencv-viz4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-viz4.0
+Package: libopencv-viz4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-core4.0 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
  libvtk6.3,
  ${misc:Depends},
  ${shlibs:Depends},
@@ -1046,9 +1046,9 @@ Description: computer vision 3D data visualization library
 #Multi-Arch: same
 #Depends:
 # libopencv-core-dev (= ${binary:Version}),
-# libopencv-gapi4.0 (= ${binary:Version}),
+# libopencv-gapi4.1 (= ${binary:Version}),
 # ${misc:Depends},
-#Description: development files for libopencv-gapi4.0
+#Description: development files for libopencv-gapi4.1
 # This package contains the header files and static library needed to compile
 # applications that use OpenCV (Open Computer Vision) Graph API library.
 # .
@@ -1062,14 +1062,14 @@ Description: computer vision 3D data visualization library
 # analysis, structural analysis, motion analysis and object tracking, object
 # recognition, camera calibration and 3D reconstruction.
 #
-#Package: libopencv-gapi4.0
+#Package: libopencv-gapi4.1
 #Section: libs
 #Architecture: any
 #Multi-Arch: same
 #Pre-Depends:
 # ${misc:Pre-Depends},
 #Depends:
-# libopencv-core4.0 (= ${binary:Version}),
+# libopencv-core4.1 (= ${binary:Version}),
 # ${misc:Depends},
 # ${shlibs:Depends},
 #Description: computer vision Graph API library
@@ -1092,7 +1092,7 @@ Architecture: any
 Multi-Arch: same
 Depends:
  libopencv-calib3d-dev (= ${binary:Version}),
- libopencv-contrib4.0 (= ${binary:Version}),
+ libopencv-contrib4.1 (= ${binary:Version}),
  libopencv-core-dev (= ${binary:Version}),
  libopencv-dnn-dev (= ${binary:Version}),
  libopencv-features2d-dev (= ${binary:Version}),
@@ -1111,7 +1111,7 @@ Depends:
  libopencv-videostab-dev (= ${binary:Version}),
  libopencv-viz-dev (= ${binary:Version}),
  ${misc:Depends},
-Description: development files for libopencv-contrib4.0
+Description: development files for libopencv-contrib4.1
  This package contains the header files and static library needed to compile
  applications that use OpenCV (Open Computer Vision) contrib library.
  .
@@ -1125,31 +1125,31 @@ Description: development files for libopencv-contrib4.0
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv-contrib4.0
+Package: libopencv-contrib4.1
 Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends:
  ${misc:Pre-Depends},
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
- libopencv-core4.0 (= ${binary:Version}),
- libopencv-dnn4.0 (= ${binary:Version}),
- libopencv-features2d4.0 (= ${binary:Version}),
- libopencv-flann4.0 (= ${binary:Version}),
- libopencv-highgui4.0 (= ${binary:Version}),
- libopencv-imgcodecs4.0 (= ${binary:Version}),
- libopencv-imgproc4.0 (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
- libopencv-objdetect4.0 (= ${binary:Version}),
- libopencv-photo4.0 (= ${binary:Version}),
- libopencv-shape4.0 (= ${binary:Version}),
- libopencv-stitching4.0 (= ${binary:Version}),
- libopencv-superres4.0 (= ${binary:Version}),
- libopencv-video4.0 (= ${binary:Version}),
- libopencv-videoio4.0 (= ${binary:Version}),
- libopencv-videostab4.0 (= ${binary:Version}),
- libopencv-viz4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
+ libopencv-core4.1 (= ${binary:Version}),
+ libopencv-dnn4.1 (= ${binary:Version}),
+ libopencv-features2d4.1 (= ${binary:Version}),
+ libopencv-flann4.1 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
+ libopencv-imgcodecs4.1 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
+ libopencv-objdetect4.1 (= ${binary:Version}),
+ libopencv-photo4.1 (= ${binary:Version}),
+ libopencv-shape4.1 (= ${binary:Version}),
+ libopencv-stitching4.1 (= ${binary:Version}),
+ libopencv-superres4.1 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
+ libopencv-videoio4.1 (= ${binary:Version}),
+ libopencv-videostab4.1 (= ${binary:Version}),
+ libopencv-viz4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: computer vision contrlib library
@@ -1198,11 +1198,11 @@ Description: computer vision contrlib library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv4.0-java
+Package: libopencv4.1-java
 Section: java
 Architecture: all
 Depends:
- libopencv4.0-jni (>= ${binary:Version}),
+ libopencv4.1-jni (>= ${binary:Version}),
  ${java:Depends},
  ${misc:Depends},
 Recommends:
@@ -1231,16 +1231,16 @@ Description: Java bindings for the computer vision library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv4.0-jni
+Package: libopencv4.1-jni
 Section: java
 Architecture: any
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
- libopencv-highgui4.0 (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
- libopencv-objdetect4.0 (= ${binary:Version}),
- libopencv-photo4.0 (= ${binary:Version}),
- libopencv-video4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
+ libopencv-objdetect4.1 (= ${binary:Version}),
+ libopencv-photo4.1 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
 Description: Java jni library for the computer vision library
@@ -1261,23 +1261,23 @@ Package: python-opencv
 Section: python
 Architecture: any
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
- libopencv-dnn4.0 (= ${binary:Version}),
- libopencv-features2d4.0 (= ${binary:Version}),
- libopencv-flann4.0 (= ${binary:Version}),
- libopencv-highgui4.0 (= ${binary:Version}),
- libopencv-imgcodecs4.0 (= ${binary:Version}),
- libopencv-imgproc4.0 (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
- libopencv-objdetect4.0 (= ${binary:Version}),
- libopencv-photo4.0 (= ${binary:Version}),
- libopencv-shape4.0 (= ${binary:Version}),
- libopencv-stitching4.0 (= ${binary:Version}),
- libopencv-superres4.0 (= ${binary:Version}),
- libopencv-video4.0 (= ${binary:Version}),
- libopencv-videoio4.0 (= ${binary:Version}),
- libopencv-videostab4.0 (= ${binary:Version}),
- libopencv-viz4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
+ libopencv-dnn4.1 (= ${binary:Version}),
+ libopencv-features2d4.1 (= ${binary:Version}),
+ libopencv-flann4.1 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
+ libopencv-imgcodecs4.1 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
+ libopencv-objdetect4.1 (= ${binary:Version}),
+ libopencv-photo4.1 (= ${binary:Version}),
+ libopencv-shape4.1 (= ${binary:Version}),
+ libopencv-stitching4.1 (= ${binary:Version}),
+ libopencv-superres4.1 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
+ libopencv-videoio4.1 (= ${binary:Version}),
+ libopencv-videostab4.1 (= ${binary:Version}),
+ libopencv-viz4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${python:Depends},
  ${shlibs:Depends},
@@ -1299,23 +1299,23 @@ Package: python3-opencv
 Section: python
 Architecture: any
 Depends:
- libopencv-calib3d4.0 (= ${binary:Version}),
- libopencv-dnn4.0 (= ${binary:Version}),
- libopencv-features2d4.0 (= ${binary:Version}),
- libopencv-flann4.0 (= ${binary:Version}),
- libopencv-highgui4.0 (= ${binary:Version}),
- libopencv-imgcodecs4.0 (= ${binary:Version}),
- libopencv-imgproc4.0 (= ${binary:Version}),
- libopencv-ml4.0 (= ${binary:Version}),
- libopencv-objdetect4.0 (= ${binary:Version}),
- libopencv-photo4.0 (= ${binary:Version}),
- libopencv-shape4.0 (= ${binary:Version}),
- libopencv-stitching4.0 (= ${binary:Version}),
- libopencv-superres4.0 (= ${binary:Version}),
- libopencv-video4.0 (= ${binary:Version}),
- libopencv-videoio4.0 (= ${binary:Version}),
- libopencv-videostab4.0 (= ${binary:Version}),
- libopencv-viz4.0 (= ${binary:Version}),
+ libopencv-calib3d4.1 (= ${binary:Version}),
+ libopencv-dnn4.1 (= ${binary:Version}),
+ libopencv-features2d4.1 (= ${binary:Version}),
+ libopencv-flann4.1 (= ${binary:Version}),
+ libopencv-highgui4.1 (= ${binary:Version}),
+ libopencv-imgcodecs4.1 (= ${binary:Version}),
+ libopencv-imgproc4.1 (= ${binary:Version}),
+ libopencv-ml4.1 (= ${binary:Version}),
+ libopencv-objdetect4.1 (= ${binary:Version}),
+ libopencv-photo4.1 (= ${binary:Version}),
+ libopencv-shape4.1 (= ${binary:Version}),
+ libopencv-stitching4.1 (= ${binary:Version}),
+ libopencv-superres4.1 (= ${binary:Version}),
+ libopencv-video4.1 (= ${binary:Version}),
+ libopencv-videoio4.1 (= ${binary:Version}),
+ libopencv-videostab4.1 (= ${binary:Version}),
+ libopencv-viz4.1 (= ${binary:Version}),
  ${misc:Depends},
  ${python3:Depends},
  ${shlibs:Depends},
