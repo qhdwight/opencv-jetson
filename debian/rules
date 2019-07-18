@@ -45,7 +45,8 @@ CMAKE_FLAGS = \
 	-DBUILD_EXAMPLES=ON	\
 	-DBUILD_JAVA=ON \
 	-DBUILD_PROTOBUF=OFF \
-	-DBUILD_TESTS=OFF \
+	-DBUILD_TESTS=ON \
+	-DBUILD_PERF_TESTS=OFF \
 	-DBUILD_opencv_dnn=ON \
 	-DBUILD_opencv_dnn_modern=ON \
 	-DBUILD_opencv_face=ON \
@@ -126,6 +127,7 @@ build_static:
 	dh_auto_build -B $(BUILDDIR)-static
 
 override_dh_auto_test:
+	LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
 
 override_dh_auto_install:
 	dh_auto_install -B $(BUILDDIR)
