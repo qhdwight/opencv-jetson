@@ -1,3 +1,10 @@
+opencv (4.1.1+dfsg-1) UNRELEASED; urgency=medium
+
+  * New upstream version 4.1.1+dfsg
+  * Re-enable dh_auto_tests and disable performance tests.
+
+ -- Mo Zhou <cdluminate@gmail.com>  Sat, 24 Aug 2019 14:57:56 +0800
+
 opencv (4.1.0+dfsg-1) experimental; urgency=medium
 
   * New upstream version 4.1.0+dfsg
