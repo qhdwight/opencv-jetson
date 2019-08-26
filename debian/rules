@@ -148,7 +148,7 @@ override_dh_gencontrol:
 	dh_numpy3
 	dh_gencontrol
 
-OCV_CONTRIB = opencv_contrib-4.1.0
+OCV_CONTRIB = opencv_contrib-4.1.1
 PKG = opencv
 UVER = $(shell dpkg-parsechangelog -S Version | sed 's,-.*,,')
 DTYPE = +dfsg
