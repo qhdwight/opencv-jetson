@@ -41,6 +41,7 @@ endif
 export JAVA_HOME=/usr/lib/jvm/default-java
 
 CMAKE_FLAGS = \
+	-GNinja \
 	-DANT_EXECUTABLE=/usr/bin/ant \
 	-DBUILD_EXAMPLES=ON	\
 	-DBUILD_JAVA=ON \
