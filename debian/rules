@@ -120,11 +120,9 @@ configure_static:
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF
 
-override_dh_auto_build: build_dyn build_static
-build_dyn:
+override_dh_auto_build:
 	dh_auto_build -B $(BUILDDIR)
 	dh_auto_build -B $(BUILDDIR) -- doxygen
-build_static:
 	dh_auto_build -B $(BUILDDIR)-static
 
 override_dh_auto_test:
