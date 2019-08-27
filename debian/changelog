@@ -1,9 +1,17 @@
 opencv (4.1.1+dfsg-1) UNRELEASED; urgency=medium
 
   * New upstream version 4.1.1+dfsg
-  * Re-enable dh_auto_tests and disable performance tests.
+  * Re-enable dh_auto_tests and keep performance tests disabled.
+    + Allow some tests to fail.
+  * Bump OpenCV version number for Java related control files.
+  * Fix disordered output when building the package:
+    * Use ninja (-GNinja & B-D) build.
+    * Avoid parallel d/rules build steps.
+    * Avoid parallel d/rules configure steps.
+  * Patch a XML file to circumvent the javadoc build failure.
+  * Install additional YML files to opencv-data.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sat, 24 Aug 2019 14:57:56 +0800
+ -- Mo Zhou <cdluminate@gmail.com>  Tue, 27 Aug 2019 04:23:40 +0000
 
 opencv (4.1.0+dfsg-1) experimental; urgency=medium
 
