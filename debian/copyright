@@ -21,6 +21,11 @@ Files-Excluded-contrib:
  modules/xfeatures2d
 
 
+# FIXME: but strictly speaking there are different
+# BSD-3 licenses in the package with differnt third clauses, that should
+# appear in your debian/copyright. -- Thorsten Alteholz
+
+
 Files: *
 Copyright: 2000-2015 Intel Corporation
            2009-2011 Willow Garage Inc.
