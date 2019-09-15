@@ -148,8 +148,8 @@ override_dh_missing:
 	dh_missing --fail-missing
 
 override_dh_gencontrol:
-	dh_numpy
-	dh_numpy3
+	dh_numpy -p python-opencv
+	dh_numpy3 -p python3-opencv
 	dh_gencontrol
 
 OCV_CONTRIB = opencv_contrib-4.1.1
