@@ -20,12 +20,6 @@ Files-Excluded:
 Files-Excluded-contrib:
  modules/xfeatures2d
 
-
-# FIXME: but strictly speaking there are different
-# BSD-3 licenses in the package with differnt third clauses, that should
-# appear in your debian/copyright. -- Thorsten Alteholz
-
-
 Files: *
 Copyright: 2000-2015 Intel Corporation
            2009-2011 Willow Garage Inc.
@@ -34,6 +28,24 @@ Copyright: 2000-2015 Intel Corporation
            2015      OpenCV Foundation
            2015      Itseez Inc.
 License: BSD-3-clause
+Comment: Some of the source files contain different third clauses, for instance:
+ .
+   * The name of Intel Corporation may not be used to endorse or promote products
+     derived from this software without specific prior written permission.
+ .
+   * The name of the copyright holders may not be used to endorse or promote products
+     derived from this software without specific prior written permission.
+ .
+   * Neither the name of Willow Garage, Inc. nor the names of its
+     contributors may be used to endorse or promote products derived
+     from this software without specific prior written permission.
+ .
+   * Neither the name of Google Inc. nor the names of its contributors may be
+     used to endorse or promote products derived from this software without
+     specific prior written permission.
+ .
+   * The name of OpenCV Foundation may not be used to endorse or promote products
+     derived from this software without specific prior written permission.
 
 Files: cmake/FindCUDA/*
 Copyright: 2008 - 2009 NVIDIA Corporation.
