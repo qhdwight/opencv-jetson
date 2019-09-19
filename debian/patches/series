@@ -2,3 +2,4 @@ change_jquery.js_path
 face-no-download.patch
 cmake-dont-install-inexistent-files.patch
 workaround-javadoc-failure.patch
+464972855e25f71667009b8fe88092d11aab0297.patch

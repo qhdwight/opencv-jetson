@@ -1,0 +1,111 @@
+From 464972855e25f71667009b8fe88092d11aab0297 Mon Sep 17 00:00:00 2001
+From: Alexander Alekhin <alexander.alekhin@intel.com>
+Date: Tue, 20 Aug 2019 16:19:37 +0300
+Subject: [PATCH] cmake: add libatomic check
+
+---
+ CMakeLists.txt                      |  4 ++++
+ cmake/OpenCVDetectCXXCompiler.cmake | 18 ++++++++++++++++++
+ cmake/OpenCVUtils.cmake             | 24 +++++++++++++++++++++++-
+ cmake/checks/atomic_check.cpp       | 12 ++++++++++++
+ 4 files changed, 57 insertions(+), 1 deletion(-)
+ create mode 100644 cmake/checks/atomic_check.cpp
+
+Index: opencv/CMakeLists.txt
+===================================================================
+--- opencv.orig/CMakeLists.txt
++++ opencv/CMakeLists.txt
+@@ -14,6 +14,10 @@ FATAL: In-source builds are not allowed.
+ ")
+ endif()
+ 
++if(POLICY CMP0075)
++  cmake_policy(SET CMP0075 NEW)  # CMake 3.12+: Include file check macros honor `CMAKE_REQUIRED_LIBRARIES`
++endif()
++
+ 
+ include(cmake/OpenCVMinDepVersions.cmake)
+ 
+Index: opencv/cmake/OpenCVDetectCXXCompiler.cmake
+===================================================================
+--- opencv.orig/cmake/OpenCVDetectCXXCompiler.cmake
++++ opencv/cmake/OpenCVDetectCXXCompiler.cmake
+@@ -194,3 +194,21 @@ endif()
+ if(NOT HAVE_CXX11)
+   message(FATAL_ERROR "OpenCV 4.x requires C++11")
+ endif()
++
++if((HAVE_CXX11
++        AND NOT MSVC
++        AND NOT (X86 OR X86_64)
++    AND NOT OPENCV_SKIP_LIBATOMIC_COMPILER_CHECK)
++    OR OPENCV_FORCE_LIBATOMIC_COMPILER_CHECK
++)
++  ocv_check_compiler_flag(CXX "" HAVE_CXX_ATOMICS_WITHOUT_LIB "${OpenCV_SOURCE_DIR}/cmake/checks/atomic_check.cpp")
++  if(NOT HAVE_CXX_ATOMICS_WITHOUT_LIB)
++    list(APPEND CMAKE_REQUIRED_LIBRARIES atomic)
++    ocv_check_compiler_flag(CXX "" HAVE_CXX_ATOMICS_WITH_LIB "${OpenCV_SOURCE_DIR}/cmake/checks/atomic_check.cpp")
++    if(HAVE_CXX_ATOMICS_WITH_LIB)
++      list(APPEND OPENCV_LINKER_LIBS atomic)
++    else()
++      message(FATAL_ERROR "C++11 compiler must support std::atomic")
++    endif()
++  endif()
++endif()
+Index: opencv/cmake/OpenCVUtils.cmake
+===================================================================
+--- opencv.orig/cmake/OpenCVUtils.cmake
++++ opencv/cmake/OpenCVUtils.cmake
+@@ -414,12 +414,34 @@ MACRO(ocv_check_compiler_flag LANG FLAG
+       else()
+         set(__msg "")
+       endif()
++      if(CMAKE_REQUIRED_LIBRARIES)
++        set(__link_libs LINK_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES})
++      else()
++        set(__link_libs)
++      endif()
++      set(__cmake_flags "")
++      if(CMAKE_EXE_LINKER_FLAGS)  # CMP0056 do this on new CMake
++        list(APPEND __cmake_flags "-DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}")
++      endif()
++
++      # CMP0067 do this on new CMake
++      if(DEFINED CMAKE_CXX_STANDARD)
++        list(APPEND __cmake_flags "-DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}")
++      endif()
++      if(DEFINED CMAKE_CXX_STANDARD_REQUIRED)
++        list(APPEND __cmake_flags "-DCMAKE_CXX_STANDARD_REQUIRED=${CMAKE_CXX_STANDARD_REQUIRED}")
++      endif()
++      if(DEFINED CMAKE_CXX_EXTENSIONS)
++        list(APPEND __cmake_flags "-DCMAKE_CXX_EXTENSIONS=${CMAKE_CXX_EXTENSIONS}")
++      endif()
++
+       MESSAGE(STATUS "Performing Test ${RESULT}${__msg}")
+       TRY_COMPILE(${RESULT}
+         "${CMAKE_BINARY_DIR}"
+         "${_fname}"
+-        CMAKE_FLAGS "-DCMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}"   # CMP0056 do this on new CMake
++        CMAKE_FLAGS ${__cmake_flags}
+         COMPILE_DEFINITIONS "${FLAG}"
++        ${__link_libs}
+         OUTPUT_VARIABLE OUTPUT)
+ 
+       if(${RESULT})
+Index: opencv/cmake/checks/atomic_check.cpp
+===================================================================
+--- /dev/null
++++ opencv/cmake/checks/atomic_check.cpp
+@@ -0,0 +1,12 @@
++#include <atomic>
++
++static int test()
++{
++    std::atomic<int> x;
++    return x;
++}
++
++int main()
++{
++    return test();
++}
