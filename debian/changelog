@@ -1,8 +1,12 @@
-opencv (4.1.1+dfsg-2) experimental; urgency=medium
+opencv (4.1.1+dfsg-2) unreleased; urgency=medium
 
   * Enable code path dispatch for SIMD optimization.
   * Prevent dh_numpy from generating depends field for every package.
   * Copyright: mention different 3rd clauses in BSD-3 licenses.
+  * Fixup armel FTBFS:
+    * Cherry-pick 4649728 to fix atomic linkage.
+    * Cherry-pick c657c6c to fix minor issue in the atomic fix.
+  * RISCV64: disable gdcm2 support and enable tbb support. (Closes: #924713)
 
  -- Mo Zhou <cdluminate@gmail.com>  Thu, 19 Sep 2019 05:07:53 +0000
 
