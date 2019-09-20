@@ -1,4 +1,4 @@
-opencv (4.1.1+dfsg-2) unstable; urgency=medium
+opencv (4.1.1+dfsg-2) experimental; urgency=medium
 
   * Enable code path dispatch for SIMD optimization.
   * Prevent dh_numpy from generating depends field for every package.
@@ -8,7 +8,7 @@ opencv (4.1.1+dfsg-2) unstable; urgency=medium
     * Cherry-pick c657c6c to fix minor issue in the atomic fix.
   * RISCV64: disable gdcm2 support and enable tbb support. (Closes: #924713)
 
- -- Mo Zhou <cdluminate@gmail.com>  Fri, 20 Sep 2019 05:20:29 +0000
+ -- Mo Zhou <cdluminate@gmail.com>  Fri, 20 Sep 2019 05:22:17 +0000
 
 opencv (4.1.1+dfsg-1) experimental; urgency=medium
 
