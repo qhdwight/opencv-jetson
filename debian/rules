@@ -125,10 +125,17 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	# documentation
 	dh_auto_build -B $(BUILDDIR) -- doxygen
+ifneq (,$(findstring $(DEB_HOST_ARCH), mips mipsel mips64el))
+	# dynamically linked
+	dh_auto_build --no-parallel -B $(BUILDDIR)
+	# statically linked
+	dh_auto_build --no-parallel -B $(BUILDDIR)-static
+else
 	# dynamically linked
 	dh_auto_build -B $(BUILDDIR)
 	# statically linked
 	dh_auto_build -B $(BUILDDIR)-static
+endif
 
 override_dh_auto_test:
 	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
