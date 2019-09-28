@@ -1,3 +1,9 @@
+opencv (4.1.1+dfsg-3) experimental; urgency=medium
+
+  * Disable parallel build for mips* architectures due to OOM issue.
+
+ -- Mo Zhou <cdluminate@gmail.com>  Sat, 28 Sep 2019 14:35:37 +0800
+
 opencv (4.1.1+dfsg-2) experimental; urgency=medium
 
   * Enable code path dispatch for SIMD optimization.
