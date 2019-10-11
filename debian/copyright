@@ -3,9 +3,12 @@ Upstream-Name: OpenCV
 Source: https://opencv.org
 Files-Excluded:
  3rdparty
+ doc/js_tutorials/js_assets/lena.jpg
+ doc/js_tutorials/js_assets/lenaFace.png
+ doc/tutorials/dnn/images/lena_hed.jpg
  doc/tutorials/introduction/clojure_dev_intro/images/lena.png
  doc/tutorials/introduction/desktop_java/images/lena.png
- doc/js_tutorials/js_assets/lena.jpg
+ doc/tutorials/introduction/images/lena.png
  modules/highgui/src/files_Qt/Milky
  modules/java/test/common_test/res/drawable/lena.png
  samples/data/lena.jpg
