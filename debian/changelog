@@ -1,3 +1,10 @@
+opencv (4.1.2+dfsg-1) UNRELEASED; urgency=medium
+
+  * New upstream version 4.1.2+dfsg
+  * Files-Excluded: exclude more Lena images from the source.
+
+ -- Mo Zhou <cdluminate@gmail.com>  Fri, 11 Oct 2019 22:31:12 +0800
+
 opencv (4.1.1+dfsg-3) experimental; urgency=medium
 
   * Disable parallel build for mips* architectures due to OOM issue.
