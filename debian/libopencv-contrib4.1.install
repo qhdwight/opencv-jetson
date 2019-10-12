@@ -27,3 +27,4 @@ usr/lib/*/libopencv_xobjdetect.so.*
 usr/lib/*/libopencv_xphoto.so.*
 usr/lib/*/libopencv_dnn_objdetect.so.*
 usr/lib/*/libopencv_quality.so.*
+usr/lib/*/libopencv_dnn_superres.so.*

@@ -138,3 +138,7 @@ usr/include/opencv4/opencv2/quality.hpp
 usr/include/opencv4/opencv2/quality/*
 usr/lib/*/libopencv_quality.a
 usr/lib/*/libopencv_quality.so
+# dnn_superres
+usr/include/opencv4/opencv2/dnn_superres.hpp 
+usr/lib/*/libopencv_dnn_superres.a
+usr/lib/*/libopencv_dnn_superres.so
