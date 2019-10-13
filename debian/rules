@@ -42,6 +42,7 @@ endif
 # mitigate compiler OOM during build
 ifeq ($(DEB_HOST_ARCH),mipsel)
 export DEB_BUILD_OPTIONS=noopt
+CXXFLAGS+=-gsplit-dwarf
 endif
 
 # For Java
