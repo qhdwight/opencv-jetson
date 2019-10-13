@@ -39,6 +39,11 @@ else
 CMAKE_ARCH_FLAGS += -DWITH_1394=OFF -DWITH_V4L=OFF
 endif
 
+# mitigate compiler OOM during build
+ifeq ($(DEB_HOST_ARCH),mipsel)
+export DEB_BUILD_OPTIONS=noopt
+endif
+
 # For Java
 export JAVA_HOME=/usr/lib/jvm/default-java
 
@@ -125,7 +130,7 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	# documentation
 	dh_auto_build -B $(BUILDDIR) -- doxygen
-ifneq (,$(findstring $(DEB_HOST_ARCH), mips mipsel mips64el))
+ifneq (,$(findstring $(DEB_HOST_ARCH), mipsel))
 	# dynamically linked
 	dh_auto_build --no-parallel -B $(BUILDDIR)
 	# statically linked
