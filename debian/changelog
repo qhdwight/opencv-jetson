@@ -1,4 +1,4 @@
-opencv (4.1.2+dfsg-1) UNRELEASED; urgency=medium
+opencv (4.1.2+dfsg-1) experimental; urgency=medium
 
   * New upstream version 4.1.2+dfsg
   * Files-Excluded: exclude more Lena images from the source.
@@ -7,7 +7,7 @@ opencv (4.1.2+dfsg-1) UNRELEASED; urgency=medium
   * Install the new contrib module dnn_superres.
   * Use "noopt" and "-gsplit-dwarf" on mipsel.
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 13 Oct 2019 11:29:54 +0800
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 13 Oct 2019 16:51:16 +0800
 
 opencv (4.1.1+dfsg-3) experimental; urgency=medium
 
