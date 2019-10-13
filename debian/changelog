@@ -2,8 +2,12 @@ opencv (4.1.2+dfsg-1) UNRELEASED; urgency=medium
 
   * New upstream version 4.1.2+dfsg
   * Files-Excluded: exclude more Lena images from the source.
+  * Drop patches for "fixing the atomic linkage".
+  * Bump version numbers for java files from 4.1.1 to 4.1.2.
+  * Install the new contrib module dnn_superres.
+  * Use "noopt" and "-gsplit-dwarf" on mipsel.
 
- -- Mo Zhou <cdluminate@gmail.com>  Fri, 11 Oct 2019 22:31:12 +0800
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 13 Oct 2019 11:29:54 +0800
 
 opencv (4.1.1+dfsg-3) experimental; urgency=medium
 
