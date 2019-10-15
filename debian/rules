@@ -144,7 +144,11 @@ else
 endif
 
 override_dh_auto_test:
+ifeq ($(DEB_HOST_ARCH),mipsel)
+	true # Don't run the tests at all
+else
 	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
+endif
 
 override_dh_auto_install:
 	dh_auto_install -B $(BUILDDIR)
