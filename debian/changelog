@@ -2,9 +2,10 @@ opencv (4.1.2+dfsg-2) UNRELEASED; urgency=medium
 
   * Deprecate the Python2 package: python-opencv. (Closes: #937199)
   * Don't run unit tests on mipsel at all.
-  * Upload to unstable (Closes: #940483)
+  * Revert "Bump VTK B-D from libvtk6-dev to libvtk7-dev." for portability.
+  * Rebuild in experimental (Closes: #940483)
 
- -- Mo Zhou <cdluminate@gmail.com>  Tue, 15 Oct 2019 10:37:44 +0800
+ -- Mo Zhou <cdluminate@gmail.com>  Tue, 15 Oct 2019 11:02:56 +0800
 
 opencv (4.1.2+dfsg-1) experimental; urgency=medium
 
