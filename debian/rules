@@ -102,7 +102,7 @@ CMAKE_FLAGS = \
 	$(CMAKE_ARCH_FLAGS)
 
 %:
-	dh $@ --with python2,python3,javahelper,jh_maven_repo_helper
+	dh $@ --with python3,javahelper,jh_maven_repo_helper
 
 override_dh_clean:
 	rm -rvf modules/python/src2/hdr_parser.pyc
@@ -165,7 +165,6 @@ override_dh_missing:
 	dh_missing --fail-missing
 
 override_dh_gencontrol:
-	dh_numpy -p python-opencv
 	dh_numpy3 -p python3-opencv
 	dh_gencontrol
 
