@@ -1,3 +1,9 @@
+opencv (4.1.2+dfsg-3) unstable; urgency=medium
+
+  * Upload to unstable and start transition.
+
+ -- Mo Zhou <cdluminate@gmail.com>  Wed, 16 Oct 2019 16:46:08 +0800
+
 opencv (4.1.2+dfsg-2) experimental; urgency=medium
 
   * Deprecate the Python2 package: python-opencv. (Closes: #937199)
