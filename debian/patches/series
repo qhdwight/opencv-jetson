@@ -4,3 +4,4 @@ cmake-dont-install-inexistent-files.patch
 workaround-javadoc-failure.patch
 #464972855e25f71667009b8fe88092d11aab0297.patch
 #c657c6cbac26fd178778194dfc6d438bac8f2227.patch
+cmake-mips-no-msa.patch
