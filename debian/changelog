@@ -1,3 +1,11 @@
+opencv (4.1.2+dfsg-4) unstable; urgency=medium
+
+  * Disable MSA (MIPS* arch) to avoid ISA violation. (Closes: #942561)
+  * Re-enable pkg-config file generation. (Closes: #942562)
+  * Install the opencv4.pc file to libopencv-dev
+
+ -- Mo Zhou <cdluminate@gmail.com>  Fri, 18 Oct 2019 14:39:01 +0000
+
 opencv (4.1.2+dfsg-3) unstable; urgency=medium
 
   * Upload to unstable and start transition.
