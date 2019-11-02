@@ -40,6 +40,11 @@ else
 CMAKE_ARCH_FLAGS += -DWITH_1394=OFF -DWITH_V4L=OFF
 endif
 
+# misc arch-specific configs
+ifeq (riscv64,$(DEB_HOST_ARCH))
+	CMAKE_ARCH_FLAGS += -DWITH_GDCM=OFF -DWITH_WEBP=OFF -DWITH_GDAL=OFF -DWITH_VTK=OFF -DWITH_GTK=OFF -DWITH_FFMPEG=OFF
+endif
+
 # mitigate compiler OOM during build
 ifeq ($(DEB_HOST_ARCH),mipsel)
 export DEB_BUILD_OPTIONS=noopt
