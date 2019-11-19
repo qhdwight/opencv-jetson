@@ -1,3 +1,12 @@
+opencv (4.1.2+dfsg-4.1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * Replace libgdbm2-dev with libgdbm-dev,
+    and libvtkgdcm2-dev with libvtkgdcm-dev.
+    (closes: #944341)
+
+ -- Bas Couwenberg <sebastic@debian.org>  Tue, 19 Nov 2019 12:30:06 +0100
+
 opencv (4.1.2+dfsg-4) unstable; urgency=medium
 
   * Disable MSA (MIPS* arch) to avoid ISA violation. (Closes: #942561)
