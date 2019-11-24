@@ -1,11 +1,17 @@
 opencv (4.1.2+dfsg-4.1) UNRELEASED; urgency=medium
 
-  * Non-maintainer upload.
+  [ Bas Couwenberg ]
   * Replace libgdbm2-dev with libgdbm-dev,
-    and libvtkgdcm2-dev with libvtkgdcm-dev.
-    (closes: #944341)
+    and libvtkgdcm2-dev with libvtkgdcm-dev. (closes: #944341)
 
- -- Bas Couwenberg <sebastic@debian.org>  Tue, 19 Nov 2019 12:30:06 +0100
+  [ Mo Zhou ]
+  * Add AVX512_COMMON to amd64 dispatch list, and VFPV3,NEON to arm64 list.
+  * Exclude gdcm development packages from B-D on non-release architectures.
+
+  [ Gianfranco Costamagna ]
+  * Remove builddir-static to save some space (Closes: #943706)
+
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 24 Nov 2019 14:50:00 +0800
 
 opencv (4.1.2+dfsg-4) unstable; urgency=medium
 
