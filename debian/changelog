@@ -1,4 +1,4 @@
-opencv (4.1.2+dfsg-4.1) UNRELEASED; urgency=medium
+opencv (4.1.2+dfsg-5) unstable; urgency=medium
 
   [ Bas Couwenberg ]
   * Replace libgdbm2-dev with libgdbm-dev,
@@ -11,7 +11,7 @@ opencv (4.1.2+dfsg-4.1) UNRELEASED; urgency=medium
   [ Gianfranco Costamagna ]
   * Remove builddir-static to save some space (Closes: #943706)
 
- -- Mo Zhou <cdluminate@gmail.com>  Sun, 24 Nov 2019 14:50:00 +0800
+ -- Mo Zhou <cdluminate@gmail.com>  Sun, 24 Nov 2019 16:08:26 +0800
 
 opencv (4.1.2+dfsg-4) unstable; urgency=medium
 
