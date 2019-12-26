@@ -1,3 +1,10 @@
+opencv (4.2.0+dfsg-1) UNRELEASED; urgency=medium
+
+  * New upstream version 4.2.0+dfsg
+  * Add WITH_NGRAPH=OFF to cmake options.
+
+ -- Mo Zhou <cdluminate@gmail.com>  Thu, 26 Dec 2019 14:16:42 +0800
+
 opencv (4.1.2+dfsg-5) unstable; urgency=medium
 
   [ Bas Couwenberg ]
