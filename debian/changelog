@@ -1,9 +1,22 @@
 opencv (4.2.0+dfsg-1) UNRELEASED; urgency=medium
 
   * New upstream version 4.2.0+dfsg
+  * control: bump SOVERSION from 4.1 to 4.2
+  * Let libopencv4.2-java breaks&replaces libopencv4.1-java.
+  * Bump SOVERSION for install control files and pom.xml.
+  * Remove obsolete patch workaround-javadoc-failure.patch .
+  * Remove obsolete patch cmake-mips-no-msa.patch.
+  * Add the missing B-D libilmbase-dev.
+  * Add patch cmake-revert-openexr.patch to prevent FTBFS.
+  * Add missing B-D python3-bs4.
+    Make this package buildtable for RISCV64.
+  * Fix a trivial FTBFS issue.
+  * Remove SSE3 and AVX from dynamic dispatching list for amd64.
+  * Explicitly set WITH_LAPACK and WITH_PROTOBUF to ON, and WITH_QT to OFF.
   * Add WITH_NGRAPH=OFF to cmake options.
+  * Update my email address.
 
- -- Mo Zhou <cdluminate@gmail.com>  Thu, 26 Dec 2019 14:16:42 +0800
+ -- Mo Zhou <lumin@debian.org>  Sat, 28 Dec 2019 18:46:12 +0800
 
 opencv (4.1.2+dfsg-5) unstable; urgency=medium
 
