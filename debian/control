@@ -18,7 +18,6 @@ Build-Depends:
  libavcodec-dev [!riscv64],
  libavformat-dev [!riscv64],
  libavresample-dev,
- libcaffe-cpu-dev,
  libdc1394-22-dev [linux-any],
  libeigen3-dev,
  libgdal-dev [!riscv64],
