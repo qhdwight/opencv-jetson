@@ -21,7 +21,7 @@ Build-Depends:
  libdc1394-22-dev [linux-any],
  libeigen3-dev,
  libgdal-dev [!riscv64],
- libgdcm2-dev [!hppa !m68k !powerpcspe !riscv64 !sh4 !sparc64 !x32],
+ libgdcm-dev [!hppa !m68k !powerpcspe !riscv64 !sh4 !sparc64 !x32],
  libgl1-mesa-dev,
  libglu1-mesa-dev,
  libgoogle-glog-dev,
