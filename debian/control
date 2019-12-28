@@ -31,6 +31,7 @@ Build-Depends:
  liblapack-dev (>= 3.2.1),
  libleptonica-dev,
  libopenexr-dev (>= 1.6.1-8.1),
+ libilmbase-dev,
  libpng-dev,
  libprotobuf-dev,
  libraw1394-dev [linux-any],
