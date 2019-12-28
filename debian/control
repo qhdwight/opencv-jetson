@@ -5,7 +5,7 @@ Maintainer: Debian Science Team <debian-science-maintainers@lists.alioth.debian.
 Uploaders:
  Sam Hocevar (Debian packages) <sam+deb@zoy.org>,
  Nobuhiro Iwamatsu <iwamatsu@debian.org>,
- Mo Zhou <cdluminate@gmail.com>,
+ Mo Zhou <lumin@debian.org>,
 Build-Depends:
  ant,
  cmake (>= 2.8.7),
