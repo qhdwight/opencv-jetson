@@ -45,6 +45,11 @@ ifeq (riscv64,$(DEB_HOST_ARCH))
 	CMAKE_ARCH_FLAGS += -DWITH_GDCM=OFF -DWITH_WEBP=OFF -DWITH_GDAL=OFF -DWITH_VTK=OFF -DWITH_GTK=OFF -DWITH_FFMPEG=OFF
 endif
 
+# Java support
+ifeq (,$(findstring $(DEB_HOST_ARCH), hppa hurd-i386 kfreebsd-i386 kfreebsd-amd64))
+CMAKE_ARCH_FLAGS += -DBUILD_JAVA=ON
+endif
+
 # mitigate compiler OOM during build
 ifeq ($(DEB_HOST_ARCH),mipsel)
 export DEB_BUILD_OPTIONS=noopt
@@ -58,7 +63,6 @@ CMAKE_FLAGS = \
 	-GNinja \
 	-DANT_EXECUTABLE=/usr/bin/ant \
 	-DBUILD_EXAMPLES=OFF \
-	-DBUILD_JAVA=ON \
 	-DBUILD_PROTOBUF=OFF \
 	-DBUILD_TESTS=ON \
 	-DBUILD_PERF_TESTS=OFF \
@@ -114,7 +118,11 @@ CMAKE_FLAGS = \
 	$(CMAKE_ARCH_FLAGS)
 
 %:
+ifeq (,$(findstring $(DEB_HOST_ARCH), hppa hurd-i386 kfreebsd-i386 kfreebsd-amd64))
 	dh $@ --with python3,javahelper,jh_maven_repo_helper
+else
+	dh $@ --with python3
+endif
 
 override_dh_clean:
 	rm -rvf modules/python/src2/hdr_parser.pyc

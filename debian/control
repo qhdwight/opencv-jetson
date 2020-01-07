@@ -7,10 +7,10 @@ Uploaders:
  Nobuhiro Iwamatsu <iwamatsu@debian.org>,
  Mo Zhou <lumin@debian.org>,
 Build-Depends:
- ant,
+ ant [!hppa !hurd-any !kfreebsd-any],
  cmake (>= 2.8.7),
  debhelper (>= 11),
- default-jdk,
+ default-jdk [!hppa !hurd-any !kfreebsd-any],
  dh-python,
  doxygen,
  javahelper,
@@ -43,7 +43,7 @@ Build-Depends:
  libvtk6-dev [!riscv64],
  libvtkgdcm-dev [!alpha !ppc64 !riscv64 !x32],
  libgdcm-tools [!riscv64],
- maven-repo-helper,
+ maven-repo-helper [!hppa !hurd-any !kfreebsd-any],
  ocl-icd-opencl-dev,
  protobuf-compiler,
  python3-dev,
@@ -1230,7 +1230,7 @@ Description: Java bindings for the computer vision library
 
 Package: libopencv4.2-jni
 Section: java
-Architecture: any
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Depends:
  libopencv-calib3d4.2 (= ${binary:Version}),
  libopencv-highgui4.2 (= ${binary:Version}),
