@@ -189,18 +189,3 @@ override_dh_missing:
 override_dh_gencontrol:
 	dh_numpy3 -p python3-opencv
 	dh_gencontrol
-
-OCV_CONTRIB = opencv_contrib-4.2.0
-PKG = opencv
-UVER = $(shell dpkg-parsechangelog -S Version | sed 's,-.*,,')
-DTYPE = +dfsg
-VER  ?= $(subst $(DTYPE),,$(UVER))
-get-orig-source:
-	@echo "# OpenCV Downloading..."
-	uscan --no-conf --verbose --force-download --download-version $(VER) --no-symlink
-	@echo "# Packing..."
-	mk-origtargz --repack --compression xz -S $(DTYPE) -C .. ../opencv_$(VER).orig.tar.gz -v $(VER)
-
-	@echo "# OpenCV contrib Downloading..."
-	uscan --no-conf --verbose --force-download --download-version $(VER) --no-symlink
-	mk-origtargz --repack --compression xz -S $(DTYPE) -C .. ../opencv_$(VER).orig-contrib.tar.gz -v $(VER) -c contrib
