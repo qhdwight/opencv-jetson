@@ -9,7 +9,7 @@ Uploaders:
 Build-Depends:
  ant [!hppa !hurd-any !kfreebsd-any],
  cmake (>= 2.8.7),
- debhelper (>= 11),
+ debhelper-compat (= 12),
  default-jdk [!hppa !hurd-any !kfreebsd-any],
  dh-python,
  doxygen,
