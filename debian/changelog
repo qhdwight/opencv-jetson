@@ -1,4 +1,4 @@
-opencv (4.2.0+dfsg-2) UNRELEASED; urgency=medium
+opencv (4.2.0+dfsg-2) experimental; urgency=medium
 
   * Remove unnecessary CPU baseline/dispatch flags and use upstream default.
   * Stop building examples (-DBUILD_EXAMPLES=OFF) (Closes: #943706)
@@ -11,7 +11,7 @@ opencv (4.2.0+dfsg-2) UNRELEASED; urgency=medium
   * Bump debhelper compat level to 12 and deprecate d/compat.
   * Update lintian overrides.
 
- -- Mo Zhou <lumin@debian.org>  Fri, 10 Jan 2020 16:17:48 +0800
+ -- Mo Zhou <lumin@debian.org>  Fri, 10 Jan 2020 16:58:15 +0800
 
 opencv (4.2.0+dfsg-1) experimental; urgency=medium
 
