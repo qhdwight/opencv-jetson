@@ -1,6 +1,5 @@
 opencv (4.2.0+dfsg-2) UNRELEASED; urgency=medium
 
-  * Add MSA dispatching for mips64el architecture.
   * Remove unnecessary CPU baseline/dispatch flags and use upstream default.
   * Stop building examples (-DBUILD_EXAMPLES=OFF) (Closes: #943706)
   * Build without Java on several port architectures.
@@ -8,8 +7,11 @@ opencv (4.2.0+dfsg-2) UNRELEASED; urgency=medium
   * Initialize autopkgtest: read image via python interface.
   * No longer build tests for the shared object build.
   * Remove get-orig-source target as uscan is already useful enough.
+  * Override lintian warnings for libopencv-dev::opencv4.pc .
+  * Bump debhelper compat level to 12 and deprecate d/compat.
+  * Update lintian overrides.
 
- -- Mo Zhou <lumin@debian.org>  Wed, 08 Jan 2020 09:40:23 +0800
+ -- Mo Zhou <lumin@debian.org>  Fri, 10 Jan 2020 16:17:48 +0800
 
 opencv (4.2.0+dfsg-1) experimental; urgency=medium
 
