@@ -1,3 +1,9 @@
+opencv (4.2.0+dfsg-3) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Mo Zhou <lumin@debian.org>  Sat, 01 Feb 2020 11:14:25 +0800
+
 opencv (4.2.0+dfsg-2) experimental; urgency=medium
 
   * Remove unnecessary CPU baseline/dispatch flags and use upstream default.
