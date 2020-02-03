@@ -171,6 +171,11 @@ else
 	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
 endif
 
+ifeq ($(DEB_HOST_ARCH),mipsel)
+override_dh_dwz:
+	true # mipsel would FTBFS, possibly due to out-of-memory
+endif
+
 override_dh_auto_install:
 	dh_auto_install -B $(BUILDDIR)
 
