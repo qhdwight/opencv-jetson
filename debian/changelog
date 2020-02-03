@@ -1,3 +1,9 @@
+opencv (4.2.0+dfsg-4) unstable; urgency=medium
+
+  * Skip dh_dwz on mipsel architecture.
+
+ -- Mo Zhou <lumin@debian.org>  Mon, 03 Feb 2020 09:14:53 +0800
+
 opencv (4.2.0+dfsg-3) unstable; urgency=medium
 
   * Upload to unstable.
