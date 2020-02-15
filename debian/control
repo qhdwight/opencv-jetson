@@ -43,6 +43,8 @@ Build-Depends:
  libvtk6-dev [!riscv64],
  libvtkgdcm-dev [!alpha !ppc64 !riscv64 !x32],
  libgdcm-tools [!riscv64],
+ libgstreamer1.0-dev,
+ libgstreamer-plugins-base1.0-dev,
  maven-repo-helper [!hppa !hurd-any !kfreebsd-any],
  ocl-icd-opencl-dev,
  protobuf-compiler,
