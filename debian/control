@@ -52,7 +52,7 @@ Build-Depends:
  python3-numpy,
  python3-bs4,
  zlib1g-dev (>= 1.2.5),
-Standards-Version: 4.3.0
+Standards-Version: 4.5.0
 Vcs-Git: https://salsa.debian.org/science-team/opencv.git
 Vcs-Browser: https://salsa.debian.org/science-team/opencv
 Homepage: https://opencv.org
