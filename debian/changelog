@@ -1,3 +1,13 @@
+opencv (4.2.0+dfsg-5) UNRELEASED; urgency=medium
+
+  [ Mo Zhou ]
+  * Enable building with gstreamer as per user request.
+
+  [ Aurelien Jarno ]
+  * Re-enable features disabled on riscv64. (Closes: #951464)
+
+ -- Mo Zhou <lumin@debian.org>  Mon, 17 Feb 2020 10:15:16 +0800
+
 opencv (4.2.0+dfsg-4) unstable; urgency=medium
 
   * Skip dh_dwz on mipsel architecture.
