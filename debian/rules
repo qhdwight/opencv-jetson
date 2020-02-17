@@ -40,11 +40,6 @@ else
 CMAKE_ARCH_FLAGS += -DWITH_1394=OFF -DWITH_V4L=OFF
 endif
 
-# misc arch-specific configs
-ifeq (riscv64,$(DEB_HOST_ARCH))
-	CMAKE_ARCH_FLAGS += -DWITH_GDCM=OFF -DWITH_WEBP=OFF -DWITH_GDAL=OFF -DWITH_VTK=OFF -DWITH_GTK=OFF -DWITH_FFMPEG=OFF
-endif
-
 # Java support
 ifeq (,$(findstring $(DEB_HOST_ARCH), hppa hurd-i386 kfreebsd-i386 kfreebsd-amd64))
 CMAKE_ARCH_FLAGS += -DBUILD_JAVA=ON
