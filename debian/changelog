@@ -1,12 +1,14 @@
-opencv (4.2.0+dfsg-5) UNRELEASED; urgency=medium
+opencv (4.2.0+dfsg-5) unstable; urgency=medium
 
   [ Mo Zhou ]
   * Enable building with gstreamer as per user request.
+  * Bump Standards-Version to 4.5.0 (no change).
+  * Specify Rules-Requires-Root: no.
 
   [ Aurelien Jarno ]
   * Re-enable features disabled on riscv64. (Closes: #951464)
 
- -- Mo Zhou <lumin@debian.org>  Mon, 17 Feb 2020 10:15:16 +0800
+ -- Mo Zhou <lumin@debian.org>  Tue, 18 Feb 2020 11:31:25 +0800
 
 opencv (4.2.0+dfsg-4) unstable; urgency=medium
 
