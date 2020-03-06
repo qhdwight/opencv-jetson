@@ -1,3 +1,4 @@
+Bug-Submit: https://github.com/opencv/opencv/issues//new
 Reference:
  - Author: Gary Bradski and Adrian Kaehler
    Title: "Learning OpenCV: Computer Vision with the OpenCV Library"
@@ -9,6 +10,7 @@ Reference:
 Donation: https://opencv.org/
 Documentation: https://docs.opencv.org/master/
 Bug-Database: https://github.com/opencv/opencv/issues/
+Repository: https://github.com/opencv/opencv.git
 Repository-Browse: https://github.com/opencv/opencv
 Registry:
  - Name: OMICtools
