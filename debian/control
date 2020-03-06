@@ -34,7 +34,7 @@ Build-Depends: ant [!hppa !hurd-any !kfreebsd-any],
                libprotobuf-dev,
                libraw1394-dev [linux-any],
                libswscale-dev,
-               libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 sh4 sparc64],
+               libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 riscv64 sh4 sparc64],
                libtesseract-dev,
                libtiff-dev,
                libv4l-dev [linux-any],
@@ -150,7 +150,7 @@ Architecture: any
 Multi-Arch: same
 Section: libdevel
 Depends: libopencv-core4.2 (= ${binary:Version}),
-         libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 sh4 sparc64],
+         libtbb-dev [amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x powerpc powerpcspe ppc64 riscv64 sh4 sparc64],
          zlib1g-dev,
          ${misc:Depends}
 Description: development files for libopencv-core4.2
@@ -277,7 +277,7 @@ Package: libopencv-imgcodecs-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
-Depends: libgdcm-dev [!hppa !m68k !powerpcspe !sh4],
+Depends: libgdcm-dev [!hppa !m68k !powerpcspe !riscv64 !sh4],
          libopencv-imgcodecs4.2 (= ${binary:Version}),
          libopencv-imgproc-dev (= ${binary:Version}),
          ${misc:Depends}
@@ -1162,7 +1162,7 @@ Description: Java bindings for the computer vision library
  recognition, camera calibration and 3D reconstruction.
 
 Package: libopencv4.2-jni
-Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 sh4 sparc64 x32
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Section: java
 Depends: libopencv-calib3d4.2 (= ${binary:Version}),
          libopencv-highgui4.2 (= ${binary:Version}),
