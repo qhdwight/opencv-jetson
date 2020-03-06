@@ -1,3 +1,13 @@
+opencv (4.2.0+dfsg-6) UNRELEASED; urgency=medium
+
+  * Team upload.
+
+  [ Samuel Thibault ]
+  * Really drop statically linked tests
+    Closes: #943706
+
+ -- Andreas Tille <tille@debian.org>  Fri, 06 Mar 2020 20:29:22 +0100
+
 opencv (4.2.0+dfsg-5) unstable; urgency=medium
 
   [ Mo Zhou ]

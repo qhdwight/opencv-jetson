@@ -137,12 +137,12 @@ override_dh_auto_configure:
 		-- $(CMAKE_FLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
 		-DBUILD_SHARED_LIBS=ON -DBUILD_DOCS=ON \
-		-DBUILD_TESTS=OFF
+		-DBUILD_TESTS=ON
 	# statically linked
 	dh_auto_configure -B $(BUILDDIR)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF \
-		-DBUILD_TESTS=ON
+		-DBUILD_TESTS=OFF
 
 override_dh_auto_build:
 	# documentation
