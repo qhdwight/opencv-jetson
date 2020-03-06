@@ -160,10 +160,12 @@ else
 endif
 
 override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 ifeq ($(DEB_HOST_ARCH),mipsel)
 	true # Don't run the tests at all
 else
 	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
+endif
 endif
 
 ifeq ($(DEB_HOST_ARCH),mipsel)
