@@ -1109,6 +1109,7 @@ Description: computer vision contrlib library
 
 Package: libopencv4.2-java
 Architecture: all
+Multi-Arch: foreign
 Section: java
 Depends: libopencv4.2-jni (>= ${binary:Version}),
          ${java:Depends},
