@@ -1,4 +1,4 @@
-opencv (4.2.0+dfsg-6) UNRELEASED; urgency=medium
+opencv (4.2.0+dfsg-6) unstable; urgency=medium
 
   [ Samuel Thibault ]
   * Really drop statically linked tests (Closes: #943706)
@@ -16,7 +16,7 @@ opencv (4.2.0+dfsg-6) UNRELEASED; urgency=medium
   * Really disable building test code and remove bin:libopencv-ts-dev.
   * Mark libopencv4.2-java as M-A: foreign. (Closes: #942016)
 
- -- Mo Zhou <lumin@debian.org>  Thu, 02 Apr 2020 12:04:11 +0800
+ -- Mo Zhou <lumin@debian.org>  Thu, 02 Apr 2020 21:35:38 +0800
 
 opencv (4.2.0+dfsg-5) unstable; urgency=medium
 
