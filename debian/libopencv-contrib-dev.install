@@ -142,3 +142,15 @@ usr/lib/*/libopencv_quality.so
 usr/include/opencv4/opencv2/dnn_superres.hpp 
 usr/lib/*/libopencv_dnn_superres.a
 usr/lib/*/libopencv_dnn_superres.so
+# alphamat
+usr/include/opencv4/opencv2/alphamat.hpp
+usr/lib/*/libopencv_alphamat.a
+usr/lib/*/libopencv_alphamat.so
+# intensity-transform
+usr/include/opencv4/opencv2/intensity_transform.hpp
+usr/lib/*/libopencv_intensity_transform.a
+usr/lib/*/libopencv_intensity_transform.so
+# rapid
+usr/include/opencv4/opencv2/rapid.hpp
+usr/lib/*/libopencv_rapid.a
+usr/lib/*/libopencv_rapid.so
