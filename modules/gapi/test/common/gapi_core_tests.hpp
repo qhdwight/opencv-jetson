@@ -67,7 +67,7 @@ inline std::ostream& operator<<(std::ostream& os, bitwiseOp op)
 // initMatsRandU - function that is used to initialize input/output data
 // FIXTURE_API(mathOp,bool,double,bool) - test-specific parameters (types)
 // 4 - number of test-specific parameters
-// opType, testWithScalar, scale, doReverseOp - test-spcific parameters (names)
+// opType, testWithScalar, scale, doReverseOp - test-specific parameters (names)
 //
 // We get:
 // 1. Default parameters: int type, cv::Size sz, int dtype, getCompileArgs() function
@@ -141,6 +141,14 @@ struct BackendOutputAllocationTest : TestWithParamBase<>
 // FIXME: move all tests from this fixture to the base class once all issues are resolved
 struct BackendOutputAllocationLargeSizeWithCorrectSubmatrixTest : BackendOutputAllocationTest {};
 GAPI_TEST_FIXTURE(ReInitOutTest, initNothing, <cv::Size>, 1, out_sz)
+
+GAPI_TEST_FIXTURE(WarpPerspectiveTest, initMatrixRandU,
+        FIXTURE_API(CompareMats, double , double, int, int, cv::Scalar),
+        6, cmpF, angle, scale, flags, border_mode, border_value)
+
+GAPI_TEST_FIXTURE(WarpAffineTest, initMatrixRandU,
+        FIXTURE_API(CompareMats, double , double, int, int, cv::Scalar),
+        6, cmpF, angle, scale, flags, border_mode, border_value)
 } // opencv_test
 
 #endif //OPENCV_GAPI_CORE_TESTS_HPP

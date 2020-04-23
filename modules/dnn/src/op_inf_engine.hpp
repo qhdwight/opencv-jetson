@@ -23,10 +23,11 @@
 #define INF_ENGINE_RELEASE_2019R1 2019010000
 #define INF_ENGINE_RELEASE_2019R2 2019020000
 #define INF_ENGINE_RELEASE_2019R3 2019030000
+#define INF_ENGINE_RELEASE_2020_1 2020010000
 
 #ifndef INF_ENGINE_RELEASE
-#warning("IE version have not been provided via command-line. Using 2019R3 by default")
-#define INF_ENGINE_RELEASE INF_ENGINE_RELEASE_2019R3
+#warning("IE version have not been provided via command-line. Using 2019.1 by default")
+#define INF_ENGINE_RELEASE INF_ENGINE_RELEASE_2020_1
 #endif
 
 #define INF_ENGINE_VER_MAJOR_GT(ver) (((INF_ENGINE_RELEASE) / 10000) > ((ver) / 10000))
@@ -40,6 +41,7 @@
 #pragma GCC diagnostic ignored "-Wsuggest-override"
 #endif
 
+#ifdef HAVE_DNN_IE_NN_BUILDER_2019
 //#define INFERENCE_ENGINE_DEPRECATED  // turn off deprecation warnings from IE
 //there is no way to suppress warnings from IE only at this moment, so we are forced to suppress warnings globally
 #if defined(__GNUC__)
@@ -48,8 +50,9 @@
 #ifdef _MSC_VER
 #pragma warning(disable: 4996)  // was declared deprecated
 #endif
+#endif  // HAVE_DNN_IE_NN_BUILDER_2019
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && INF_ENGINE_VER_MAJOR_LT(INF_ENGINE_RELEASE_2020_1)
 #pragma GCC visibility push(default)
 #endif
 
@@ -57,7 +60,7 @@
 
 #include <ie_builders.hpp>
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && INF_ENGINE_VER_MAJOR_LT(INF_ENGINE_RELEASE_2020_1)
 #pragma GCC visibility pop
 #endif
 
@@ -72,6 +75,13 @@ namespace cv { namespace dnn {
 #ifdef HAVE_INF_ENGINE
 
 Backend& getInferenceEngineBackendTypeParam();
+
+Mat infEngineBlobToMat(const InferenceEngine::Blob::Ptr& blob);
+
+void infEngineBlobsToMats(const std::vector<InferenceEngine::Blob::Ptr>& blobs,
+                          std::vector<Mat>& mats);
+
+#ifdef HAVE_DNN_IE_NN_BUILDER_2019
 
 class InfEngineBackendNet
 {
@@ -179,11 +189,6 @@ InferenceEngine::Blob::Ptr wrapToInfEngineBlob(const Mat& m, const std::vector<s
 
 InferenceEngine::DataPtr infEngineDataNode(const Ptr<BackendWrapper>& ptr);
 
-Mat infEngineBlobToMat(const InferenceEngine::Blob::Ptr& blob);
-
-void infEngineBlobsToMats(const std::vector<InferenceEngine::Blob::Ptr>& blobs,
-                          std::vector<Mat>& mats);
-
 // Convert Inference Engine blob with FP32 precision to FP16 precision.
 // Allocates memory for a new blob.
 InferenceEngine::Blob::Ptr convertFp16(const InferenceEngine::Blob::Ptr& blob);
@@ -232,6 +237,8 @@ public:
                                               InferenceEngine::ResponseDesc* resp) noexcept;
 };
 
+#endif  // HAVE_DNN_IE_NN_BUILDER_2019
+
 
 CV__DNN_INLINE_NS_BEGIN
 
@@ -239,7 +246,7 @@ bool isMyriadX();
 
 CV__DNN_INLINE_NS_END
 
-InferenceEngine::Core& getCore();
+InferenceEngine::Core& getCore(const std::string& id);
 
 template<typename T = size_t>
 static inline std::vector<T> getShape(const Mat& mat)
