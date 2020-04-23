@@ -27,19 +27,28 @@ namespace cv { namespace dnn { namespace cuda4dnn { namespace csl { namespace cu
     /** @brief exception class for errors thrown by the cuDNN API */
     class cuDNNException : public CUDAException {
     public:
-        using CUDAException::CUDAException;
+        cuDNNException(cudnnStatus_t code, const std::string& msg, const std::string& func, const std::string& file, int line)
+            : CUDAException(Error::GpuApiCallError, msg, func, file, line), cudnnError{code}
+        {
+        }
+
+        cudnnStatus_t getCUDNNStatus() const noexcept { return cudnnError; }
+
+    private:
+        cudnnStatus_t cudnnError;
     };
 
     namespace detail {
         inline void check(cudnnStatus_t status, const char* func, const char* file, int line) {
             if (status != CUDNN_STATUS_SUCCESS)
-                throw cuDNNException(Error::GpuApiCallError, cudnnGetErrorString(status), func, file, line);
+                throw cuDNNException(status, cudnnGetErrorString(status), func, file, line);
         }
 
         /** get_data_type<T> returns the equivalent cudnn enumeration constant for type T */
-        template <class> auto get_data_type()->decltype(CUDNN_DATA_FLOAT);
-        template <> inline auto get_data_type<half>()->decltype(CUDNN_DATA_HALF) { return CUDNN_DATA_HALF; }
-        template <> inline auto get_data_type<float>()->decltype(CUDNN_DATA_FLOAT) { return CUDNN_DATA_FLOAT; }
+        using cudnn_data_enum_type = decltype(CUDNN_DATA_FLOAT);
+        template <class> cudnn_data_enum_type get_data_type();
+        template <> inline cudnn_data_enum_type get_data_type<half>() { return CUDNN_DATA_HALF; }
+        template <> inline cudnn_data_enum_type get_data_type<float>() { return CUDNN_DATA_FLOAT; }
     }
 
     /** @brief noncopyable cuDNN smart handle

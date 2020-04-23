@@ -10,6 +10,7 @@
 // */
 
 #include "precomp.hpp"
+#include <opencv2/core/utils/logger.hpp>
 
 namespace cv
 {
@@ -117,8 +118,17 @@ public:
 
     void transpose(const MatExpr& expr, MatExpr& res) const CV_OVERRIDE;
 
+    Size size(const MatExpr& expr) const CV_OVERRIDE
+    {
+        return Size(
+            (expr.flags & GEMM_2_T) ? expr.b.rows : expr.b.cols,
+            (expr.flags & GEMM_1_T) ? expr.a.cols : expr.a.rows
+        );
+    }
+
     static void makeExpr(MatExpr& res, int flags, const Mat& a, const Mat& b,
                          double alpha=1, const Mat& c=Mat(), double beta=1);
+
 };
 
 static MatOp_GEMM g_MatOp_GEMM;
@@ -199,7 +209,7 @@ static inline bool isReciprocal(const MatExpr& e) { return isBin(e,'/') && (!e.b
 static inline bool isT(const MatExpr& e) { return e.op == &g_MatOp_T; }
 static inline bool isInv(const MatExpr& e) { return e.op == &g_MatOp_Invert; }
 static inline bool isSolve(const MatExpr& e) { return e.op == &g_MatOp_Solve; }
-static inline bool isGEMM(const MatExpr& e) { return e.op == &g_MatOp_GEMM; }
+//static inline bool isGEMM(const MatExpr& e) { return e.op == &g_MatOp_GEMM; }
 static inline bool isMatProd(const MatExpr& e) { return e.op == &g_MatOp_GEMM && (!e.c.data || e.beta == 0); }
 static inline bool isInitializer(const MatExpr& e) { return e.op == getGlobalMatOpInitializer(); }
 
@@ -1240,8 +1250,6 @@ Size MatExpr::size() const
 {
     if( isT(*this) || isInv(*this) )
         return Size(a.rows, a.cols);
-    if( isGEMM(*this) )
-        return Size(b.cols, a.rows);
     if( isSolve(*this) )
         return Size(b.cols, a.cols);
     if( isInitializer(*this) )
@@ -1257,7 +1265,7 @@ int MatExpr::type() const
     if( isInitializer(*this) )
         return a.type();
     if( isCmp(*this) )
-        return CV_8U;
+        return CV_MAKETYPE(CV_8U, a.channels());
     return op ? op->type(*this) : -1;
 }
 
@@ -1312,10 +1320,18 @@ void MatOp_AddEx::assign(const MatExpr& e, Mat& m, int _type) const
                 cv::add(dst, e.s, dst);
         }
         else
+        {
+            if (e.a.channels() > 1)
+                CV_LOG_ONCE_WARNING(NULL, "OpenCV/MatExpr: processing of multi-channel arrays might be changed in the future: "
+                                          "https://github.com/opencv/opencv/issues/16739");
             cv::addWeighted(e.a, e.alpha, e.b, e.beta, e.s[0], dst);
+        }
     }
     else if( e.s.isReal() && (dst.data != m.data || fabs(e.alpha) != 1))
     {
+        if (e.a.channels() > 1)
+            CV_LOG_ONCE_WARNING(NULL, "OpenCV/MatExpr: processing of multi-channel arrays might be changed in the future: "
+                                      "https://github.com/opencv/opencv/issues/16739");
         e.a.convertTo(m, _type, e.alpha, e.s[0]);
         return;
     }
