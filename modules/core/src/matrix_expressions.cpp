@@ -1329,7 +1329,7 @@ void MatOp_AddEx::assign(const MatExpr& e, Mat& m, int _type) const
     }
     else if( e.s.isReal() && (dst.data != m.data || fabs(e.alpha) != 1))
     {
-        if (e.a.channels() > 1)
+        if (e.a.channels() > 1 && e.s[0] != 0.0)
             CV_LOG_ONCE_WARNING(NULL, "OpenCV/MatExpr: processing of multi-channel arrays might be changed in the future: "
                                       "https://github.com/opencv/opencv/issues/16739");
         e.a.convertTo(m, _type, e.alpha, e.s[0]);
@@ -1739,13 +1739,7 @@ MatExpr Mat::mul(InputArray m, double scale) const
     CV_INSTRUMENT_REGION();
 
     MatExpr e;
-    if(m.kind() == _InputArray::EXPR)
-    {
-        const MatExpr& me = *(const MatExpr*)m.getObj();
-        me.op->multiply(MatExpr(*this), me, e, scale);
-    }
-    else
-        MatOp_Bin::makeExpr(e, '*', *this, m.getMat(), scale);
+    MatOp_Bin::makeExpr(e, '*', *this, m.getMat(), scale);
     return e;
 }
 
@@ -1819,6 +1813,35 @@ MatExpr Mat::eye(Size size, int type)
     MatExpr e;
     MatOp_Initializer::makeExpr(e, 'I', size, type);
     return e;
+}
+
+void MatExpr::swap(MatExpr& other)
+{
+    using std::swap;
+
+    swap(op, other.op);
+    swap(flags, other.flags);
+
+    swap(a, other.a);
+    swap(b, other.b);
+    swap(c, other.c);
+
+    swap(alpha, other.alpha);
+    swap(beta, other.beta);
+
+    swap(s, other.s);
+}
+
+_InputArray::_InputArray(const MatExpr& expr)
+{
+    if (!isIdentity(expr))
+    {
+        Mat result = expr;  // TODO improve through refcount == 1 of expr.a (inplace operation is possible - except gemm?)
+        MatExpr result_expr(result);
+        swap(const_cast<MatExpr&>(expr), result_expr);
+    }
+    CV_Assert(isIdentity(expr));
+    init(FIXED_TYPE + FIXED_SIZE + MAT + ACCESS_READ, &expr.a);
 }
 
 } // cv::
