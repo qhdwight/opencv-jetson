@@ -1,8 +1,10 @@
 opencv (4.4.0+dfsg-1) UNRELEASED; urgency=medium
 
-  * New upstream version 4.4.0+dfsg
+  * New upstream version 4.4.0+dfsg (Closes: #959526)
+  * Refresh existing patches.
+  * Bump VERSION from 4.3->4.4 for all control files.
 
- -- Mo Zhou <lumin@debian.org>  Thu, 03 Sep 2020 11:16:35 +0800
+ -- Mo Zhou <lumin@debian.org>  Thu, 03 Sep 2020 14:18:50 +0800
 
 opencv (4.3.0+dfsg-1) experimental; urgency=medium
 
