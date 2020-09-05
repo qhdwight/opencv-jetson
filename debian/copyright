@@ -11,6 +11,7 @@ Files-Excluded:
  doc/tutorials/introduction/images/lena.png
  modules/highgui/src/files_Qt/Milky
  modules/java/test/common_test/res/drawable/lena.png
+ modules/core/misc/objc/test/resources/lena.png
  samples/data/lena.jpg
  samples/data/lena_tmpl.jpg
  samples/java/clojure/simple-sample/resources
