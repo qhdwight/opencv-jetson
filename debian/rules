@@ -54,6 +54,9 @@ endif
 # For Java
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+# NOTES:
+# 1. we set WITH_QT=OFF because files under modules/highgui/src/files_Qt/Milky
+#    have been filtered, which are required for the QT build.
 CMAKE_FLAGS = \
 	-GNinja \
 	-DANT_EXECUTABLE=/usr/bin/ant \
