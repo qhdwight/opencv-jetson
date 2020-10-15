@@ -15,7 +15,7 @@ Build-Depends: ant [!hppa !hurd-any !kfreebsd-any],
                ninja-build,
                libavcodec-dev,
                libavformat-dev,
-               libavresample-dev,
+               libswresample-dev,
                libdc1394-22-dev [linux-any],
                libeigen3-dev,
                libgdal-dev,
@@ -363,7 +363,7 @@ Package: libopencv-videoio-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
-Depends: libavresample-dev,
+Depends: libswresample-dev,
          libgphoto2-dev,
          libopencv-imgcodecs-dev (= ${binary:Version}),
          libopencv-videoio4.5 (= ${binary:Version}),
@@ -455,7 +455,7 @@ Multi-Arch: same
 Section: libdevel
 Depends: libavcodec-dev,
          libavformat-dev,
-         libavresample-dev,
+         libswresample-dev,
          libdc1394-22-dev [!kfreebsd-amd64 !kfreebsd-i386 !hurd-i386],
          libgphoto2-dev,
          libjpeg-dev,
