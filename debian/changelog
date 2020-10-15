@@ -1,3 +1,12 @@
+opencv (4.5.0+dfsg-1) UNRELEASED; urgency=medium
+
+  * New upstream version 4.5.0+dfsg
+  * Bump VERSION from 4.4.0->4.5.0 for all control files.
+  * Install the newly added "mcc" module to libopencv-contrib{4.5,-dev}.
+  * d/copyright: Global license has been changed into Apache-2.0
+
+ -- Mo Zhou <lumin@debian.org>  Thu, 15 Oct 2020 18:33:54 +0800
+
 opencv (4.4.0+dfsg2-1) experimental; urgency=medium
 
   * New upstream version 4.4.0+dfsg2 (Closes: #959526)
