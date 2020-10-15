@@ -154,3 +154,9 @@ usr/lib/*/libopencv_intensity_transform.so
 usr/include/opencv4/opencv2/rapid.hpp
 usr/lib/*/libopencv_rapid.a
 usr/lib/*/libopencv_rapid.so
+# mcc
+usr/include/opencv4/opencv2/mcc.hpp
+usr/include/opencv4/opencv2/mcc/checker_detector.hpp
+usr/include/opencv4/opencv2/mcc/checker_model.hpp
+usr/lib/*/libopencv_mcc.a
+usr/lib/*/libopencv_mcc.so

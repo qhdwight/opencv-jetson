@@ -31,3 +31,5 @@ usr/lib/*/libopencv_dnn_superres.so.*
 usr/lib/*/libopencv_alphamat.so.*
 usr/lib/*/libopencv_intensity_transform.so.*
 usr/lib/*/libopencv_rapid.so.*
+usr/lib/*/libopencv_mcc.so.*
+
