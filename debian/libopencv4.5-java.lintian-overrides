@@ -1,0 +1,2 @@
+libopencv4.5-java: jar-contains-source
+libopencv4.5-java: breaks-without-version libopnecv3.4-java
