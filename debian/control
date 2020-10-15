@@ -38,7 +38,7 @@ Build-Depends: ant [!hppa !hurd-any !kfreebsd-any],
                libtesseract-dev,
                libtiff-dev,
                libv4l-dev [linux-any],
-               libvtk6-dev,
+               libvtk7-dev,
                libvtkgdcm-dev [!alpha !ppc64 !x32],
                libgdcm-tools,
                libgstreamer1.0-dev,
@@ -935,7 +935,6 @@ Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: libopencv-core4.5 (= ${binary:Version}),
-         libvtk6.3,
          ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
