@@ -35,10 +35,96 @@ Copyright: 2000-2020, Intel Corporation, all rights reserved.
            2019-2020, Shenzhen Institute of Artificial Intelligence and Robotics for Society, all rights reserved.
 License: Apache-2.0
 
+# /* apps */
+
+Files: apps/annotation/opencv_annotation.cpp
+       apps/createsamples/*.cpp
+       apps/createsamples/*.hpp
+       apps/traincascade/old_ml*.cpp
+       apps/traincascade/old_ml*.hpp
+       apps/visualisation/opencv_visualisation.cpp
+Copyright: 2000-2008, Intel Corporation
+           2009, Willow Garage Inc.
+           2013, OpenCV Foundation
+License: BSD-3-Clause
+
+# /* cmake */
+
 Files: cmake/FindCUDA/*
 Copyright: 2008 - 2009 NVIDIA Corporation.
            2007-2009 Scientific Computing and Imaging Institute, University of Utah
 License: Expat
+
+Files: cmake/OpenCVFindAtlas.cmake
+       cmake/OpenCVFindOpenBLAS.cmake
+Copyright: 2014, 2015, The Regents of the University of California
+           2014, 2015, the respective contributors
+License: BSD-2-Clause
+Comment: upstream copied these files from src:caffe
+
+Files: cmake/OpenCVFindTengine.cmake
+Copyright: 2020, OPEN AI LAB
+License: Apache-2.0
+
+# /* data */
+
+Files: data/*
+Copyright: 2000, Intel Corporation, all rights reserved.
+           2014-2016, Joseph Howse (Nummist Media Corporation Limited)
+           2004, Hannes Kruppa and Bernt Schiele (ETH Zurich)
+           2011, Modesto Castrillon-Santana (IUSIANI, Universidad de Las Palmas de Gran Canaria, Spain)
+           2017, Puttemans Steven, Can Ergun and Toon Goedeme
+License: BSD-3-Clause
+
+# /* doc */
+
+Files: doc/pattern_tools/svgfig.py
+Copyright: 2008 Jim Pivarski <jpivarski@gmail.com>
+License: GPL-2.0+
+
+# /* include */
+
+Files: include/opencv2/opencv.hpp
+Copyright: 2000-2008, Intel Corporation, all rights reserved.
+           2009-2010, Willow Garage Inc., all rights reserved.
+License: BSD-3-Clause
+
+# /* platforms */ 
+
+Files: platforms/android/android.toolchain.cmake
+Copyright: 2010-2011, Ethan Rublee
+           2011-2014, Andrey Kamaev
+License: BSD-3-Clause
+
+Files: platforms/winrt/*
+Copyright: Microsoft Open Technologies, Inc.
+License: BSD-3-Clause
+
+# /* samples */
+
+Files: samples/cpp/stereo_calib.cpp
+Copyright: Gary Bradski and Adrian Kaehler
+License:
+ Right to use this code in any way you want without warranty, support or
+ any guarantee of it working.
+
+Files: samples/cpp/logistic_regression.cpp
+       samples/cpp/tutorial_code/gapi/face_beautification/face_beautification.cpp
+Copyright: Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
+ Copyright (C) 2008-2011, Willow Garage Inc., all rights reserved.
+License: BSD-3-Clause
+
+Files: samples/cpp/stereo_match.cpp
+Copyright: 2010 Argus Corp
+License: Apache-2.0
+
+Files: samples/cpp/videocapture_gphoto2_autofocus.cpp
+Copyright: 2015, Piotr Dobrowolski dobrypd[at]gmail[dot]com
+License: BSD-2-Clause
+
+# TODO: MARK
+
+# /* modules */
 
 Files: modules/dnn/src/onnx/opencv-onnx.proto
 Copyright: 2018 Facebook Inc. and Microsoft Corporation
@@ -65,6 +151,10 @@ Copyright:2011-2014 Idiap Research Institute (Ronan Collobert)
           2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
           2013,     OpenCV Foundation
 License: BSD-3-Clause
+
+# /* contrib */
+
+# /* debian */
 
 Files: debian/*
 Copyright: 2004-2008 Sam Hocevar <sam@zoy.org>
