@@ -1,4 +1,4 @@
-opencv (4.5.0+dfsg-1) UNRELEASED; urgency=medium
+opencv (4.5.0+dfsg-1) experimental; urgency=medium
 
   * New upstream version 4.5.0+dfsg (Closes: #959526)
   * Bump VERSION from 4.4.0->4.5.0 for all control files.
@@ -6,8 +6,11 @@ opencv (4.5.0+dfsg-1) UNRELEASED; urgency=medium
   * d/copyright: Global license has been changed into Apache-2.0
   * Deprecate libavresample in favor of libswresample. (Closes: #971330)
   * Replace B-D libdc1394-22-dev with libdc1394-dev. (Closes: #970842)
+  * Bump VTK dep from libvtk6-dev to libvtk7-dev.
+  * Refresh d/copyright for opencv 4.5.0.
+  * Update lintian overrides.
 
- -- Mo Zhou <lumin@debian.org>  Thu, 15 Oct 2020 19:36:27 +0800
+ -- Mo Zhou <lumin@debian.org>  Wed, 02 Dec 2020 17:01:26 +0800
 
 opencv (4.4.0+dfsg2-1) experimental; urgency=medium
 
