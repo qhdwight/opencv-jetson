@@ -33,6 +33,7 @@ Copyright: 2000-2020, Intel Corporation, all rights reserved.
            2008-2016, Itseez Inc., all rights reserved.
            2019-2020, Xperience AI, all rights reserved.
            2019-2020, Shenzhen Institute of Artificial Intelligence and Robotics for Society, all rights reserved.
+           Respective opencv contributors.
 License: Apache-2.0 AND BSD-3-Clause
 Comment: upstream relicensed the whole project to Apache-2.0, but a large
  portion of the source tree remains to be licensed under BSD-3-Clause.
@@ -106,7 +107,7 @@ License: BSD-3-Clause
 
 Files: samples/cpp/stereo_calib.cpp
 Copyright: Gary Bradski and Adrian Kaehler
-License:
+License: STEREO_CALIB_PERMISSIVE
  Right to use this code in any way you want without warranty, support or
  any guarantee of it working.
 
@@ -137,10 +138,6 @@ Copyright: Microsoft Corporation.
 License: Apache-2.0
 
 # /* modules */
-
-Files: modules/*
-Copyright: copyright holders for Files: *
- 2008, Nils Hasler, all rights reserved.
 
 Files: modules/calib3d/misc/objc/test/Calib3dTest.swift
 Copyright: Giles Payne
@@ -200,9 +197,22 @@ Files: modules/features2d/src/mser.cpp
 Copyright: 2009, Liu Liu All rights reserved.
 License: BSD-3-Clause
 
+Files: modules/flann/*
+Copyright: 2008-2009  Marius Muja (mariusm@cs.ubc.ca)
+           2008-2009  David G. Lowe (lowe@cs.ubc.ca)
+			Christopher Diggins 2005-2011
+			Pablo Aguilar 2005
+			Kevlin Henney 2001
+License: BSD-2-Clause
 
+Files: modules/ml/src/svm.cpp
+Copyright: 2000-2003 Chih-Chung Chang and Chih-Jen Lin
+License: BSD-3-Clause
 
-# /* contrib */
+Files: modules/videoio/src/cap_gstreamer.cpp
+       modules/videoio/src/cap_images.cpp
+Copyright: 2008, 2011, Nils Hasler, all rights reserved.
+License: BSD-3-Clause
 
 # /* debian */
 
@@ -295,3 +305,21 @@ License: Apache-2.0
  .
  On Debian systems, the complete text of the Apache version 2.0 license
  can be found in "/usr/share/common-licenses/Apache-2.0".
+
+License: GPL-2.0+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
