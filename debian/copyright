@@ -33,7 +33,9 @@ Copyright: 2000-2020, Intel Corporation, all rights reserved.
            2008-2016, Itseez Inc., all rights reserved.
            2019-2020, Xperience AI, all rights reserved.
            2019-2020, Shenzhen Institute of Artificial Intelligence and Robotics for Society, all rights reserved.
-License: Apache-2.0
+License: Apache-2.0 AND BSD-3-Clause
+Comment: upstream relicensed the whole project to Apache-2.0, but a large
+ portion of the source tree remains to be licensed under BSD-3-Clause.
 
 # /* apps */
 
@@ -110,6 +112,7 @@ License:
 
 Files: samples/cpp/logistic_regression.cpp
        samples/cpp/tutorial_code/gapi/face_beautification/face_beautification.cpp
+       samples/winrt/FaceDetection/FaceDetection/Assets/haarcascade_frontalface_alt.xml
 Copyright: Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
  Copyright (C) 2008-2011, Willow Garage Inc., all rights reserved.
 License: BSD-3-Clause
@@ -122,9 +125,34 @@ Files: samples/cpp/videocapture_gphoto2_autofocus.cpp
 Copyright: 2015, Piotr Dobrowolski dobrypd[at]gmail[dot]com
 License: BSD-2-Clause
 
-# TODO: MARK
+Files: samples/va_intel/va_intel_interop.cpp
+Copyright: 2007-2008 Intel Corporation
+License: Expat
+
+Files: samples/winrt/JavaScript/*
+       samples/winrt/ImageManipulations/*
+       samples/winrt_universal/VideoCaptureXAML/*
+Copyright: Microsoft Corporation.
+           Microsoft Open Technologies, Inc.
+License: Apache-2.0
 
 # /* modules */
+
+Files: modules/*
+Copyright: copyright holders for Files: *
+ 2008, Nils Hasler, all rights reserved.
+
+Files: modules/calib3d/misc/objc/test/Calib3dTest.swift
+Copyright: Giles Payne
+License: Apache-2.0
+
+Files: modules/core/3rdparty/SoftFloat/*
+Copyright: 2017 John R. Hauser
+License: BSD-3-Clause
+
+Files: modules/dnn/src/tengine4dnn/*
+Copyright: 2020, OPEN AI LAB
+License: Apache-2.0
 
 Files: modules/dnn/src/onnx/opencv-onnx.proto
 Copyright: 2018 Facebook Inc. and Microsoft Corporation
@@ -151,6 +179,28 @@ Copyright:2011-2014 Idiap Research Institute (Ronan Collobert)
           2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
           2013,     OpenCV Foundation
 License: BSD-3-Clause
+
+Files: modules/features2d/src/*
+Copyright: 2006, 2008 Edward Rosten
+License: BSD-3-Clause
+
+Files: modules/features2d/doc/agast*
+       modules/features2d/src/agast*
+Copyright: 2010  Elmar Mair
+License: BSD-3-Clause
+
+Files: modules/features2d/src/sift.dispatch.cpp
+Copyright: 2006-2010, Rob Hess <hess@eecs.oregonstate.edu>
+		   2009, Willow Garage Inc., all rights reserved.
+		   2020, Intel Corporation, all rights reserved.
+License: BSD-3-Clause
+Comment: The related patent has expired.
+
+Files: modules/features2d/src/mser.cpp
+Copyright: 2009, Liu Liu All rights reserved.
+License: BSD-3-Clause
+
+
 
 # /* contrib */
 
