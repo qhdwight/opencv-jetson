@@ -1,3 +1,9 @@
+opencv (4.5.0+dfsg-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Mo Zhou <lumin@debian.org>  Tue, 22 Dec 2020 14:47:25 +0800
+
 opencv (4.5.0+dfsg-1) experimental; urgency=medium
 
   * New upstream version 4.5.0+dfsg (Closes: #959526)
