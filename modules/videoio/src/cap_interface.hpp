@@ -116,6 +116,18 @@ public:
         }
         return unusedParams;
     }
+
+    std::vector<int> getIntVector() const
+    {
+        std::vector<int> vint_params;
+        for (const auto& param : params_)
+        {
+            vint_params.push_back(param.key);
+            vint_params.push_back(param.value);
+        }
+        return vint_params;
+    }
+
 private:
     std::vector<VideoWriterParameter> params_;
 };
@@ -300,6 +312,8 @@ Ptr<IVideoCapture> create_PvAPI_capture( int index );
 
 Ptr<IVideoCapture> create_XIMEA_capture_cam( int index );
 Ptr<IVideoCapture> create_XIMEA_capture_file( const std::string &serialNumber );
+
+Ptr<IVideoCapture> create_ueye_camera(int camera);
 
 Ptr<IVideoCapture> create_Aravis_capture( int index );
 
