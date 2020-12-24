@@ -1107,8 +1107,8 @@ Description: computer vision contrlib library
  recognition, camera calibration and 3D reconstruction.
 
 Package: libopencv4.5-java
-Architecture: all
-Multi-Arch: foreign
+Architecture: any
+Multi-Arch: same
 Section: java
 Depends: libopencv4.5-jni (>= ${binary:Version}),
          ${java:Depends},
