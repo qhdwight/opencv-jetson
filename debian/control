@@ -99,12 +99,11 @@ Depends: libopencv-calib3d-dev (= ${binary:Version}),
          libopencv-videoio-dev (= ${binary:Version}),
          libopencv-videostab-dev (= ${binary:Version}),
          libopencv-viz-dev (= ${binary:Version}),
-         libopencv4.5-java (= ${source:Version}),
          pkg-config,
          ${misc:Depends},
          ${shlibs:Depends},
          libilmbase-dev
-Recommends: opencv-data
+Recommends: opencv-data, libopencv4.5-java (= ${binary:Version}),
 Suggests: opencv-doc
 Conflicts: libcv-dev,
            libcvaux-dev,
