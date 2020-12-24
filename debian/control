@@ -1107,7 +1107,7 @@ Description: computer vision contrlib library
 
 Package: libopencv4.5-java
 Architecture: any
-Multi-Arch: same
+Multi-Arch: no
 Section: java
 Depends: libopencv4.5-jni (>= ${binary:Version}),
          ${java:Depends},
@@ -1147,6 +1147,7 @@ Description: Java bindings for the computer vision library
 
 Package: libopencv4.5-jni
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
+Multi-Arch: no
 Section: java
 Depends: libopencv-calib3d4.5 (= ${binary:Version}),
          libopencv-highgui4.5 (= ${binary:Version}),
