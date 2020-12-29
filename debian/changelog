@@ -1,3 +1,14 @@
+opencv (4.5.1+dfsg-2) unstable; urgency=medium
+
+  [ Mo Zhou ]
+  * Bump B-D from VTK-7 to VTK-9.
+  * Add runtime Deps libcharls2 for python3-opencv. (Closes: #978452)
+
+  [ Pino Toscano ]
+  * Fix FTBFS on architectures without java. (Closes: #978028)
+
+ -- Mo Zhou <lumin@debian.org>  Tue, 29 Dec 2020 14:45:26 +0800
+
 opencv (4.5.1+dfsg-1) unstable; urgency=medium
 
   * New upstream version 4.5.1+dfsg
