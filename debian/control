@@ -1193,7 +1193,8 @@ Depends: libopencv-calib3d4.5 (= ${binary:Version}),
          libopencv-viz4.5 (= ${binary:Version}),
          ${misc:Depends},
          ${python3:Depends},
-         ${shlibs:Depends}
+         ${shlibs:Depends},
+         libcharls2
 Description: Python 3 bindings for the computer vision library
  This package contains Python 3 bindings for the OpenCV (Open Computer Vision)
  library.
