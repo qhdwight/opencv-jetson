@@ -7,7 +7,7 @@ Section: devel
 Priority: optional
 Build-Depends: ant [!hppa !hurd-any !kfreebsd-any],
                cmake,
-               debhelper-compat (= 12),
+               debhelper-compat (= 13),
                default-jdk [!hppa !hurd-any !kfreebsd-any],
                dh-python,
                doxygen,
@@ -50,7 +50,7 @@ Build-Depends: ant [!hppa !hurd-any !kfreebsd-any],
                python3-numpy,
                python3-bs4,
                zlib1g-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Vcs-Browser: https://salsa.debian.org/science-team/opencv
 Vcs-Git: https://salsa.debian.org/science-team/opencv.git
 Homepage: https://opencv.org

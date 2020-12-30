@@ -1,7 +1,6 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
-include /usr/share/dpkg/architecture.mk
 
 BUILDDIR = obj-$(DEB_HOST_MULTIARCH)
 
@@ -122,14 +121,6 @@ else
 	dh $@ --with python3
 endif
 
-override_dh_clean:
-	rm -rvf modules/python/src2/hdr_parser.pyc
-	rm -rvf modules/java/generator/rst_parser.pyc
-	rm -rvf modules/refman.rst
-
-	dh_clean
-	-rm -rvf modules/python/src2/__pycache__
-
 override_dh_auto_clean:
 	dh_auto_clean -B $(BUILDDIR)
 	dh_auto_clean -B $(BUILDDIR)-static
@@ -164,12 +155,10 @@ else
 endif
 
 override_dh_auto_test:
-ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 ifeq ($(DEB_HOST_ARCH),mipsel)
 	true # Don't run the tests at all
 else
 	-LD_LIBRARY_PATH=$(shell realpath $(BUILDDIR))/lib dh_auto_test
-endif
 endif
 
 ifeq ($(DEB_HOST_ARCH),mipsel)
@@ -180,18 +169,13 @@ endif
 override_dh_auto_install:
 	dh_auto_install -B $(BUILDDIR)
 
-override_dh_install:
+execute_before_dh_install:
 	# put the static libs together with the rest of the stuff
 	cp -v $(BUILDDIR)-static/lib/*.a debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/
 	-find debian/tmp -type f -name jquery.js -delete
 	-find debian/tmp -type f -name '*.supp' -delete
 	-find debian/tmp -type d -empty -delete
 	-$(RM) -r $(BUILDDIR)-static
-	dh_install
 
-override_dh_missing:
-	dh_missing --fail-missing
-
-override_dh_gencontrol:
+execute_before_dh_gencontrol:
 	dh_numpy3 -p python3-opencv
-	dh_gencontrol
