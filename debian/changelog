@@ -1,3 +1,14 @@
+opencv (4.5.1+dfsg-3) unstable; urgency=medium
+
+  * Team upload.
+  * Add Breaks for packages encoding old library names
+  * Fix debian-rules-sets-DEB_BUILD_OPTIONS
+  * Remove wrong lintian-overrides
+  * bump policy and debhelper versions
+  * Add MA hints
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Wed, 30 Dec 2020 17:24:43 +0100
+
 opencv (4.5.1+dfsg-2) unstable; urgency=medium
 
   [ Mo Zhou ]
