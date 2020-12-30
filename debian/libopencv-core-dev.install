@@ -1,7 +1,7 @@
 # header files
 usr/include/opencv4/opencv2/core.hpp
 usr/include/opencv4/opencv2/core/*
-usr/include/opencv4/opencv2/cvconfig.h
+usr/include/opencv4/opencv2/cvconfig.h usr/include/${DEB_HOST_MULTIARCH}/opencv4/opencv2
 usr/include/opencv4/opencv2/opencv.hpp
 usr/include/opencv4/opencv2/opencv_modules.hpp
 # libraries

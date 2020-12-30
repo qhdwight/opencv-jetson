@@ -58,6 +58,7 @@ Rules-Requires-Root: no
 
 Package: opencv-doc
 Architecture: all
+Multi-Arch: foreign
 Section: doc
 Depends: libjs-jquery,
          libjs-mathjax,
@@ -127,6 +128,7 @@ Description: development files for opencv
 
 Package: opencv-data
 Architecture: all
+Multi-Arch: foreign
 Section: libdevel
 Depends: ${misc:Depends}
 Description: development data for opencv
