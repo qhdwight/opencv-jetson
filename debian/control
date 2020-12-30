@@ -172,6 +172,7 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
+Breaks: libvisp-core-dev (<< 3.3.0-5+b1)
 Description: computer vision core library
  This package contains the OpenCV (Open Computer Vision) core runtime libraries.
  .
@@ -532,6 +533,7 @@ Depends: libopencv-features2d4.5 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
+Breaks: libimage-proc-dev (<< 1.15.2-4)
 Description: computer vision Camera Calibration library
  This package contains the OpenCV (Open Computer Vision) Camera Calibration
  runtime libraries.
@@ -619,6 +621,9 @@ Depends: libopencv-core4.5 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
+Breaks: libdepth-image-proc-dev (<< 1.15.2-4),
+        libimage-proc-dev (<< 1.15.2-4),
+        libstereo-image-proc-dev (<< 1.15.2-4)
 Description: computer vision Deep neural network module
  This package contains the OpenCV (Open Computer Vision) deep neural network
  module.
