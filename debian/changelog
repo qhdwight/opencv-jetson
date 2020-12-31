@@ -1,3 +1,11 @@
+opencv (4.5.1+dfsg-4) unstable; urgency=medium
+
+  * Team upload.
+  * Revert "Fix debian-rules-sets-DEB_BUILD_OPTIONS"
+  * Add more Breaks for old ros-vision-opencv packages
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Thu, 31 Dec 2020 12:01:15 +0100
+
 opencv (4.5.1+dfsg-3) unstable; urgency=medium
 
   * Team upload.
