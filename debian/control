@@ -213,8 +213,7 @@ Package: libopencv-ml4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-core4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Machine Learning library
@@ -256,8 +255,7 @@ Package: libopencv-imgproc4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-core4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Image Processing library
@@ -300,8 +298,7 @@ Package: libopencv-imgcodecs4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-imgproc4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Image Codecs library
@@ -343,8 +340,7 @@ Package: libopencv-video4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-imgproc4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Video analysis library
@@ -388,8 +384,7 @@ Package: libopencv-videoio4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-imgcodecs4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Video I/O library
@@ -432,9 +427,7 @@ Package: libopencv-objdetect4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-highgui4.5 (= ${binary:Version}),
-         libopencv-ml4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Object Detection library
@@ -488,8 +481,7 @@ Package: libopencv-highgui4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-videoio4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision High-level GUI and Media I/O library
@@ -531,8 +523,7 @@ Package: libopencv-calib3d4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-features2d4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Breaks: libimage-proc-dev (<< 1.15.2-4)
@@ -576,8 +567,7 @@ Package: libopencv-flann4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-core4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Clustering and Search in Multi-Dimensional spaces library
@@ -619,8 +609,7 @@ Package: libopencv-dnn4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-core4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Breaks: libdepth-image-proc-dev (<< 1.15.2-4),
@@ -670,10 +659,7 @@ Package: libopencv-features2d4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-flann4.5 (= ${binary:Version}),
-         libopencv-highgui4.5 (= ${binary:Version}),
-         libopencv-ml4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Feature Detection and Descriptor Extraction library
@@ -716,8 +702,7 @@ Package: libopencv-photo4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-imgproc4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision computational photography library
@@ -762,10 +747,7 @@ Package: libopencv-videostab4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-calib3d4.5 (= ${binary:Version}),
-         libopencv-photo4.5 (= ${binary:Version}),
-         libopencv-video4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision video stabilization library
@@ -808,9 +790,7 @@ Package: libopencv-stitching4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-calib3d4.5 (= ${binary:Version}),
-         libopencv-objdetect4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision image stitching library
@@ -853,8 +833,7 @@ Package: libopencv-shape4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-video4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision shape descriptors and matchers library
@@ -897,9 +876,7 @@ Package: libopencv-superres4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-video4.5 (= ${binary:Version}),
-         libopencv-videoio4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision Super Resolution library
@@ -942,8 +919,7 @@ Package: libopencv-viz4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-core4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision 3D data visualization library
@@ -1047,25 +1023,7 @@ Package: libopencv-contrib4.5
 Architecture: any
 Multi-Arch: same
 Section: libs
-Depends: libopencv-calib3d4.5 (= ${binary:Version}),
-         libopencv-core4.5 (= ${binary:Version}),
-         libopencv-dnn4.5 (= ${binary:Version}),
-         libopencv-features2d4.5 (= ${binary:Version}),
-         libopencv-flann4.5 (= ${binary:Version}),
-         libopencv-highgui4.5 (= ${binary:Version}),
-         libopencv-imgcodecs4.5 (= ${binary:Version}),
-         libopencv-imgproc4.5 (= ${binary:Version}),
-         libopencv-ml4.5 (= ${binary:Version}),
-         libopencv-objdetect4.5 (= ${binary:Version}),
-         libopencv-photo4.5 (= ${binary:Version}),
-         libopencv-shape4.5 (= ${binary:Version}),
-         libopencv-stitching4.5 (= ${binary:Version}),
-         libopencv-superres4.5 (= ${binary:Version}),
-         libopencv-video4.5 (= ${binary:Version}),
-         libopencv-videoio4.5 (= ${binary:Version}),
-         libopencv-videostab4.5 (= ${binary:Version}),
-         libopencv-viz4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
 Description: computer vision contrlib library
@@ -1158,13 +1116,7 @@ Package: libopencv4.5-jni
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Multi-Arch: no
 Section: java
-Depends: libopencv-calib3d4.5 (= ${binary:Version}),
-         libopencv-highgui4.5 (= ${binary:Version}),
-         libopencv-ml4.5 (= ${binary:Version}),
-         libopencv-objdetect4.5 (= ${binary:Version}),
-         libopencv-photo4.5 (= ${binary:Version}),
-         libopencv-video4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${shlibs:Depends}
 Description: Java jni library for the computer vision library
  This package contains Java jni library for the OpenCV (Open Computer Vision)
@@ -1183,24 +1135,7 @@ Description: Java jni library for the computer vision library
 Package: python3-opencv
 Architecture: any
 Section: python
-Depends: libopencv-calib3d4.5 (= ${binary:Version}),
-         libopencv-dnn4.5 (= ${binary:Version}),
-         libopencv-features2d4.5 (= ${binary:Version}),
-         libopencv-flann4.5 (= ${binary:Version}),
-         libopencv-highgui4.5 (= ${binary:Version}),
-         libopencv-imgcodecs4.5 (= ${binary:Version}),
-         libopencv-imgproc4.5 (= ${binary:Version}),
-         libopencv-ml4.5 (= ${binary:Version}),
-         libopencv-objdetect4.5 (= ${binary:Version}),
-         libopencv-photo4.5 (= ${binary:Version}),
-         libopencv-shape4.5 (= ${binary:Version}),
-         libopencv-stitching4.5 (= ${binary:Version}),
-         libopencv-superres4.5 (= ${binary:Version}),
-         libopencv-video4.5 (= ${binary:Version}),
-         libopencv-videoio4.5 (= ${binary:Version}),
-         libopencv-videostab4.5 (= ${binary:Version}),
-         libopencv-viz4.5 (= ${binary:Version}),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${python3:Depends},
          ${shlibs:Depends},
          libcharls2
