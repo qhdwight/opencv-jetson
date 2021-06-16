@@ -276,7 +276,7 @@ Package: libopencv-imgcodecs-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
-Depends: libgdcm-dev [!hppa !m68k !powerpcspe !riscv64 !sh4],
+Depends: libgdcm-dev [!alpha !hppa !ia64 !kfreebsd-amd64 !kfreebsd-i386 !m68k !powerpcspe !sh4 !x32],
          libopencv-imgcodecs4.5 (= ${binary:Version}),
          libopencv-imgproc-dev (= ${binary:Version}),
          ${misc:Depends}
