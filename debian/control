@@ -1076,10 +1076,7 @@ Package: libopencv4.5-java
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Multi-Arch: no
 Section: java
-Depends: libopencv4.5-jni (>= ${binary:Version}),
-         ${java:Depends},
-         ${misc:Depends}
-Recommends: ${java:Recommends}
+Depends: libopencv4.5-jni (>= ${binary:Version}), ${misc:Depends}
 Breaks: libopencv2.4-java,
         libopencv3.2-java,
         libopencv3.3-java,
