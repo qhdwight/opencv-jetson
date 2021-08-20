@@ -125,6 +125,9 @@ public:
         {
             kernel_size.assign(1, kernel_size[0]);
             strides.assign(1, strides[0]);
+            dilations.assign(1, dilations[0]);
+            pads_begin.assign(1, pads_begin[0]);
+            pads_end.assign(1, pads_end[0]);
         }
         CV_Assert(weightShape.dims() == kernel_size.size() + 2);
         for (int i = 0; i < kernel_size.size(); i++) {
@@ -311,8 +314,8 @@ public:
 #ifdef HAVE_CUDA
         if (backendId == DNN_BACKEND_CUDA)
         {
-            /* only convolution 2d and 3d supported */
-            if (ksize == 2 || ksize == 3)
+            /* only 1d, 2d and 3d convolutions supported */
+            if (ksize > 0 && ksize <= 3)
                 return true;
 
             return false;
@@ -321,10 +324,13 @@ public:
 #ifdef HAVE_INF_ENGINE
         if (backendId == DNN_BACKEND_INFERENCE_ENGINE_NN_BUILDER_2019 || backendId == DNN_BACKEND_INFERENCE_ENGINE_NGRAPH)
         {
-            if (ksize == 1)
+            bool isArmTarget = preferableTarget == DNN_TARGET_CPU && isArmComputePlugin();
+            if (isArmTarget && blobs.empty())
                 return false;
+            if (ksize == 1)
+                return isArmTarget;
             if (ksize == 3)
-                return preferableTarget == DNN_TARGET_CPU;
+                return preferableTarget != DNN_TARGET_MYRIAD && !isArmTarget;
             bool isMyriad = preferableTarget == DNN_TARGET_MYRIAD || preferableTarget == DNN_TARGET_HDDL;
             if ((backendId == DNN_BACKEND_INFERENCE_ENGINE_NN_BUILDER_2019 || !isMyriad) && blobs.empty())
                 return false;
@@ -802,7 +808,7 @@ public:
         CV_Assert_N(inputs.size() >= 1, nodes.size() >= 1);
         auto& ieInpNode = nodes[0].dynamicCast<InfEngineNgraphNode>()->node;
         std::vector<size_t> dims = ieInpNode->get_shape();
-        CV_Assert(dims.size() == 4 || dims.size() == 5);
+        CV_Check(dims.size(), dims.size() >= 3 && dims.size() <= 5, "");
         std::shared_ptr<ngraph::Node> ieWeights = nodes.size() > 1 ? nodes[1].dynamicCast<InfEngineNgraphNode>()->node : nullptr;
         if (nodes.size() > 1)
             CV_Assert(ieWeights);  // dynamic_cast should not fail
@@ -840,7 +846,7 @@ public:
         else
         {
             auto shape = std::make_shared<ngraph::op::Constant>(ngraph::element::i64,
-                             ngraph::Shape{kernel_shape.size()}, kernel_shape.data());
+                             ngraph::Shape{kernel_shape.size()}, std::vector<int64_t>(kernel_shape.begin(), kernel_shape.end()));
             ieWeights  = std::make_shared<ngraph::op::v1::Reshape>(ieWeights, shape, true);
         }
 
@@ -875,7 +881,7 @@ public:
             if (nodes.size() == 3)
             {
                 auto bias_shape = std::make_shared<ngraph::op::Constant>(ngraph::element::i64,
-                                    ngraph::Shape{shape.size()}, shape.data());
+                                    ngraph::Shape{shape.size()}, std::vector<int64_t>(shape.begin(), shape.end()));
                 bias = std::make_shared<ngraph::op::v1::Reshape>(nodes[2].dynamicCast<InfEngineNgraphNode>()->node, bias_shape, true);
             }
             else
@@ -1244,7 +1250,7 @@ public:
                                                              v20*vw20 + v21*vw21 + v22*vw22 + vbias;
                                             if (relu)
                                                 vout = v_select(vout > z, vout, vout*vrc);
-                                            vx_store(outptr + out_j, vout);
+                                            v_store(outptr + out_j, vout);
                                         }
                                     }
                                 #endif
@@ -2001,6 +2007,21 @@ public:
         const auto groups = input_feature_maps / input_feature_maps_per_group;
 
         ConvolutionConfiguration config;
+
+        if (input_shape.size() == 3)
+        {
+            // Conv1D
+            // We add an extra dim for input and output tensors, because CuDNN doesn't support convolution with 3D tensors
+            input_shape.insert(std::end(input_shape) - 1, 1);
+            output_shape.insert(std::end(output_shape) - 1, 1);
+
+            // Do the similar thing for the other parameters
+            pads_begin.insert(std::begin(pads_begin), 0);
+            pads_end.insert(std::begin(pads_end), 0);
+            strides.insert(std::begin(strides), 1);
+            dilations.insert(std::begin(dilations), 1);
+            kernel_size.insert(std::begin(kernel_size), 1);
+        }
         config.kernel_size.assign(std::begin(kernel_size), std::end(kernel_size));
         config.dilations.assign(std::begin(dilations), std::end(dilations));
         config.strides.assign(std::begin(strides), std::end(strides));

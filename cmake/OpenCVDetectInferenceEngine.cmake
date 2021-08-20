@@ -62,7 +62,13 @@ function(add_custom_ie_build _inc _lib _lib_rel _lib_dbg _msg)
     if(find_prefix STREQUAL "_empty_")  # foreach doesn't iterate over empty elements
       set(find_prefix "")
     endif()
-    foreach(find_suffix ${CMAKE_FIND_LIBRARY_SUFFIXES})
+    if(NOT DEFINED INFERENCE_ENGINE_FIND_LIBRARY_SUFFIXES)  # allow custom override
+      set(INFERENCE_ENGINE_FIND_LIBRARY_SUFFIXES ${CMAKE_FIND_LIBRARY_SUFFIXES})
+      if(APPLE)
+        ocv_list_filterout(INFERENCE_ENGINE_FIND_LIBRARY_SUFFIXES "^.so$")  # skip plugins (can't be linked)
+      endif()
+    endif()
+    foreach(find_suffix ${INFERENCE_ENGINE_FIND_LIBRARY_SUFFIXES})
       ocv_ie_find_extra_libraries("${find_prefix}" "${find_suffix}")
     endforeach()
     if(NOT CMAKE_FIND_LIBRARY_SUFFIXES)
@@ -128,12 +134,21 @@ endif()
 # Add more features to the target
 
 if(INF_ENGINE_TARGET)
-  if(NOT INF_ENGINE_RELEASE)
-    message(WARNING "InferenceEngine version has not been set, 2021.2 will be used by default. Set INF_ENGINE_RELEASE variable if you experience build errors.")
+  if(DEFINED InferenceEngine_VERSION)
+    message(STATUS "InferenceEngine: ${InferenceEngine_VERSION}")
+    if(NOT INF_ENGINE_RELEASE AND NOT (InferenceEngine_VERSION VERSION_LESS "2021.4"))
+      math(EXPR INF_ENGINE_RELEASE_INIT "${InferenceEngine_VERSION_MAJOR} * 1000000 + ${InferenceEngine_VERSION_MINOR} * 10000 + ${InferenceEngine_VERSION_PATCH} * 100")
+    endif()
   endif()
-  set(INF_ENGINE_RELEASE "2021020000" CACHE STRING "Force IE version, should be in form YYYYAABBCC (e.g. 2020.1.0.2 -> 2020010002)")
+  if(NOT INF_ENGINE_RELEASE AND NOT INF_ENGINE_RELEASE_INIT)
+    message(WARNING "InferenceEngine version has not been set, 2021.4 will be used by default. Set INF_ENGINE_RELEASE variable if you experience build errors.")
+    set(INF_ENGINE_RELEASE_INIT "2021040000")
+  elseif(DEFINED INF_ENGINE_RELEASE)
+    set(INF_ENGINE_RELEASE_INIT "${INF_ENGINE_RELEASE}")
+  endif()
+  set(INF_ENGINE_RELEASE "${INF_ENGINE_RELEASE_INIT}" CACHE STRING "Force IE version, should be in form YYYYAABBCC (e.g. 2020.1.0.2 -> 2020010002)")
   set_target_properties(${INF_ENGINE_TARGET} PROPERTIES
-    INTERFACE_COMPILE_DEFINITIONS "HAVE_INF_ENGINE=1;INF_ENGINE_RELEASE=${INF_ENGINE_RELEASE}"
+      INTERFACE_COMPILE_DEFINITIONS "HAVE_INF_ENGINE=1;INF_ENGINE_RELEASE=${INF_ENGINE_RELEASE}"
   )
 endif()
 
