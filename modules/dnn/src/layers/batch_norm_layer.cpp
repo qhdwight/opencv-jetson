@@ -35,6 +35,7 @@ namespace dnn
 class BatchNormLayerImpl CV_FINAL : public BatchNormLayer
 {
 public:
+    Mat origin_weights, origin_bias;
     Mat weights_, bias_;
     UMat umat_weight, umat_bias;
     mutable int dims;
@@ -88,11 +89,11 @@ public:
         const float* weightsData = hasWeights ? blobs[weightsBlobIndex].ptr<float>() : 0;
         const float* biasData = hasBias ? blobs[biasBlobIndex].ptr<float>() : 0;
 
-        weights_.create(1, (int)n, CV_32F);
-        bias_.create(1, (int)n, CV_32F);
+        origin_weights.create(1, (int)n, CV_32F);
+        origin_bias.create(1, (int)n, CV_32F);
 
-        float* dstWeightsData = weights_.ptr<float>();
-        float* dstBiasData = bias_.ptr<float>();
+        float* dstWeightsData = origin_weights.ptr<float>();
+        float* dstBiasData = origin_bias.ptr<float>();
 
         for (size_t i = 0; i < n; ++i)
         {
@@ -100,15 +101,12 @@ public:
             dstWeightsData[i] = w;
             dstBiasData[i] = (hasBias ? biasData[i] : 0.0f) - w * meanData[i] * varMeanScale;
         }
-        // We will use blobs to store origin weights and bias to restore them in case of reinitialization.
-        weights_.copyTo(blobs[0].reshape(1, 1));
-        bias_.copyTo(blobs[1].reshape(1, 1));
     }
 
     virtual void finalize(InputArrayOfArrays, OutputArrayOfArrays) CV_OVERRIDE
     {
-        blobs[0].reshape(1, 1).copyTo(weights_);
-        blobs[1].reshape(1, 1).copyTo(bias_);
+        origin_weights.reshape(1, 1).copyTo(weights_);
+        origin_bias.reshape(1, 1).copyTo(bias_);
     }
 
     void getScaleShift(Mat& scale, Mat& shift) const CV_OVERRIDE
@@ -401,7 +399,11 @@ public:
         shape[1] = weights_.total();
         auto weight = std::make_shared<ngraph::op::Constant>(ngraph::element::f32, ngraph::Shape(shape), weights_.data);
         auto bias = std::make_shared<ngraph::op::Constant>(ngraph::element::f32, ngraph::Shape(shape), bias_.data);
+#if INF_ENGINE_VER_MAJOR_GT(INF_ENGINE_RELEASE_2021_2)
+        auto scale_node = std::make_shared<ngraph::op::v1::Multiply>(ieInpNode, weight, ngraph::op::AutoBroadcastType::NUMPY);
+#else
         auto scale_node = std::make_shared<ngraph::op::v0::Multiply>(ieInpNode, weight, ngraph::op::AutoBroadcastType::NUMPY);
+#endif
         auto scale_shift = std::make_shared<ngraph::op::v1::Add>(scale_node, bias, ngraph::op::AutoBroadcastType::NUMPY);
         return Ptr<BackendNode>(new InfEngineNgraphNode(scale_shift));
     }

@@ -100,6 +100,18 @@ CV__DNN_INLINE_NS_BEGIN
     CV_EXPORTS std::vector< std::pair<Backend, Target> > getAvailableBackends();
     CV_EXPORTS_W std::vector<Target> getAvailableTargets(dnn::Backend be);
 
+    /**
+     * @brief Enables detailed logging of the DNN model loading with CV DNN API.
+     * @param[in] isDiagnosticsMode Indicates whether diagnostic mode should be set.
+     *
+     * Diagnostic mode provides detailed logging of the model loading stage to explore
+     * potential problems (ex.: not implemented layer type).
+     *
+     * @note In diagnostic mode series of assertions will be skipped, it can lead to the
+     * expected application crash.
+     */
+    CV_EXPORTS void enableModelDiagnostics(bool isDiagnosticsMode);
+
     /** @brief This class provides all data needed to initialize layer.
      *
      * It includes dictionary with scalar params (which can be read by using Dict interface),
@@ -726,9 +738,11 @@ CV__DNN_INLINE_NS_BEGIN
         CV_WRAP void enableFusion(bool fusion);
 
         /** @brief Returns overall time for inference and timings (in ticks) for layers.
+         *
          * Indexes in returned vector correspond to layers ids. Some layers can be fused with others,
-         * in this case zero ticks count will be return for that skipped layers.
-         * @param timings vector for tick timings for all layers.
+         * in this case zero ticks count will be return for that skipped layers. Supported by DNN_BACKEND_OPENCV on DNN_TARGET_CPU only.
+         *
+         * @param[out] timings vector for tick timings for all layers.
          * @return overall ticks for model inference.
          */
         CV_WRAP int64 getPerfProfile(CV_OUT std::vector<double>& timings);
@@ -1216,7 +1230,7 @@ CV__DNN_INLINE_NS_BEGIN
       * KeypointsModel creates net from file with trained weights and config,
       * sets preprocessing input, runs forward pass and returns the x and y coordinates of each detected keypoint
       */
-     class CV_EXPORTS_W KeypointsModel: public Model
+     class CV_EXPORTS_W_SIMPLE KeypointsModel: public Model
      {
      public:
          /**
@@ -1248,7 +1262,7 @@ CV__DNN_INLINE_NS_BEGIN
       * SegmentationModel creates net from file with trained weights and config,
       * sets preprocessing input, runs forward pass and returns the class prediction for each pixel.
       */
-     class CV_EXPORTS_W SegmentationModel: public Model
+     class CV_EXPORTS_W_SIMPLE SegmentationModel: public Model
      {
      public:
          /**
@@ -1406,7 +1420,7 @@ public:
 
 /** @brief Base class for text detection networks
  */
-class CV_EXPORTS_W TextDetectionModel : public Model
+class CV_EXPORTS_W_SIMPLE TextDetectionModel : public Model
 {
 protected:
     CV_DEPRECATED_EXTERNAL  // avoid using in C++ code, will be moved to "protected" (need to fix bindings first)

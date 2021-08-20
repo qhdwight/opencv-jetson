@@ -77,7 +77,9 @@ class Builder:
             rm_one(d)
 
     def get_cmake_cmd(self):
-        cmd = ["cmake",
+        cmd = [
+            "cmake",
+            "-DPYTHON_DEFAULT_EXECUTABLE=%s" % sys.executable,
                "-DENABLE_PIC=FALSE", # To workaround emscripten upstream backend issue https://github.com/emscripten-core/emscripten/issues/8761
                "-DCMAKE_BUILD_TYPE=Release",
                "-DCMAKE_TOOLCHAIN_FILE='%s'" % self.get_toolchain_file(),
@@ -113,7 +115,7 @@ class Builder:
                "-DWITH_GPHOTO2=OFF",
                "-DWITH_LAPACK=OFF",
                "-DWITH_ITT=OFF",
-               "-DWITH_QUIRC=OFF",
+               "-DWITH_QUIRC=ON",
                "-DBUILD_ZLIB=ON",
                "-DBUILD_opencv_apps=OFF",
                "-DBUILD_opencv_calib3d=ON",
@@ -246,7 +248,7 @@ if __name__ == "__main__":
 
     log.debug("Args: %s", args)
 
-    os.environ["OPENCV_JS_WHITELIST"] = args.config
+    os.environ["OPENCV_JS_WHITELIST"] = os.path.abspath(args.config)
 
     if 'EMMAKEN_JUST_CONFIGURE' in os.environ:
         del os.environ['EMMAKEN_JUST_CONFIGURE']  # avoid linker errors with NODERAWFS message then using 'emcmake' launcher

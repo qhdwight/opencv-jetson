@@ -108,14 +108,10 @@
 #define CV_OPENCL_SVM_TRACE_ERROR_P(...)
 #endif
 
-#include "opencv2/core/opencl/runtime/opencl_clamdblas.hpp"
-#include "opencv2/core/opencl/runtime/opencl_clamdfft.hpp"
+#include "opencv2/core/opencl/runtime/opencl_clblas.hpp"
+#include "opencv2/core/opencl/runtime/opencl_clfft.hpp"
 
 #include "opencv2/core/opencl/runtime/opencl_core.hpp"
-
-#ifdef HAVE_DIRECTX
-#include "directx.hpp"
-#endif
 
 #ifdef HAVE_OPENCL_SVM
 #include "opencv2/core/opencl/runtime/opencl_svm_20.hpp"
@@ -1149,14 +1145,14 @@ void OpenCLExecutionContext::release()
 }
 
 
+
 // true if we have initialized OpenCL subsystem with available platforms
-static bool g_isOpenCVActivated = false;
+static bool g_isOpenCLInitialized = false;
+static bool g_isOpenCLAvailable = false;
 
 bool haveOpenCL()
 {
     CV_TRACE_FUNCTION();
-    static bool g_isOpenCLInitialized = false;
-    static bool g_isOpenCLAvailable = false;
 
     if (!g_isOpenCLInitialized)
     {
@@ -1178,7 +1174,7 @@ bool haveOpenCL()
         {
             cl_uint n = 0;
             g_isOpenCLAvailable = ::clGetPlatformIDs(0, NULL, &n) == CL_SUCCESS;
-            g_isOpenCVActivated = n > 0;
+            g_isOpenCLAvailable &= n > 0;
             CV_LOG_INFO(NULL, "OpenCL: found " << n << " platforms");
         }
         catch (...)
@@ -1214,7 +1210,7 @@ bool useOpenCL()
 
 bool isOpenCLActivated()
 {
-    if (!g_isOpenCVActivated)
+    if (!g_isOpenCLAvailable)
         return false; // prevent unnecessary OpenCL activation via useOpenCL()->haveOpenCL() calls
     return useOpenCL();
 }
@@ -1258,11 +1254,13 @@ public:
 
     ~AmdBlasHelper()
     {
-        try
+        // Do not tear down clBLAS.
+        // The user application may still use clBLAS even after OpenCV is unloaded.
+        /*try
         {
-            clAmdBlasTeardown();
+            clblasTeardown();
         }
-        catch (...) { }
+        catch (...) { }*/
     }
 
 protected:
@@ -1278,7 +1276,7 @@ protected:
                 {
                     try
                     {
-                        g_isAmdBlasAvailable = clAmdBlasSetup() == clAmdBlasSuccess;
+                        g_isAmdBlasAvailable = clblasSetup() == clblasSuccess;
                     }
                     catch (...)
                     {
@@ -1332,11 +1330,13 @@ public:
 
     ~AmdFftHelper()
     {
-        try
+        // Do not tear down clFFT.
+        // The user application may still use clFFT even after OpenCV is unloaded.
+        /*try
         {
-//            clAmdFftTeardown();
+            clfftTeardown();
         }
-        catch (...) { }
+        catch (...) { }*/
     }
 
 protected:
@@ -1353,10 +1353,10 @@ protected:
                     try
                     {
                         cl_uint major, minor, patch;
-                        CV_Assert(clAmdFftInitSetupData(&setupData) == CLFFT_SUCCESS);
+                        CV_Assert(clfftInitSetupData(&setupData) == CLFFT_SUCCESS);
 
                         // it throws exception in case AmdFft binaries are not found
-                        CV_Assert(clAmdFftGetVersion(&major, &minor, &patch) == CLFFT_SUCCESS);
+                        CV_Assert(clfftGetVersion(&major, &minor, &patch) == CLFFT_SUCCESS);
                         g_isAmdFftAvailable = true;
                     }
                     catch (const Exception &)
@@ -1373,12 +1373,12 @@ protected:
     }
 
 private:
-    static clAmdFftSetupData setupData;
+    static clfftSetupData setupData;
     static bool g_isAmdFftInitialized;
     static bool g_isAmdFftAvailable;
 };
 
-clAmdFftSetupData AmdFftHelper::setupData;
+clfftSetupData AmdFftHelper::setupData;
 bool AmdFftHelper::g_isAmdFftAvailable = false;
 bool AmdFftHelper::g_isAmdFftInitialized = false;
 
@@ -1451,7 +1451,7 @@ struct Platform::Impl
     bool initialized;
 };
 
-Platform::Platform()
+Platform::Platform() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -1477,6 +1477,23 @@ Platform& Platform::operator = (const Platform& pl)
     if(p)
         p->release();
     p = newp;
+    return *this;
+}
+
+Platform::Platform(Platform&& pl) CV_NOEXCEPT
+{
+    p = pl.p;
+    pl.p = nullptr;
+}
+
+Platform& Platform::operator = (Platform&& pl) CV_NOEXCEPT
+{
+    if (this != &pl) {
+        if(p)
+            p->release();
+        p = pl.p;
+        pl.p = nullptr;
+    }
     return *this;
 }
 
@@ -1549,6 +1566,7 @@ struct Device::Impl
         version_ = getStrProp(CL_DEVICE_VERSION);
         extensions_ = getStrProp(CL_DEVICE_EXTENSIONS);
         doubleFPConfig_ = getProp<cl_device_fp_config, int>(CL_DEVICE_DOUBLE_FP_CONFIG);
+        halfFPConfig_ = getProp<cl_device_fp_config, int>(CL_DEVICE_HALF_FP_CONFIG);
         hostUnifiedMemory_ = getBoolProp(CL_DEVICE_HOST_UNIFIED_MEMORY);
         maxComputeUnits_ = getProp<cl_uint, int>(CL_DEVICE_MAX_COMPUTE_UNITS);
         maxWorkGroupSize_ = getProp<size_t, size_t>(CL_DEVICE_MAX_WORK_GROUP_SIZE);
@@ -1661,6 +1679,7 @@ struct Device::Impl
     String version_;
     std::string extensions_;
     int doubleFPConfig_;
+    int halfFPConfig_;
     bool hostUnifiedMemory_;
     int maxComputeUnits_;
     size_t maxWorkGroupSize_;
@@ -1677,7 +1696,7 @@ struct Device::Impl
 };
 
 
-Device::Device()
+Device::Device() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -1703,6 +1722,23 @@ Device& Device::operator = (const Device& d)
     if(p)
         p->release();
     p = newp;
+    return *this;
+}
+
+Device::Device(Device&& d) CV_NOEXCEPT
+{
+    p = d.p;
+    d.p = nullptr;
+}
+
+Device& Device::operator = (Device&& d) CV_NOEXCEPT
+{
+    if (this != &d) {
+        if(p)
+            p->release();
+        p = d.p;
+        d.p = nullptr;
+    }
     return *this;
 }
 
@@ -1793,11 +1829,7 @@ int Device::singleFPConfig() const
 { return p ? p->getProp<cl_device_fp_config, int>(CL_DEVICE_SINGLE_FP_CONFIG) : 0; }
 
 int Device::halfFPConfig() const
-#ifdef CL_VERSION_1_2
-{ return p ? p->getProp<cl_device_fp_config, int>(CL_DEVICE_HALF_FP_CONFIG) : 0; }
-#else
-{ CV_REQUIRE_OPENCL_1_2_ERROR; }
-#endif
+{ return p ? p->halfFPConfig_ : 0; }
 
 bool Device::endianLittle() const
 { return p ? p->getBoolProp(CL_DEVICE_ENDIAN_LITTLE) : false; }
@@ -2333,9 +2365,6 @@ protected:
         , contextId(CV_XADD(&g_contextId, 1))
         , configuration(configuration_)
         , handle(0)
-#ifdef HAVE_DIRECTX
-        , p_directx_impl(0)
-#endif
 #ifdef HAVE_OPENCL_SVM
         , svmInitialized(false)
 #endif
@@ -2361,10 +2390,9 @@ protected:
                 handle = NULL;
             }
             devices.clear();
-#ifdef HAVE_DIRECTX
-            directx::internal::deleteDirectXImpl(&p_directx_impl);
-#endif
         }
+
+        userContextStorage.clear();
 
         {
             cv::AutoLock lock(cv::getInitializationMutex());
@@ -2671,18 +2699,20 @@ public:
         return *bufferPoolHostPtr_.get();
     }
 
-#ifdef HAVE_DIRECTX
-    directx::internal::OpenCLDirectXImpl* p_directx_impl;
-
-    directx::internal::OpenCLDirectXImpl* getDirectXImpl()
-    {
-        if (!p_directx_impl)
-        {
-            p_directx_impl = directx::internal::createDirectXImpl();
-        }
-        return p_directx_impl;
+    std::map<std::type_index, std::shared_ptr<UserContext>> userContextStorage;
+    cv::Mutex userContextMutex;
+    void setUserContext(std::type_index typeId, const std::shared_ptr<UserContext>& userContext) {
+        cv::AutoLock lock(userContextMutex);
+        userContextStorage[typeId] = userContext;
     }
-#endif
+    std::shared_ptr<UserContext> getUserContext(std::type_index typeId) {
+        cv::AutoLock lock(userContextMutex);
+        auto it = userContextStorage.find(typeId);
+        if (it != userContextStorage.end())
+            return it->second;
+        else
+            return nullptr;
+    }
 
 #ifdef HAVE_OPENCL_SVM
     bool svmInitialized;
@@ -2834,7 +2864,7 @@ public:
 };
 
 
-Context::Context()
+Context::Context() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -2919,6 +2949,23 @@ Context& Context::operator = (const Context& c)
     return *this;
 }
 
+Context::Context(Context&& c) CV_NOEXCEPT
+{
+    p = c.p;
+    c.p = nullptr;
+}
+
+Context& Context::operator = (Context&& c) CV_NOEXCEPT
+{
+    if (this != &c) {
+        if(p)
+            p->release();
+        p = c.p;
+        c.p = nullptr;
+    }
+    return *this;
+}
+
 void* Context::ptr() const
 {
     return p == NULL ? NULL : p->handle;
@@ -2985,6 +3032,25 @@ Context Context::create(const std::string& configuration)
     return ctx;
 }
 
+void* Context::getOpenCLContextProperty(int propertyId) const
+{
+    if (p == NULL)
+        return nullptr;
+    ::size_t size = 0;
+    CV_OCL_CHECK(clGetContextInfo(p->handle, CL_CONTEXT_PROPERTIES, 0, NULL, &size));
+    std::vector<cl_context_properties> prop(size / sizeof(cl_context_properties), (cl_context_properties)0);
+    CV_OCL_CHECK(clGetContextInfo(p->handle, CL_CONTEXT_PROPERTIES, size, prop.data(), NULL));
+    for (size_t i = 0; i < prop.size(); i += 2)
+    {
+        if (prop[i] == (cl_context_properties)propertyId)
+        {
+            CV_LOG_DEBUG(NULL, "OpenCL: found context property=" << propertyId << ") => " << (void*)prop[i + 1]);
+            return (void*)prop[i + 1];
+        }
+    }
+    return nullptr;
+}
+
 #ifdef HAVE_OPENCL_SVM
 bool Context::useSVM() const
 {
@@ -3046,6 +3112,21 @@ CV_EXPORTS bool useSVM(UMatUsageFlags usageFlags)
 } // namespace cv::ocl::svm
 #endif // HAVE_OPENCL_SVM
 
+Context::UserContext::~UserContext()
+{
+}
+
+void Context::setUserContext(std::type_index typeId, const std::shared_ptr<Context::UserContext>& userContext)
+{
+    CV_Assert(p);
+    p->setUserContext(typeId, userContext);
+}
+
+std::shared_ptr<Context::UserContext> Context::getUserContext(std::type_index typeId)
+{
+    CV_Assert(p);
+    return p->getUserContext(typeId);
+}
 
 static void get_platform_name(cl_platform_id id, String& name)
 {
@@ -3231,7 +3312,7 @@ struct Queue::Impl
     cv::ocl::Queue profiling_queue_;
 };
 
-Queue::Queue()
+Queue::Queue() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -3257,6 +3338,23 @@ Queue& Queue::operator = (const Queue& q)
     if(p)
         p->release();
     p = newp;
+    return *this;
+}
+
+Queue::Queue(Queue&& q) CV_NOEXCEPT
+{
+    p = q.p;
+    q.p = nullptr;
+}
+
+Queue& Queue::operator = (Queue&& q) CV_NOEXCEPT
+{
+    if (this != &q) {
+        if(p)
+            p->release();
+        p = q.p;
+        q.p = nullptr;
+    }
     return *this;
 }
 
@@ -3315,7 +3413,7 @@ static cl_command_queue getQueue(const Queue& q)
 
 /////////////////////////////////////////// KernelArg /////////////////////////////////////////////
 
-KernelArg::KernelArg()
+KernelArg::KernelArg() CV_NOEXCEPT
     : flags(0), m(0), obj(0), sz(0), wscale(1), iwscale(1)
 {
 }
@@ -3382,16 +3480,23 @@ struct Kernel::Impl
             haveTempSrcUMats = true;  // UMat is created on RAW memory (without proper lifetime management, even from Mat)
     }
 
-    void addImage(const Image2D& image)
+    /// Preserve image lifetime (while it is specified as Kernel argument)
+    void registerImageArgument(int arg, const Image2D& image)
     {
-        images.push_back(image);
+        CV_CheckGE(arg, 0, "");
+        if (arg < (int)shadow_images.size() && shadow_images[arg].ptr() != image.ptr())  // TODO future: replace ptr => impl (more strong check)
+        {
+            CV_Check(arg, !isInProgress, "ocl::Kernel: clearing of pending Image2D arguments is not allowed");
+        }
+        shadow_images.reserve(MAX_ARRS);
+        shadow_images.resize(std::max(shadow_images.size(), (size_t)arg + 1));
+        shadow_images[arg] = image;
     }
 
     void finit(cl_event e)
     {
         CV_UNUSED(e);
         cleanupUMats();
-        images.clear();
         isInProgress = false;
         release();
     }
@@ -3416,7 +3521,7 @@ struct Kernel::Impl
     bool isInProgress;
     bool isAsyncRun;  // true if kernel was scheduled in async mode
     int nu;
-    std::list<Image2D> images;
+    std::vector<Image2D> shadow_images;
     bool haveTempDstUMats;
     bool haveTempSrcUMats;
 };
@@ -3449,7 +3554,7 @@ static void CL_CALLBACK oclCleanupCallback(cl_event e, cl_int, void *p)
 
 namespace cv { namespace ocl {
 
-Kernel::Kernel()
+Kernel::Kernel() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -3482,6 +3587,23 @@ Kernel& Kernel::operator = (const Kernel& k)
     if(p)
         p->release();
     p = newp;
+    return *this;
+}
+
+Kernel::Kernel(Kernel&& k) CV_NOEXCEPT
+{
+    p = k.p;
+    k.p = nullptr;
+}
+
+Kernel& Kernel::operator = (Kernel&& k) CV_NOEXCEPT
+{
+    if (this != &k) {
+        if(p)
+            p->release();
+        p = k.p;
+        k.p = nullptr;
+    }
     return *this;
 }
 
@@ -3558,9 +3680,11 @@ int Kernel::set(int i, const void* value, size_t sz)
 
 int Kernel::set(int i, const Image2D& image2D)
 {
-    p->addImage(image2D);
     cl_mem h = (cl_mem)image2D.ptr();
-    return set(i, &h, sizeof(h));
+    int res = set(i, &h, sizeof(h));
+    if (res >= 0)
+        p->registerImageArgument(i, image2D);
+    return res;
 }
 
 int Kernel::set(int i, const UMat& m)
@@ -4037,7 +4161,7 @@ struct ProgramSource::Impl
 };
 
 
-ProgramSource::ProgramSource()
+ProgramSource::ProgramSource() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -4078,6 +4202,23 @@ ProgramSource& ProgramSource::operator = (const ProgramSource& prog)
     if(p)
         p->release();
     p = newp;
+    return *this;
+}
+
+ProgramSource::ProgramSource(ProgramSource&& prog) CV_NOEXCEPT
+{
+    p = prog.p;
+    prog.p = nullptr;
+}
+
+ProgramSource& ProgramSource::operator = (ProgramSource&& prog) CV_NOEXCEPT
+{
+    if (this != &prog) {
+        if(p)
+            p->release();
+        p = prog.p;
+        prog.p = nullptr;
+    }
     return *this;
 }
 
@@ -4546,7 +4687,10 @@ struct Program::Impl
 };
 
 
-Program::Program() { p = 0; }
+Program::Program() CV_NOEXCEPT
+{
+    p = 0;
+}
 
 Program::Program(const ProgramSource& src,
         const String& buildflags, String& errmsg)
@@ -4570,6 +4714,23 @@ Program& Program::operator = (const Program& prog)
     if(p)
         p->release();
     p = newp;
+    return *this;
+}
+
+Program::Program(Program&& prog) CV_NOEXCEPT
+{
+    p = prog.p;
+    prog.p = nullptr;
+}
+
+Program& Program::operator = (Program&& prog) CV_NOEXCEPT
+{
+    if (this != &prog) {
+        if(p)
+            p->release();
+        p = prog.p;
+        prog.p = nullptr;
+    }
     return *this;
 }
 
@@ -5359,13 +5520,19 @@ public:
                     && !(u->originalUMatData && u->originalUMatData->handle)
                 )
                 {
-                    handle = clCreateBuffer(ctx_handle, CL_MEM_USE_HOST_PTR|createFlags,
+                    // Change the host-side origdata[size] to "pinned memory" that enables fast
+                    // DMA-transfers over PCIe to the device. Often used with clEnqueueMapBuffer/clEnqueueUnmapMemObject
+                    handle = clCreateBuffer(ctx_handle, CL_MEM_USE_HOST_PTR|(createFlags & ~CL_MEM_ALLOC_HOST_PTR),
                                             u->size, u->origdata, &retval);
-                    CV_OCL_DBG_CHECK_RESULT(retval, cv::format("clCreateBuffer(CL_MEM_USE_HOST_PTR|createFlags, sz=%lld, origdata=%p) => %p",
+                    CV_OCL_DBG_CHECK_RESULT(retval, cv::format("clCreateBuffer(CL_MEM_USE_HOST_PTR|(createFlags & ~CL_MEM_ALLOC_HOST_PTR), sz=%lld, origdata=%p) => %p",
                             (long long int)u->size, u->origdata, (void*)handle).c_str());
                 }
                 if((!handle || retval < 0) && !(accessFlags & ACCESS_FAST))
                 {
+                    // Allocate device-side memory and immediately copy data from the host-side pointer origdata[size].
+                    // If createFlags=CL_MEM_ALLOC_HOST_PTR (aka cv::USAGE_ALLOCATE_HOST_MEMORY), then
+                    // additionally allocate a host-side "pinned" duplicate of the origdata that is
+                    // managed by OpenCL. This is potentially faster in unaligned/unmanaged scenarios.
                     handle = clCreateBuffer(ctx_handle, CL_MEM_COPY_HOST_PTR|CL_MEM_READ_WRITE|createFlags,
                                                u->size, u->origdata, &retval);
                     CV_OCL_DBG_CHECK_RESULT(retval, cv::format("clCreateBuffer(CL_MEM_COPY_HOST_PTR|CL_MEM_READ_WRITE|createFlags, sz=%lld, origdata=%p) => %p",
@@ -6381,7 +6548,6 @@ public:
 static OpenCLAllocator* getOpenCLAllocator_() // call once guarantee
 {
     static OpenCLAllocator* g_allocator = new OpenCLAllocator(); // avoid destructor call (using of this object is too wide)
-    g_isOpenCVActivated = true;
     return g_allocator;
 }
 MatAllocator* getOpenCLAllocator()
@@ -6500,6 +6666,10 @@ void convertFromImage(void* cl_mem_image, UMat& dst)
         depth = CV_32F;
         break;
 
+    case CL_HALF_FLOAT:
+        depth = CV_16F;
+        break;
+
     default:
         CV_Error(cv::Error::OpenCLApiCallError, "Not supported image_channel_data_type");
     }
@@ -6508,8 +6678,22 @@ void convertFromImage(void* cl_mem_image, UMat& dst)
     switch (fmt.image_channel_order)
     {
     case CL_R:
+    case CL_A:
+    case CL_INTENSITY:
+    case CL_LUMINANCE:
         type = CV_MAKE_TYPE(depth, 1);
         break;
+
+    case CL_RG:
+    case CL_RA:
+        type = CV_MAKE_TYPE(depth, 2);
+        break;
+
+    // CL_RGB has no mappings to OpenCV types because CL_RGB can only be used with
+    // CL_UNORM_SHORT_565, CL_UNORM_SHORT_555, or CL_UNORM_INT_101010.
+    /*case CL_RGB:
+        type = CV_MAKE_TYPE(depth, 3);
+        break;*/
 
     case CL_RGBA:
     case CL_BGRA:
@@ -6599,7 +6783,7 @@ struct PlatformInfo::Impl
     int versionMinor_;
 };
 
-PlatformInfo::PlatformInfo()
+PlatformInfo::PlatformInfo() CV_NOEXCEPT
 {
     p = 0;
 }
@@ -6631,6 +6815,23 @@ PlatformInfo& PlatformInfo::operator =(const PlatformInfo& i)
         if (p)
             p->release();
         p = i.p;
+    }
+    return *this;
+}
+
+PlatformInfo::PlatformInfo(PlatformInfo&& i) CV_NOEXCEPT
+{
+    p = i.p;
+    i.p = nullptr;
+}
+
+PlatformInfo& PlatformInfo::operator = (PlatformInfo&& i) CV_NOEXCEPT
+{
+    if (this != &i) {
+        if(p)
+            p->release();
+        p = i.p;
+        i.p = nullptr;
     }
     return *this;
 }
@@ -6883,6 +7084,13 @@ static std::string kerToStr(const Mat & k)
             stream << "DIG(" << data[i] << "f)";
         stream << "DIG(" << data[width] << "f)";
     }
+    else if (depth == CV_16F)
+    {
+        stream.setf(std::ios_base::showpoint);
+        for (int i = 0; i < width; ++i)
+            stream << "DIG(" << (float)data[i] << "h)";
+        stream << "DIG(" << (float)data[width] << "h)";
+    }
     else
     {
         for (int i = 0; i < width; ++i)
@@ -6906,7 +7114,7 @@ String kernelToStr(InputArray _kernel, int ddepth, const char * name)
 
     typedef std::string (* func_t)(const Mat &);
     static const func_t funcs[] = { kerToStr<uchar>, kerToStr<char>, kerToStr<ushort>, kerToStr<short>,
-                                    kerToStr<int>, kerToStr<float>, kerToStr<double>, 0 };
+                                    kerToStr<int>, kerToStr<float>, kerToStr<double>, kerToStr<float16_t> };
     const func_t func = funcs[ddepth];
     CV_Assert(func != 0);
 
@@ -6945,14 +7153,14 @@ int predictOptimalVectorWidth(InputArray src1, InputArray src2, InputArray src3,
     int vectorWidths[] = { d.preferredVectorWidthChar(), d.preferredVectorWidthChar(),
         d.preferredVectorWidthShort(), d.preferredVectorWidthShort(),
         d.preferredVectorWidthInt(), d.preferredVectorWidthFloat(),
-        d.preferredVectorWidthDouble(), -1 };
+        d.preferredVectorWidthDouble(), d.preferredVectorWidthHalf() };
 
     // if the device says don't use vectors
     if (vectorWidths[0] == 1)
     {
         // it's heuristic
         vectorWidths[CV_8U] = vectorWidths[CV_8S] = 4;
-        vectorWidths[CV_16U] = vectorWidths[CV_16S] = 2;
+        vectorWidths[CV_16U] = vectorWidths[CV_16S] = vectorWidths[CV_16F] = 2;
         vectorWidths[CV_32S] = vectorWidths[CV_32F] = vectorWidths[CV_64F] = 1;
     }
 
@@ -7040,10 +7248,12 @@ struct Image2D::Impl
     {
         cl_image_format format;
         static const int channelTypes[] = { CL_UNSIGNED_INT8, CL_SIGNED_INT8, CL_UNSIGNED_INT16,
-                                       CL_SIGNED_INT16, CL_SIGNED_INT32, CL_FLOAT, -1, -1 };
+                                       CL_SIGNED_INT16, CL_SIGNED_INT32, CL_FLOAT, -1, CL_HALF_FLOAT };
         static const int channelTypesNorm[] = { CL_UNORM_INT8, CL_SNORM_INT8, CL_UNORM_INT16,
                                                 CL_SNORM_INT16, -1, -1, -1, -1 };
-        static const int channelOrders[] = { -1, CL_R, CL_RG, -1, CL_RGBA };
+        // CL_RGB has no mappings to OpenCV types because CL_RGB can only be used with
+        // CL_UNORM_SHORT_565, CL_UNORM_SHORT_555, or CL_UNORM_INT_101010.
+        static const int channelOrders[] = { -1, CL_R, CL_RG, /*CL_RGB*/ -1, CL_RGBA };
 
         int channelType = norm ? channelTypesNorm[depth] : channelTypes[depth];
         int channelOrder = channelOrders[cn];
@@ -7175,7 +7385,7 @@ struct Image2D::Impl
     cl_mem handle;
 };
 
-Image2D::Image2D()
+Image2D::Image2D() CV_NOEXCEPT
 {
     p = NULL;
 }
@@ -7229,6 +7439,23 @@ Image2D & Image2D::operator = (const Image2D & i)
         if (p)
             p->release();
         p = i.p;
+    }
+    return *this;
+}
+
+Image2D::Image2D(Image2D&& i) CV_NOEXCEPT
+{
+    p = i.p;
+    i.p = nullptr;
+}
+
+Image2D& Image2D::operator = (Image2D&& i) CV_NOEXCEPT
+{
+    if (this != &i) {
+        if (p)
+            p->release();
+        p = i.p;
+        i.p = nullptr;
     }
     return *this;
 }
@@ -7339,16 +7566,5 @@ uint64 Timer::durationNS() const
 }
 
 }} // namespace
-
-#ifdef HAVE_DIRECTX
-namespace cv { namespace directx { namespace internal {
-OpenCLDirectXImpl* getDirectXImpl(ocl::Context& ctx)
-{
-    ocl::Context::Impl* i = ctx.getImpl();
-    CV_Assert(i);
-    return i->getDirectXImpl();
-}
-}}} // namespace cv::directx::internal
-#endif
 
 #endif // HAVE_OPENCL
