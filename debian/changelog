@@ -1,3 +1,9 @@
+opencv (4.5.3+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 4.5.3+dfsg.
+
+ -- Nobuhiro Iwamatsu <iwamatsu@debian.org>  Mon, 23 Aug 2021 15:46:54 +0900
+
 opencv (4.5.1+dfsg-5) unstable; urgency=medium
 
   * Team upload.
