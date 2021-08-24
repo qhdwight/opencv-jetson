@@ -1,6 +1,7 @@
 # samples
 usr/bin/opencv_annotation
 usr/bin/opencv_interactive-calibration
+usr/bin/opencv_model_diagnostics
 usr/bin/opencv_version
 usr/bin/opencv_visualisation
 usr/bin/opencv_waldboost_detector
