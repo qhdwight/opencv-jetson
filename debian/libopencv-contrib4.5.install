@@ -1,4 +1,5 @@
 usr/lib/*/libopencv_aruco.so.*
+usr/lib/*/libopencv_barcode.so.*
 usr/lib/*/libopencv_bgsegm.so.*
 usr/lib/*/libopencv_bioinspired.so.*
 usr/lib/*/libopencv_ccalib.so.*
@@ -25,6 +26,7 @@ usr/lib/*/libopencv_tracking.so.*
 usr/lib/*/libopencv_ximgproc.so.*
 usr/lib/*/libopencv_xobjdetect.so.*
 usr/lib/*/libopencv_xphoto.so.*
+usr/lib/*/libopencv_wechat_qrcode.so.*
 usr/lib/*/libopencv_dnn_objdetect.so.*
 usr/lib/*/libopencv_quality.so.*
 usr/lib/*/libopencv_dnn_superres.so.*
