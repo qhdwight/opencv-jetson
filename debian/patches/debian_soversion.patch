@@ -1,21 +1,23 @@
 From: =?utf-8?q?Timo_R=C3=B6hling?= <roehling@debian.org>
-Date: Sat, 13 Nov 2021 00:40:01 +0100
+Date: Tue, 16 Nov 2021 15:08:41 +0100
 Subject: Add debian-specific suffix to SOVERSION
 
 ---
- cmake/OpenCVVersion.cmake | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ cmake/OpenCVVersion.cmake | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/cmake/OpenCVVersion.cmake b/cmake/OpenCVVersion.cmake
-index a2b4926..5d6cf5d 100644
+index a2b4926..199d292 100644
 --- a/cmake/OpenCVVersion.cmake
 +++ b/cmake/OpenCVVersion.cmake
-@@ -10,7 +10,7 @@ set(OPENCV_VERSION_PLAIN "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}.${OPEN
+@@ -10,8 +10,8 @@ set(OPENCV_VERSION_PLAIN "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}.${OPEN
  
  set(OPENCV_VERSION "${OPENCV_VERSION_PLAIN}${OPENCV_VERSION_STATUS}")
  
 -set(OPENCV_SOVERSION "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}")
+-set(OPENCV_LIBVERSION "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}.${OPENCV_VERSION_PATCH}")
 +set(OPENCV_SOVERSION "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}d")
- set(OPENCV_LIBVERSION "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}.${OPENCV_VERSION_PATCH}")
++set(OPENCV_LIBVERSION "${OPENCV_VERSION_MAJOR}.${OPENCV_VERSION_MINOR}.${OPENCV_VERSION_PATCH}d")
  
  # create a dependency on the version file
+ # we never use the output of the following command but cmake will rerun automatically if the version file changes
