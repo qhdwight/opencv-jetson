@@ -1,3 +1,9 @@
+opencv (4.5.4+dfsg-3) experimental; urgency=medium
+
+  * Also add -d suffix to shared library filenames (Closes: #999760)
+
+ -- Timo Röhling <roehling@debian.org>  Tue, 16 Nov 2021 15:09:55 +0100
+
 opencv (4.5.4+dfsg-2) experimental; urgency=medium
 
   * Team upload.
