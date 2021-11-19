@@ -1089,6 +1089,7 @@ Breaks: libopencv2.4-java,
         libopencv4.2-java,
         libopencv4.3-java,
         libopencv4.4-java,
+        libopencv4.5-java,
 Replaces: libopencv2.4-java,
           libopencv3.2-java,
           libopencv3.3-java,
@@ -1098,6 +1099,7 @@ Replaces: libopencv2.4-java,
           libopencv4.2-java,
           libopencv4.3-java,
           libopencv4.4-java,
+          libopencv4.5-java,
 Description: Java bindings for the computer vision library
  This package contains Java bindings for the OpenCV (Open Computer Vision)
  library.
