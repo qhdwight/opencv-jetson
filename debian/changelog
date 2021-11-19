@@ -1,3 +1,9 @@
+opencv (4.5.4+dfsg-4) experimental; urgency=medium
+
+  * Also add -d suffix to jar files (Closes: #999760)
+
+ -- Timo Röhling <roehling@debian.org>  Fri, 19 Nov 2021 18:43:14 +0100
+
 opencv (4.5.4+dfsg-3) experimental; urgency=medium
 
   * Also add -d suffix to shared library filenames (Closes: #999760)
