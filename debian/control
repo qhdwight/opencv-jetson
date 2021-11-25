@@ -1083,7 +1083,7 @@ Depends: libopencv4.5d-jni (>= ${binary:Version}), ${misc:Depends}
 Breaks: libopencv2.4-java,
         libopencv3.2-java,
         libopencv3.3-java,
-        libopnecv3.4-java,
+        libopencv3.4-java,
         libopencv4.0-java,
         libopencv4.1-java,
         libopencv4.2-java,
