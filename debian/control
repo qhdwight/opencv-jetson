@@ -105,7 +105,7 @@ Depends: libopencv-calib3d-dev (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends},
          libilmbase-dev
-Recommends: opencv-data, libopencv4.5d-java (= ${binary:Version}),
+Recommends: opencv-data, libopencv4.5-java (= ${binary:Version}),
 Suggests: opencv-doc
 Conflicts: libcv-dev,
            libcvaux-dev,
@@ -1075,7 +1075,7 @@ Description: computer vision contrlib library
  analysis, structural analysis, motion analysis and object tracking, object
  recognition, camera calibration and 3D reconstruction.
 
-Package: libopencv4.5d-java
+Package: libopencv4.5-java
 Architecture: amd64 arm64 armel armhf i386 mips64el mipsel ppc64el s390x alpha ia64 m68k powerpc ppc64 riscv64 sh4 sparc64 x32
 Multi-Arch: no
 Section: java
@@ -1089,7 +1089,6 @@ Breaks: libopencv2.4-java,
         libopencv4.2-java,
         libopencv4.3-java,
         libopencv4.4-java,
-        libopencv4.5-java,
 Replaces: libopencv2.4-java,
           libopencv3.2-java,
           libopencv3.3-java,
@@ -1099,7 +1098,6 @@ Replaces: libopencv2.4-java,
           libopencv4.2-java,
           libopencv4.3-java,
           libopencv4.4-java,
-          libopencv4.5-java,
 Description: Java bindings for the computer vision library
  This package contains Java bindings for the OpenCV (Open Computer Vision)
  library.
