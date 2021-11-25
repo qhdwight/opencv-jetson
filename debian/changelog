@@ -1,3 +1,9 @@
+opencv (4.5.4+dfsg-6) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Timo Röhling <roehling@debian.org>  Thu, 25 Nov 2021 22:21:16 +0100
+
 opencv (4.5.4+dfsg-5) experimental; urgency=medium
 
   * Keep package name libopencv4.5-java
