@@ -1,3 +1,9 @@
+opencv (4.5.4+dfsg-5) experimental; urgency=medium
+
+  * Keep package name libopencv4.5-java
+
+ -- Timo Röhling <roehling@debian.org>  Thu, 25 Nov 2021 20:56:30 +0100
+
 opencv (4.5.4+dfsg-4) experimental; urgency=medium
 
   * Also add -d suffix to jar files (Closes: #999760)
