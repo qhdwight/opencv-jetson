@@ -1,3 +1,10 @@
+opencv (4.5.4+dfsg-7) unstable; urgency=medium
+
+  * Team upload.
+  * Add patch for Debian Soname in pkg-config (Closes: #1000625)
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Fri, 26 Nov 2021 09:52:16 +0100
+
 opencv (4.5.4+dfsg-6) unstable; urgency=medium
 
   * Upload to unstable.
