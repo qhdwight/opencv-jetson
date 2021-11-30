@@ -1,3 +1,10 @@
+opencv (4.5.4+dfsg-9) unstable; urgency=medium
+
+  * Fix broken symlink
+  * Apply MA hint
+
+ -- Timo Röhling <roehling@debian.org>  Tue, 30 Nov 2021 23:32:18 +0100
+
 opencv (4.5.4+dfsg-8) unstable; urgency=medium
 
   * Resolve file conflict with libopencv4.5-jni (Closes: #999760)
