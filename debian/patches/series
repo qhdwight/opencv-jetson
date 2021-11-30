@@ -2,4 +2,3 @@ change_jquery.js_path
 face-no-download.patch
 cmake-dont-install-inexistent-files.patch
 debian_soversion.patch
-0005-Support-Debian-specific-Soname.patch
