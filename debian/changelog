@@ -1,3 +1,9 @@
+opencv (4.5.4+dfsg-8) unstable; urgency=medium
+
+  * Resolve file conflict with libopencv4.5-jni (Closes: #999760)
+
+ -- Timo Röhling <roehling@debian.org>  Tue, 30 Nov 2021 13:24:59 +0100
+
 opencv (4.5.4+dfsg-7) unstable; urgency=medium
 
   * Team upload.
