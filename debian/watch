@@ -2,7 +2,7 @@ version=4
 
 opts="\
 compression=xz, \
-repacksuffix=+dfsg, \
+oversionmangle=s/$/+dfsg/, \
 dversionmangle=s/\+(dfsg|ds)\d?$//, \
 filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.(.+)$%@PACKAGE@_$1.orig.$2%, \
 " \
@@ -11,7 +11,6 @@ filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.(.+)$%@PACKAGE@_$1.orig.$2%, \
 
 opts="\
 compression=xz, \
-repacksuffix=+dfsg, \
 component=contrib, \
 dversionmangle=s/\+(dfsg|ds)\d?$//, \
 filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.(.+)$%@PACKAGE@_$1.orig-contrib.$2%, \
