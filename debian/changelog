@@ -1,3 +1,21 @@
+opencv (4.6.0+dfsg-1) experimental; urgency=medium
+
+  * Team upload.
+  * Update d/copyright
+  * Use oversionmangle in d/watch
+  * Add d/gbp.conf to import component as well
+  * New upstream version 4.6.0+dfsg (Closes: #1004718)
+  * Drop patch for debian-specific SOVERSION
+  * Drop salsa-ci.yml
+  * Rename packages due to Soname change
+  * Make libopencv-java unversioned
+  * Drop old manpages
+  * Bump policy version (no changes)
+  * Use dh-sequences
+  * Remove old files in d/
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Fri, 24 Jun 2022 10:06:16 +0200
+
 opencv (4.5.4+dfsg-9) unstable; urgency=medium
 
   * Fix broken symlink
