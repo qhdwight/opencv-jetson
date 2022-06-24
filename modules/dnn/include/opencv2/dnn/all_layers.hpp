@@ -262,7 +262,7 @@ CV__DNN_INLINE_NS_BEGIN
     {
     public:
         int input_zp, output_zp;
-        float output_sc;
+        float input_sc, output_sc;
         static Ptr<BaseConvolutionLayer> create(const LayerParams& params);
     };
 
@@ -282,6 +282,16 @@ CV__DNN_INLINE_NS_BEGIN
         bool normBySize;
 
         static Ptr<LRNLayer> create(const LayerParams& params);
+    };
+
+
+    /** @brief ArgMax/ArgMin layer
+     * @note returns indices as floats, which means the supported range is [-2^24; 2^24]
+     */
+    class CV_EXPORTS ArgLayer : public Layer
+    {
+    public:
+        static Ptr<ArgLayer> create(const LayerParams& params);
     };
 
     class CV_EXPORTS PoolingLayer : public Layer
@@ -312,7 +322,22 @@ CV__DNN_INLINE_NS_BEGIN
     {
     public:
         int input_zp, output_zp;
+        float input_sc, output_sc;
         static Ptr<PoolingLayerInt8> create(const LayerParams& params);
+    };
+
+    class CV_EXPORTS ReduceLayer : public Layer
+    {
+    public:
+        int reduceType;
+        std::vector<size_t> reduceDims;
+        static Ptr<ReduceLayer> create(const LayerParams& params);
+    };
+
+    class CV_EXPORTS ReduceLayerInt8 : public ReduceLayer
+    {
+    public:
+        static Ptr<ReduceLayerInt8> create(const LayerParams& params);
     };
 
     class CV_EXPORTS SoftmaxLayer : public Layer
@@ -341,7 +366,8 @@ CV__DNN_INLINE_NS_BEGIN
     class CV_EXPORTS InnerProductLayerInt8 : public InnerProductLayer
     {
     public:
-        int output_zp;
+        int input_zp, output_zp;
+        float input_sc, output_sc;
         static Ptr<InnerProductLayerInt8> create(const LayerParams& params);
     };
 
@@ -545,6 +571,8 @@ CV__DNN_INLINE_NS_BEGIN
     class CV_EXPORTS ELULayer : public ActivationLayer
     {
     public:
+        float alpha;
+
         static Ptr<ELULayer> create(const LayerParams &params);
     };
 
@@ -600,10 +628,190 @@ CV__DNN_INLINE_NS_BEGIN
         static Ptr<ExpLayer> create(const LayerParams &params);
     };
 
+    class CV_EXPORTS CeilLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<CeilLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS FloorLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<FloorLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS LogLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<LogLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS RoundLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<RoundLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SqrtLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<SqrtLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS NotLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<NotLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS AcosLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<AcosLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS AcoshLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<AcoshLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS AsinLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<AsinLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS AsinhLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<AsinhLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS AtanLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<AtanLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS AtanhLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<AtanhLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS CosLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<CosLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS CoshLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<CoshLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS ErfLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<ErfLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS HardSwishLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<HardSwishLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SinLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<SinLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SinhLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<SinhLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SoftplusLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<SoftplusLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SoftsignLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<SoftsignLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS TanLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<TanLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS CeluLayer : public ActivationLayer
+    {
+    public:
+        float alpha;
+
+        static Ptr<CeluLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS HardSigmoidLayer : public ActivationLayer
+    {
+    public:
+        float alpha;
+        float beta;
+
+        static Ptr<HardSigmoidLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SeluLayer : public ActivationLayer
+    {
+    public:
+        float alpha;
+        float gamma;
+
+        static Ptr<SeluLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS ThresholdedReluLayer : public ActivationLayer
+    {
+    public:
+        float alpha;
+
+        static Ptr<ThresholdedReluLayer> create(const LayerParams &params);
+    };
+
     class CV_EXPORTS ActivationLayerInt8 : public ActivationLayer
     {
     public:
         static Ptr<ActivationLayerInt8> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS SignLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<SignLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS ShrinkLayer : public ActivationLayer
+    {
+    public:
+        float bias;
+        float lambd;
+        static Ptr<ShrinkLayer> create(const LayerParams &params);
+    };
+
+    class CV_EXPORTS ReciprocalLayer : public ActivationLayer
+    {
+    public:
+        static Ptr<ReciprocalLayer> create(const LayerParams &params);
     };
 
     /* Layers used in semantic segmentation */
@@ -665,6 +873,7 @@ CV__DNN_INLINE_NS_BEGIN
     public:
         bool hasBias;
         int axis;
+        String mode;
 
         static Ptr<ScaleLayer> create(const LayerParams& params);
     };
@@ -684,6 +893,12 @@ CV__DNN_INLINE_NS_BEGIN
     };
 
     class CV_EXPORTS ShiftLayerInt8 : public Layer
+    {
+    public:
+        static Ptr<Layer> create(const LayerParams& params);
+    };
+
+    class CV_EXPORTS CompareLayer : public Layer
     {
     public:
         static Ptr<Layer> create(const LayerParams& params);
