@@ -22,14 +22,14 @@ Files-Excluded-contrib:
  modules/xfeatures2d
 
 Files: *
-Copyright: 2000-2020, Intel Corporation, all rights reserved.
+Copyright: 2000-2022, Intel Corporation, all rights reserved.
            2009-2011, Willow Garage Inc., all rights reserved.
            2009-2016, NVIDIA Corporation, all rights reserved.
            2010-2013, Advanced Micro Devices, Inc., all rights reserved.
-           2015-2020, OpenCV Foundation, all rights reserved.
+           2015-2022, OpenCV Foundation, all rights reserved.
            2008-2016, Itseez Inc., all rights reserved.
-           2019-2020, Xperience AI, all rights reserved.
-           2019-2020, Shenzhen Institute of Artificial Intelligence and Robotics for Society, all rights reserved.
+           2019-2022, Xperience AI, all rights reserved.
+           2019-2022, Shenzhen Institute of Artificial Intelligence and Robotics for Society, all rights reserved.
            Respective opencv contributors.
 License: Apache-2.0 AND BSD-3-Clause
 Comment: upstream relicensed the whole project to Apache-2.0, but a large
@@ -64,6 +64,12 @@ Comment: upstream copied these files from src:caffe
 
 Files: cmake/OpenCVFindTengine.cmake
 Copyright: 2020, OPEN AI LAB
+License: Apache-2.0
+
+# /* contrib */
+
+Files: contrib/modules/ximgproc/src/scansegment.cpp
+Copyright: 2021, Dr Seng Cheong Loke (lokesengcheong@gmail.com)
 License: Apache-2.0
 
 # /* data */
