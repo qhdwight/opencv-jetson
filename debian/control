@@ -51,7 +51,7 @@ Build-Depends: ant [!hppa !hurd-any !kfreebsd-any],
                python3-numpy,
                python3-bs4,
                zlib1g-dev
-Standards-Version: 4.5.1
+Standards-Version: 4.6.1
 Vcs-Browser: https://salsa.debian.org/science-team/opencv
 Vcs-Git: https://salsa.debian.org/science-team/opencv.git
 Homepage: https://opencv.org
