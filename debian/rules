@@ -137,7 +137,7 @@ override_dh_auto_configure:
 	dh_auto_configure -B $(BUILDDIR)-static \
 		-- $(CMAKE_FLAGS) \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_DOCS=OFF \
-		-DBUILD_TESTS=OFF
+		-DBUILD_TESTS=OFF -DBUILD_opencv_python3=OFF
 
 override_dh_auto_build:
 	# documentation
