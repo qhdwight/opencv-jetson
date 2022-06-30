@@ -1,3 +1,10 @@
+opencv (4.6.0+dfsg-3) experimental; urgency=medium
+
+  * Team upload.
+  * Don't build static Python 3 module
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Thu, 30 Jun 2022 13:13:22 +0200
+
 opencv (4.6.0+dfsg-2) experimental; urgency=medium
 
   [ Adrian Bunk ]
