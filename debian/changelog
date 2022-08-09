@@ -1,3 +1,11 @@
+opencv (4.6.0+dfsg-6) unstable; urgency=medium
+
+  * Team upload.
+  * Revert "Package ovis module"
+    Needs libogre-1.12-dev which is not available on mipsel
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Tue, 09 Aug 2022 09:38:18 +0200
+
 opencv (4.6.0+dfsg-5) unstable; urgency=medium
 
   * Team upload.
