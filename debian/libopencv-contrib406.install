@@ -13,7 +13,6 @@ usr/lib/*/libopencv_hfs.so.*
 usr/lib/*/libopencv_img_hash.so.*
 usr/lib/*/libopencv_line_descriptor.so.*
 usr/lib/*/libopencv_optflow.so.*
-usr/lib/*/libopencv_ovis.so.*
 usr/lib/*/libopencv_phase_unwrapping.so.*
 usr/lib/*/libopencv_plot.so.*
 usr/lib/*/libopencv_reg.so.*
