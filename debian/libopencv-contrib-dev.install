@@ -50,6 +50,10 @@ usr/include/opencv4/opencv2/optflow/*
 usr/include/opencv4/opencv2/optflow.hpp
 usr/lib/*/libopencv_optflow.a
 usr/lib/*/libopencv_optflow.so
+# ovis
+usr/include/opencv4/opencv2/ovis.hpp
+usr/lib/*/libopencv_ovis.a
+usr/lib/*/libopencv_ovis.so
 # plot
 # usr/include/opencv4/opencv2/plot/*
 usr/include/opencv4/opencv2/plot.hpp
